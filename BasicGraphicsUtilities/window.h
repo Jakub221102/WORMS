@@ -44,9 +44,9 @@ namespace GR {
 		void update(float time);
 		void setFramesPerSecond(unsigned int fps);
 
-		bool isDone();
-		bool isFullscreen();
-		sf::Vector2u getWindowSize();
+		bool isDone() const;
+		bool isFullscreen() const;
+		sf::Vector2u getWindowSize() const;
 
 		void draw(sf::Drawable& drawable);
 

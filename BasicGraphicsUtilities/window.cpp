@@ -3,8 +3,8 @@
 #include <iostream>
 
 GR::Window::Window(const std::string& title)
-	: windowTitle(title), windowSize({480, 576}), resolutionPointer(7) {
-	setup(title, 7);
+	: windowTitle(title), windowSize({resolutions[0].first, resolutions[0].second}), resolutionPointer(0) {
+	setup(title, 0);
 }
 
 GR::Window::~Window() {
@@ -71,7 +71,7 @@ void GR::Window::upscaleResolution() {
 }
 
 void GR::Window::downscaleResolution() {
-	if (!isWinFullscreen && resolutionPointer < 7) {
+	if (!isWinFullscreen && resolutionPointer < resolutions.size() - 1) {
 		++resolutionPointer;
 		windowSize = { resolutions[resolutionPointer].first,
 			resolutions[resolutionPointer].second };
@@ -93,15 +93,15 @@ void GR::Window::endDraw() {
 	window.display();
 }
 
-bool GR::Window::isDone() {
+bool GR::Window::isDone() const {
 	return isWinDone;
 }
 
-bool GR::Window::isFullscreen() {
+bool GR::Window::isFullscreen() const {
 	return isWinFullscreen;
 }
 
-sf::Vector2u GR::Window::getWindowSize() {
+sf::Vector2u GR::Window::getWindowSize() const {
 	return windowSize;
 }
 

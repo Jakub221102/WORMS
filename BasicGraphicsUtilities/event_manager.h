@@ -11,7 +11,7 @@ namespace GR {
 	public:
 		void use(Scope& object, KeyType keyCode);
 		void addKeyBinding(KeyType keyCode, void (Scope::* pointer)());
-		auto getPointer(KeyType keyCode) -> void (Scope::*)();
+		auto getPointer(KeyType keyCode) -> void (Scope::*)() const;
 	};
 
 	template<class KeyType, class Scope>
@@ -25,7 +25,7 @@ namespace GR {
 	}
 
 	template<class KeyType, class Scope>
-	auto EventManager<KeyType, Scope>::getPointer(KeyType keyCode) -> void (Scope::*)() {
+	auto EventManager<KeyType, Scope>::getPointer(KeyType keyCode) -> void (Scope::*)() const {
 		return keyBindings[keyCode];
 	}
 }
