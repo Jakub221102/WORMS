@@ -38,6 +38,7 @@ namespace GR {
 		~Window();
 
 		void addKeyBinding(sf::Keyboard::Key keyCode, void (GR::Window::*pointer)());
+		void removeKeyBinding(sf::Keyboard::Key keyCode);
 
 		void beginDraw();
 		void endDraw();

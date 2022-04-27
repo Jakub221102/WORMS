@@ -1,10 +1,16 @@
 #pragma once
 
 #include "window.h"
+#include "event_manager.h"
+#include "world.h"
+#include <list>
 
 namespace GR {
 	class Game {
 		GR::Window window;
+		GR::World world;
+		EventManager<sf::Keyboard::Key, GR::Game> keyBindings;
+		//std::lis
 		sf::Clock clock;
 		sf::Time elapsed;
 	public:
