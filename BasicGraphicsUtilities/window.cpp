@@ -47,6 +47,10 @@ void GR::Window::addKeyBinding(sf::Keyboard::Key keyCode, void (GR::Window::*poi
 	keyBindings.addKeyBinding(keyCode, pointer);
 }
 
+void GR::Window::removeKeyBinding(sf::Keyboard::Key keyCode) {
+	keyBindings.removeKeyBinding(keyCode);
+}
+
 void GR::Window::setFramesPerSecond(unsigned int fps) {
 	window.setFramerateLimit(fps);
 }
