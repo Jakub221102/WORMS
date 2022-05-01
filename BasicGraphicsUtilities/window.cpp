@@ -11,17 +11,18 @@ GR::Window::~Window() {
 	destroy();
 }
 
-void GR::Window::setup(const std::string& title, int resPtr) {
+void GR::Window::setup(const std::string& title, int resPtr, unsigned int MSAlevel) {
 	windowTitle = title;
 	windowSize = {resolutions[resPtr].first, resolutions[resPtr].second};
 	isWinDone = false;
 	isWinFullscreen = false;
+	settings.antialiasingLevel = MSAlevel;
 	create();
 }
 
 void GR::Window::create() {
 	auto style = (isWinFullscreen ? sf::Style::Fullscreen : sf::Style::Default);
-	window.create({ windowSize.x, windowSize.y, 32 }, windowTitle, style);
+	window.create({ windowSize.x, windowSize.y, 32 }, windowTitle, style, settings);
 }
 
 void GR::Window::destroy() {
@@ -40,15 +41,16 @@ void GR::Window::update(float time) {
 			keyBindings.use(*this, event.key.code);
 			break;
 		}
+		//keyBindings.listenAndUseAll(*this);
 	}
 }
 
 void GR::Window::addKeyBinding(sf::Keyboard::Key keyCode, void (GR::Window::*pointer)()) {
-	keyBindings.addKeyBinding(keyCode, pointer);
+	keyBindings.addBinding(keyCode, pointer);
 }
 
 void GR::Window::removeKeyBinding(sf::Keyboard::Key keyCode) {
-	keyBindings.removeKeyBinding(keyCode);
+	keyBindings.removeBinding(keyCode);
 }
 
 void GR::Window::setFramesPerSecond(unsigned int fps) {
@@ -111,4 +113,10 @@ sf::Vector2u GR::Window::getWindowSize() const {
 
 void GR::Window::draw(sf::Drawable& drawable) {
 	window.draw(drawable);
+}
+
+void GR::Window::setMultisamplingLevel(unsigned int level) {
+	settings.antialiasingLevel = level;
+	destroy();
+	create();
 }

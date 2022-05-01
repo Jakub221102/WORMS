@@ -1,7 +1,7 @@
 #pragma once
 
 #include "window.h"
-#include "event_manager.h"
+#include "input_manager.h"
 #include "world.h"
 #include <list>
 

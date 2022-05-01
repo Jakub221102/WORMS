@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
-#include "event_manager.h"
+#include "input_manager.h"
 
 #include <string>
 #include <unordered_map>
@@ -21,11 +21,12 @@ namespace GR {
 	};
 
 	class Window {
-		void setup(const std::string& title, int resolutionPointer);
+		void setup(const std::string& title, int resolutionPointer, unsigned int MSAlevel = 16);
 		void destroy();
 		void create();
 
 		sf::RenderWindow window;
+		sf::ContextSettings settings;
 		sf::Vector2u windowSize;
 		std::string windowTitle;
 		int resolutionPointer;
@@ -56,5 +57,6 @@ namespace GR {
 		void close();
 		void upscaleResolution();
 		void downscaleResolution();
+		void setMultisamplingLevel(unsigned int level);
 	};
 }
