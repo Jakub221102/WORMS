@@ -57,6 +57,10 @@ void GR::Window::setFramesPerSecond(unsigned int fps) {
 	window.setFramerateLimit(fps);
 }
 
+void GR::Window::setBackGroundColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
+	window.clear({r, g, b, a});
+}
+
 void GR::Window::toggleFullScreen() { 
 	isWinFullscreen = !isWinFullscreen;
 	isWinFullscreen ? windowSize = { 1920, 1080 } : 
@@ -91,8 +95,8 @@ void GR::Window::close() {
 	window.close();
 }
 
-void GR::Window::beginDraw() {
-	window.clear(sf::Color::Black);
+void GR::Window::beginDraw(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
+	window.clear({r, g, b, a});
 }
 
 void GR::Window::endDraw() {
@@ -111,8 +115,8 @@ sf::Vector2u GR::Window::getWindowSize() const {
 	return windowSize;
 }
 
-void GR::Window::draw(sf::Drawable& drawable) {
-	window.draw(drawable);
+void GR::Window::draw(GR::GameObject& drawable) {
+	window.draw(drawable.getShape());
 }
 
 void GR::Window::setMultisamplingLevel(unsigned int level) {
