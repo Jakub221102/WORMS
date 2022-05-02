@@ -50,7 +50,6 @@ namespace GR {
 		void removeBinding(KeyType keyCode);
 	};
 
-
 	template<class KeyType, class Scope>
 	void RealTimeInputManager<KeyType, Scope>::addBinding(KeyType keyCode, void (Scope::* pointer)()) {
 		keyBindings.push_back({ keyCode, pointer });

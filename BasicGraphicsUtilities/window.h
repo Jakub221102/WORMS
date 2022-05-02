@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "game_object.h"
 
 #include "input_manager.h"
 
@@ -20,6 +21,17 @@ namespace GR {
 		{480, 576}
 	};
 
+	//const std::vector<std::pair<float, float>> resolutionScales = {
+	//	{1.0f, 1.0f},
+	//	{1440.0f / 1920.0f, 1080.0f / 1080.0f},
+	//	{1280.0f / 1920.0f, 1080.0f / 1080.0f},
+	//	{1280.0f / 1920.0f, 720.0f / 1080.0f},
+	//	{720.0f / 1920.0f, 576.0f / 1080.0f},
+	//	{704.0f / 1920.0f, 576.0f / 1080.0f},
+	//	{544.0f / 1920.0f, 576.0f / 1080.0f},
+	//	{480.0f / 1920.0f, 576.0f / 1080.0f}
+	//};
+
 	class Window {
 		void setup(const std::string& title, int resolutionPointer, unsigned int MSAlevel = 16);
 		void destroy();
@@ -29,6 +41,7 @@ namespace GR {
 		sf::ContextSettings settings;
 		sf::Vector2u windowSize;
 		std::string windowTitle;
+		sf::Vector2f resolutionScale;
 		int resolutionPointer;
 		bool isWinDone;
 		bool isWinFullscreen;
@@ -41,7 +54,7 @@ namespace GR {
 		void addKeyBinding(sf::Keyboard::Key keyCode, void (GR::Window::*pointer)());
 		void removeKeyBinding(sf::Keyboard::Key keyCode);
 
-		void beginDraw();
+		void beginDraw(unsigned char r=0, unsigned char g=0, unsigned char b=0, unsigned char a = 255);
 		void endDraw();
 		void update(float time);
 		void setFramesPerSecond(unsigned int fps);
@@ -49,8 +62,9 @@ namespace GR {
 		bool isDone() const;
 		bool isFullscreen() const;
 		sf::Vector2u getWindowSize() const;
+		void setBackGroundColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a=255);
 
-		void draw(sf::Drawable& drawable);
+		void draw(GR::GameObject& drawable);
 
 		// member functions to bind keys
 		void toggleFullScreen();
