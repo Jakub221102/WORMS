@@ -20,9 +20,9 @@ int main() {
 	//wormsWindow.removeKeyBinding(sf::Keyboard::Key::A);
 	std::vector<std::pair<float, float>> vertices{
 		{300.0f, 300.0f},
-		{400.0f, 300.0f},
-		{400.0f, 500.0f},
-		{300.0f, 500.0f}
+		{700.0f, 300.0f},
+		{700.0f, 700.0f},
+		{300.0f, 700.0f}
 	};
 	GR::GameObject rect(deltaTime, vertices, "rakieta.png");
 	GR::AnimatedObject obj(deltaTime, vertices, "robole.png", 4, 1.0f);
@@ -34,7 +34,7 @@ int main() {
 		deltaTime = ck.restart().asSeconds();
 		
 		wormsWindow.update(10);
-		wormsWindow.setBackGroundColor(25, 0, 0);
+		wormsWindow.setBackGroundColor(200, 200, 200);
 		obj.update();
 		//obrazek.setOrigin(100, 80);				
 		//obrazek.setPosition(100, 80);
