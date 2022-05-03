@@ -3,6 +3,8 @@
 
 #include "window.h"
 #include "cyclic_singly_linked_list.h"
+#include "animated_object.h"
+//#include "animated_object.h"
 
 float deltaTime;
 
@@ -23,12 +25,7 @@ int main() {
 		{300.0f, 500.0f}
 	};
 	GR::GameObject rect(deltaTime, vertices, "rakieta.png");
-	rect.addKeyBinding(sf::Keyboard::Key::W, &GR::GameObject::moveUp);
-	rect.addKeyBinding(sf::Keyboard::Key::A, &GR::GameObject::moveLeft);
-	rect.addKeyBinding(sf::Keyboard::Key::S, &GR::GameObject::moveDown);
-	rect.addKeyBinding(sf::Keyboard::Key::D, &GR::GameObject::moveRight);
-	rect.addKeyBinding(sf::Keyboard::Key::Q, &GR::GameObject::rotateLeft);
-	rect.addKeyBinding(sf::Keyboard::Key::E, &GR::GameObject::rotateRight);
+	GR::AnimatedObject obj(deltaTime, vertices, "robole.png", 4, 1.0f);
 	sf::Time t;
 	sf::Clock ck;
 	ck.restart();
@@ -37,12 +34,12 @@ int main() {
 		deltaTime = ck.restart().asSeconds();
 		
 		wormsWindow.update(10);
-		rect.update();
 		wormsWindow.setBackGroundColor(25, 0, 0);
+		obj.update();
 		//obrazek.setOrigin(100, 80);				
 		//obrazek.setPosition(100, 80);
 		//wormsWindow.beginDraw();
-		wormsWindow.draw(rect);
+		wormsWindow.draw(obj);
 		wormsWindow.endDraw();
 	}
 	return 0;

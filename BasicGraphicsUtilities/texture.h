@@ -6,10 +6,11 @@
 
 namespace GR {
 	class Texture {
+	protected:
 		sf::Texture texture;
 		std::string filePath;
 	public:
-		Texture(const std::string& filePath, sf::IntRect singleFrame=sf::IntRect(), unsigned int count=1);
+		Texture(const std::string& filePath);
 		sf::Texture* getPixels();
 	};
 }

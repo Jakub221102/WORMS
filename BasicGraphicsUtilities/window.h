@@ -1,7 +1,5 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "game_object.h"
-
 #include "input_manager.h"
 
 #include <string>
@@ -9,7 +7,7 @@
 #include <vector>
 
 namespace GR {
-	
+	class GameObject;
 	const std::vector<std::pair<unsigned int, unsigned int>> resolutions = {
 		{1920, 1080},
 		{1440, 1080},

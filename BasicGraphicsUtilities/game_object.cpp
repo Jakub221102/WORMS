@@ -17,7 +17,6 @@ GR::GameObject::GameObject(const float& time, std::vector<std::pair<float, float
 
 GR::GameObject::GameObject(const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, sf::Vector2f position, float rotation)
 	: GameObject(time, vertices, texture_path, position.x, position.y, rotation) {
-
 }
 
 sf::Vector2f GR::GameObject::getPosition() const {
