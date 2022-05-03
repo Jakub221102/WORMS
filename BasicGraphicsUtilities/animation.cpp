@@ -23,12 +23,15 @@ void GR::Animation::setAnimation(const std::string& filePath, int count, float t
 void GR::Animation::updateAnimation(float deltaTime, sf::Shape& object) {
 	animationTime += deltaTime;
 	float t = 0.0f;
-	while (animationTime > totalTime) animationTime -= totalTime;
+	float temp = animationTime / totalTime;
+	animationTime -= std::floor(temp) * animationTime;
+	counter = floor(temp * count);
+	/*while (animationTime > totalTime) animationTime -= totalTime;
 	for (int i = 0; i < count; i++) {
 		if (t <= animationTime && animationTime <= t + timeStep) counter = i;
 		t += timeStep;
 	}
-	counter %= count;
+	counter %= count;*/
 	sf::IntRect rectangle{leftBorders[counter], 0, leftBorders[1], heigth};
 	object.setTextureRect(rectangle);
 }
