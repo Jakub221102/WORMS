@@ -1,8 +1,8 @@
 #include "texture.h"
 
-GR::Texture::Texture(const std::string& filePath, sf::IntRect singleFrame, unsigned int count) 
+GR::Texture::Texture(const std::string& filePath) 
 	: filePath(filePath){
-	texture.loadFromFile(filePath, singleFrame);
+	texture.loadFromFile(filePath);
 	texture.setSmooth(true);
 }
 

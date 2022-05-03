@@ -1,4 +1,5 @@
 #include "window.h"
+#include "game_object.h"
 
 #include <iostream>
 
