@@ -25,7 +25,7 @@ int main() {
 		{300.0f, 700.0f}
 	};
 	GR::GameObject rect(deltaTime, vertices, "rakieta.png");
-	GR::AnimatedObject obj(deltaTime, vertices, "robole.png", 4, 1.0f);
+	GR::AnimatedObject obj(deltaTime, vertices, "robole.png", 4, 10.0f);
 	sf::Time t;
 	sf::Clock ck;
 	ck.restart();
