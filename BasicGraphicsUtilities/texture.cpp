@@ -6,6 +6,6 @@ GR::Texture::Texture(const std::string& filePath)
 	texture.setSmooth(true);
 }
 
-sf::Texture* GR::Texture::getPixels() {
-	return &texture;
+sf::Texture& GR::Texture::getTexture() {
+	return texture;
 }

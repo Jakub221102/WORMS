@@ -11,6 +11,6 @@ namespace GR {
 		std::string filePath;
 	public:
 		Texture(const std::string& filePath);
-		sf::Texture* getPixels();
+		sf::Texture& getTexture();
 	};
 }

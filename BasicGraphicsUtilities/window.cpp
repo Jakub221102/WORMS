@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-GR::Window::Window(const std::string& title)
-	: windowTitle(title), windowSize({resolutions[0].first, resolutions[0].second}), resolutionPointer(0) {
+GR::Window::Window(float& deltaTime, const std::string& title)
+	: windowTitle(title), windowSize({resolutions[0].first, resolutions[0].second}), resolutionPointer(0), deltaTime(deltaTime) {
 	setup(title, 0);
 }
 
@@ -15,6 +15,8 @@ GR::Window::~Window() {
 void GR::Window::setup(const std::string& title, int resPtr, unsigned int MSAlevel) {
 	windowTitle = title;
 	windowSize = {resolutions[resPtr].first, resolutions[resPtr].second};
+	view = sf::View(0.5f * sf::Vector2f(windowSize.x, windowSize.y), sf::Vector2f(windowSize.x, windowSize.y));
+	mZoom = 1.0f;
 	isWinDone = false;
 	isWinFullscreen = false;
 	settings.antialiasingLevel = MSAlevel;
@@ -22,6 +24,7 @@ void GR::Window::setup(const std::string& title, int resPtr, unsigned int MSAlev
 }
 
 void GR::Window::create() {
+	view = sf::View(0.5f * sf::Vector2f(windowSize.x, windowSize.y), sf::Vector2f(windowSize.x, windowSize.y));
 	auto style = (isWinFullscreen ? sf::Style::Fullscreen : sf::Style::Default);
 	window.create({ windowSize.x, windowSize.y, 32 }, windowTitle, style, settings);
 }
@@ -41,18 +44,32 @@ void GR::Window::update(float time) {
 		case sf::Event::KeyPressed:
 			keyBindings.use(*this, event.key.code);
 			break;
+		case sf::Event::MouseWheelMoved:
+			std::cout << mZoom << std::endl;
+			std::cout << view.getSize().x << ' ' << view.getSize().y << std::endl;
+			zoom(mouseWheelSpeed * deltaTime * event.mouseWheel.delta);
+			break;
+
 		}
-		//keyBindings.listenAndUseAll(*this);
 	}
+	mouseButtonBindings.listenAndUseAllMouseButtons(*this);
 }
 
 void GR::Window::addKeyBinding(sf::Keyboard::Key keyCode, void (GR::Window::*pointer)()) {
 	keyBindings.addBinding(keyCode, pointer);
 }
 
+//void GR::Window::addMouseButtonBinding(sf::Mouse::Button button, void (GR::Window::* pointer)()) {
+//	mouseButtonBindings.addBinding(button, pointer);
+//}
+
 void GR::Window::removeKeyBinding(sf::Keyboard::Key keyCode) {
 	keyBindings.removeBinding(keyCode);
 }
+
+//void GR::Window::removeMouseButtonKeyBinding(sf::Mouse::Button button) {
+//	mouseButtonBindings.removeBinding(button);
+//}
 
 void GR::Window::setFramesPerSecond(unsigned int fps) {
 	window.setFramerateLimit(fps);
@@ -124,4 +141,19 @@ void GR::Window::setMultisamplingLevel(unsigned int level) {
 	settings.antialiasingLevel = level;
 	destroy();
 	create();
+}
+
+void GR::Window::setView(float x, float y, float w, float h) {
+	view = sf::View(sf::FloatRect(x, y, w, h));
+	window.setView(view);
+}
+
+void GR::Window::zoom(float scale) {
+	mZoom = mZoom * (1.0f - scale);
+	view.zoom(1.0f - scale);
+	window.setView(view);
+}
+
+void GR::Window::setZoomSpeed(float speed) {
+	mouseWheelSpeed = speed;
 }
