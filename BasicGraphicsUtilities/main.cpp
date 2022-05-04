@@ -11,7 +11,7 @@ int main() {
 	//sf::RenderWindow window(sf::VideoMode(800, 800), "Test");
 	//sf::Event e;
 	GR::Window wormsWindow(deltaTime);
-	wormsWindow.setMouseWheelSpeed(4.0f);
+	wormsWindow.setZoomSpeed(4.0f);
 	//wormsWindow.addMouseButtonBinding(sf::Mouse::Button::Left, &GR::Window::downscaleResolution);
 
 	//wormsWindow.removeKeyBinding(sf::Keyboard::Key::A);
