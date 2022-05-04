@@ -45,7 +45,8 @@ namespace GR {
 	class RealTimeInputManager {
 		std::vector<std::pair<KeyType, void (Scope::*)()>> keyBindings;
 	public:
-		void listenAndUseAll(Scope& object);
+		void listenAndUseAllKeys(Scope& object);
+		void listenAndUseAllMouseButtons(Scope& object);
 		void addBinding(KeyType keyCode, void (Scope::* pointer)());
 		void removeBinding(KeyType keyCode);
 	};
@@ -62,9 +63,17 @@ namespace GR {
 	}
 
 	template<class KeyType, class Scope>
-	void RealTimeInputManager<KeyType, Scope>::listenAndUseAll(Scope& object) {
+	void RealTimeInputManager<KeyType, Scope>::listenAndUseAllKeys(Scope& object) {
 		for (auto& el : keyBindings) {
-			if (sf::Keyboard::isKeyPressed(el.first))
+			if (sf::Mouse::isKeyPressed(el.first))
+				(object.*(el.second))();
+		}
+	}
+
+	template<class KeyType, class Scope>
+	void RealTimeInputManager<KeyType, Scope>::listenAndUseAllMouseButtons(Scope& object) {
+		for (auto& el : keyBindings) {
+			if (sf::Mouse::isButtonPressed(el.first))
 				(object.*(el.second))();
 		}
 	}

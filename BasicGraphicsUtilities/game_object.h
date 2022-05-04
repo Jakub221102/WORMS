@@ -18,8 +18,8 @@ namespace GR {
 		const std::vector<std::pair<float, float>> vertices;
 		const float& deltaTime;
 	public:
-		GameObject(const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, float x=0.0f, float y=0.0f, float rotation = 0.0f);
-		GameObject(const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, sf::Vector2f position, float rotation = 0.0f);
+		GameObject(const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path);
+		
 		sf::Vector2f getPosition() const;
 		void setPosition(const sf::Vector2f& position);
 		void setPosition(float x, float y);

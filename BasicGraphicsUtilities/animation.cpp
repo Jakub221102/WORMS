@@ -15,15 +15,15 @@ void GR::Animation::setAnimation(const std::string& filePath, int count, float t
 	counter = 0;
 	this->totalTime = totalTime;
 	timeStep = totalTime / count;
+	width = texture.getSize().x / count;
 	heigth = texture.getSize().y;
 	for (int i = 0; i < count; i++) 
-		leftBorders.push_back(static_cast<float>(i) * texture.getSize().x / static_cast<float>(count));
+		leftBorders.push_back(i * texture.getSize().x / count);
 }
 #include <iostream>
 
 void GR::Animation::updateAnimation(float deltaTime, sf::Shape& object) {
 	animationTime += deltaTime;
-	float t = 0.0f;
 	animationTime -= std::floor(animationTime / totalTime) * totalTime;
 	counter = floor(animationTime / totalTime * count);
 	/*while (animationTime > totalTime) animationTime -= totalTime;
@@ -32,7 +32,10 @@ void GR::Animation::updateAnimation(float deltaTime, sf::Shape& object) {
 		t += timeStep;
 	}
 	counter %= count;*/
-	std::cout << counter << std::endl;
-	sf::IntRect rectangle{leftBorders[counter], 0, leftBorders[1], heigth};
+	sf::IntRect rectangle{leftBorders[counter], 0, width, heigth};
 	object.setTextureRect(rectangle);
+}
+
+void GR::Animation::zeroAnimationTime() {
+	animationTime = 0.001f;
 }

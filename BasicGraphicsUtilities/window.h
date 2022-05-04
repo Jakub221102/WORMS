@@ -40,17 +40,24 @@ namespace GR {
 		sf::Vector2u windowSize;
 		std::string windowTitle;
 		sf::Vector2f resolutionScale;
+		sf::View view;
 		int resolutionPointer;
 		bool isWinDone;
 		bool isWinFullscreen;
+		const float& deltaTime;
+		float mouseWheelSpeed = 1.0f;
+		float mZoom;
 		//std::unordered_map<sf::Keyboard::Key, void (GR::Window::*)()> keyBindings;
 		GR::EventManager<sf::Keyboard::Key, GR::Window> keyBindings;
+		GR::RealTimeInputManager<sf::Mouse::Button, GR::Window> mouseButtonBindings;
 	public:
-		Window(const std::string& title = "Window");
+		Window(float& deltaTime, const std::string& title = "Window");
 		~Window();
 
 		void addKeyBinding(sf::Keyboard::Key keyCode, void (GR::Window::*pointer)());
+		//void addMouseButtonBinding(sf::Mouse::Button button, void (GR::Window::* pointer)());
 		void removeKeyBinding(sf::Keyboard::Key keyCode);
+		//void removeMouseButtonKeyBinding(sf::Mouse::Button button);
 
 		void beginDraw(unsigned char r=0, unsigned char g=0, unsigned char b=0, unsigned char a = 255);
 		void endDraw();
@@ -70,5 +77,8 @@ namespace GR {
 		void upscaleResolution();
 		void downscaleResolution();
 		void setMultisamplingLevel(unsigned int level);
+		void setView(float x, float y, float w, float h);
+		void zoom(float scale);
+		void setZoomSpeed(float speed);
 	};
 }

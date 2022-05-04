@@ -1,11 +1,9 @@
 #include "game_object.h"
 
 
-GR::GameObject::GameObject(const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, float x, float y, float rotation)
+GR::GameObject::GameObject(const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path)
 	: shape(vertices.size()), vertices(vertices), texture(texture_path), origin{}, deltaTime(time){
-	shape.setPosition({ x, y });
-	shape.setRotation(rotation);
-	shape.setTexture(texture.getPixels());
+	shape.setTexture(&texture.getTexture());
 	for (size_t i = 0; i < vertices.size(); i++) {
 		shape.setPoint(i, sf::Vector2f(vertices[i].first, vertices[i].second));
 		origin.x += vertices[i].first;
@@ -13,10 +11,6 @@ GR::GameObject::GameObject(const float& time, std::vector<std::pair<float, float
 	}
 	shape.setOrigin(origin.x/vertices.size(), origin.y/vertices.size());
 	shape.move(origin.x / vertices.size(), origin.y / vertices.size());
-}
-
-GR::GameObject::GameObject(const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, sf::Vector2f position, float rotation)
-	: GameObject(time, vertices, texture_path, position.x, position.y, rotation) {
 }
 
 sf::Vector2f GR::GameObject::getPosition() const {
