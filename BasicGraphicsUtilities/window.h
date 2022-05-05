@@ -40,6 +40,8 @@ namespace GR {
 		sf::Vector2u windowSize;
 		std::string windowTitle;
 		sf::Vector2f resolutionScale;
+		sf::Vector2i mousePosition;
+		const sf::FloatRect confines;
 		sf::View view;
 		int resolutionPointer;
 		bool isWinDone;
@@ -51,7 +53,7 @@ namespace GR {
 		GR::EventManager<sf::Keyboard::Key, GR::Window> keyBindings;
 		GR::RealTimeInputManager<sf::Mouse::Button, GR::Window> mouseButtonBindings;
 	public:
-		Window(float& deltaTime, const std::string& title = "Window");
+		Window(float& deltaTime, sf::FloatRect confines, const std::string& title = "Window");
 		~Window();
 
 		void addKeyBinding(sf::Keyboard::Key keyCode, void (GR::Window::*pointer)());
@@ -68,6 +70,7 @@ namespace GR {
 		bool isFullscreen() const;
 		sf::Vector2u getWindowSize() const;
 		void setBackGroundColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a=255);
+		sf::Vector2f getMouseWorldCoords() const;
 
 		void draw(GR::GameObject& drawable);
 

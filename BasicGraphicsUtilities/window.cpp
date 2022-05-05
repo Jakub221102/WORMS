@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-GR::Window::Window(float& deltaTime, const std::string& title)
-	: windowTitle(title), windowSize({resolutions[0].first, resolutions[0].second}), resolutionPointer(0), deltaTime(deltaTime) {
+GR::Window::Window(float& deltaTime, sf::FloatRect confines, const std::string& title)
+	: confines(confines), windowTitle(title), windowSize({resolutions[0].first, resolutions[0].second}), resolutionPointer(0), deltaTime(deltaTime) {
 	setup(title, 0);
 }
 
@@ -16,6 +16,7 @@ void GR::Window::setup(const std::string& title, int resPtr, unsigned int MSAlev
 	windowTitle = title;
 	windowSize = {resolutions[resPtr].first, resolutions[resPtr].second};
 	view = sf::View(0.5f * sf::Vector2f(windowSize.x, windowSize.y), sf::Vector2f(windowSize.x, windowSize.y));
+	mousePosition = sf::Vector2i();
 	mZoom = 1.0f;
 	isWinDone = false;
 	isWinFullscreen = false;
@@ -46,9 +47,12 @@ void GR::Window::update(float time) {
 			break;
 		case sf::Event::MouseWheelMoved:
 			std::cout << mZoom << std::endl;
-			std::cout << view.getSize().x << ' ' << view.getSize().y << std::endl;
+			//std::cout << view.getSize().x << ' ' << view.getSize().y << std::endl;
 			zoom(mouseWheelSpeed * deltaTime * event.mouseWheel.delta);
 			break;
+		case sf::Event::MouseMoved:
+			mousePosition = sf::Vector2i(event.mouseMove.x, event.mouseMove.y);
+			//std::cout << event.mouseMove.x << ' ' << event.mouseMove.y << std::endl;
 
 		}
 	}
@@ -79,9 +83,14 @@ void GR::Window::setBackGroundColor(unsigned char r, unsigned char g, unsigned c
 	window.clear({r, g, b, a});
 }
 
+sf::Vector2f GR::Window::getMouseWorldCoords() const {
+	return window.mapPixelToCoords(mousePosition);
+}
+
 void GR::Window::toggleFullScreen() { 
 	isWinFullscreen = !isWinFullscreen;
-	isWinFullscreen ? windowSize = { 1920, 1080 } : 
+	isWinFullscreen ? windowSize = { resolutions[0].first,
+		resolutions[0].second } :
 		windowSize = { resolutions[resolutionPointer].first,
 		resolutions[resolutionPointer].second } ;
 	destroy();
