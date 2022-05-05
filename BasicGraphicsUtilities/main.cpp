@@ -10,7 +10,7 @@ float deltaTime;
 int main() {
 	//sf::RenderWindow window(sf::VideoMode(800, 800), "Test");
 	//sf::Event e;
-	GR::Window wormsWindow(deltaTime);
+	GR::Window wormsWindow(deltaTime, {0.0, 0.0, 200.0f, 200.0f});
 	wormsWindow.setZoomSpeed(4.0f);
 	//wormsWindow.addMouseButtonBinding(sf::Mouse::Button::Left, &GR::Window::downscaleResolution);
 
@@ -42,6 +42,7 @@ int main() {
 		//obrazek.setPosition(100, 80);
 		//wormsWindow.beginDraw();
 		wormsWindow.update(10);
+		//std::cout << wormsWindow.getMouseWorldCoords().x << ' ' << wormsWindow.getMouseWorldCoords().y << std::endl;
 		wormsWindow.draw(obj);
 		wormsWindow.draw(rect);
 		wormsWindow.endDraw();
