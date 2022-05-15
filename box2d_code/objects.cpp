@@ -8,47 +8,56 @@ DynamicObject::DynamicObject(b2World& world, float new_x, float new_y)
     body = world.CreateBody(&def);
 }
 
+
+b2Vec2 DynamicObject::getPosition() const
+{
+    return body->GetPosition();
+}
+
+
+float DynamicObject::getAngle() const
+{
+    return body->GetAngle();
+}
+
+
 //mozna ustawic pozycje ciala w zupelnie nowym miejscu i pod innym katem
-void DynamicObject::set_new_position(const b2Vec2& position, float angle)
+const void DynamicObject::setNewPosition(const b2Vec2& position, float angle)
 {
     body->SetTransform(position, angle);
 }
 
 
 ////////////////////////////////////////////////////
-// WORM
+// Polygon
 ////////////////////////////////////////////////////
 
 
-/*Worm - DynamicObject, zdefiniowane shape, friction i density,
+/*Polygon - DynamicObject, zdefiniowane shape, friction i density,
 oraz wzgledne wierzcholki, przechowuje je po to bo nie ma prostej metody w box2d ktora by to robila, przynajmneij nie znalazlem, kiedys byla(?)*/
-Worm::Worm(b2World& world, float new_x, float new_y) : DynamicObject(world, new_x, new_y)
+Polygon::Polygon(b2World& world, float new_x, float new_y, const b2Vec2* setVertices, int n_vertices) : DynamicObject(world, new_x, new_y), vertices(setVertices), nVertices(n_vertices)
 {
-    b2PolygonShape worm_shape;
+    b2PolygonShape shapePolygon;
     b2FixtureDef fixtureDef;
-
-    vertices[0].x = -2;
-    vertices[0].y = 2;
-
-    vertices[1].x = 2;
-    vertices[1].y = 2;
-
-    vertices[2].x = 2;
-    vertices[2].y = -2;
-
-    vertices[3].x = -2;
-    vertices[3].y = -2;
-
-    worm_shape.Set(vertices, 4);
-    fixtureDef.shape = &worm_shape;
+    
+    shapePolygon.Set(vertices, n_vertices);
+    
+    fixtureDef.shape = &shapePolygon;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.3f;
     body->CreateFixture(&fixtureDef);
 }
 
 
+//czy moge robic kopie i zwracac wskaznik na te kopie??
+const b2Vec2* Polygon::getVertices()
+{
+    return vertices;
+}
+
+
 //funkcja zwaraca fixture przypisany do ciala po indexie
-const b2Fixture* Worm::getFixture(int idx = 0)
+b2Fixture* Polygon::getFixture(int idx = 0) const
 {
     int i = 0;
     for (b2Fixture* f = body->GetFixtureList(); f; f = f->GetNext())
@@ -62,7 +71,7 @@ const b2Fixture* Worm::getFixture(int idx = 0)
 }
 
 //zwraca shape obiekietu 
-const b2Shape* Worm::getShape(int idx = 0)
+const b2Shape* Polygon::getShape(int idx = 0)
 {
     const b2Fixture* fixture = getFixture(idx);
     const b2Shape* shape = fixture->GetShape();
@@ -71,7 +80,7 @@ const b2Shape* Worm::getShape(int idx = 0)
 
 
 //doklada predkosc do ciala
-void Worm::putVelocity(const b2Vec2 vec)
+void Polygon::putVelocity(const b2Vec2 vec)
 {
     body->SetLinearVelocity(vec);
 }
