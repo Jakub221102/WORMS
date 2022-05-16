@@ -1,7 +1,7 @@
-#include "game_object.h"
+#include "static_game_object.h"
 
 
-GR::GameObject::GameObject(const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path)
+GR::StaticObject::StaticObject(const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path)
 	: shape(vertices.size()), vertices(vertices), texture(texture_path), origin{}, deltaTime(time){
 	shape.setTexture(&texture.getTexture());
 	for (size_t i = 0; i < vertices.size(); i++) {
@@ -13,42 +13,42 @@ GR::GameObject::GameObject(const float& time, std::vector<std::pair<float, float
 	shape.move(origin.x / vertices.size(), origin.y / vertices.size());
 }
 
-sf::Vector2f GR::GameObject::getPosition() const {
+sf::Vector2f GR::StaticObject::getPosition() const {
 	return shape.getPosition();
 }
 
-void GR::GameObject::setPosition(const sf::Vector2f& position) {
+void GR::StaticObject::setPosition(const sf::Vector2f& position) {
 	shape.setPosition(position);
 }
 
-void GR::GameObject::setPosition(float x, float y) {
+void GR::StaticObject::setPosition(float x, float y) {
 	shape.setPosition({x, y});
 }
 
-void GR::GameObject::setRotation(float angle) {
+void GR::StaticObject::setRotation(float angle) {
 	shape.setRotation(angle);
 }
 
-void GR::GameObject::setScale(const sf::Vector2f& scale) {
+void GR::StaticObject::setScale(const sf::Vector2f& scale) {
 	shape.setScale(scale);
 }
 
-void GR::GameObject::setScale(float x, float y) {
+void GR::StaticObject::setScale(float x, float y) {
 	shape.setScale({x, y});
 }
 
-void GR::GameObject::rotate(float angle) {
+void GR::StaticObject::rotate(float angle) {
 	shape.rotate(angle);
 }
 
-void GR::GameObject::translate(float x, float y) {
+void GR::StaticObject::translate(float x, float y) {
 	shape.move(x, y);
 }
 
-void GR::GameObject::translate(const sf::Vector2f& translation) {
+void GR::StaticObject::translate(const sf::Vector2f& translation) {
 	shape.move(translation);
 }
 
-sf::Drawable& GR::GameObject::getShape() {
+sf::Drawable& GR::StaticObject::getShape() {
 	return shape;
 }

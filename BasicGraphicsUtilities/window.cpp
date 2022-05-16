@@ -1,10 +1,8 @@
 #include "window.h"
-#include "game_object.h"
+#include "static_game_object.h"
 
-#include <iostream>
-
-GR::Window::Window(float& deltaTime, sf::FloatRect confines, const std::string& title)
-	: confines(confines), windowTitle(title), windowSize({resolutions[0].first, resolutions[0].second}), resolutionPointer(0), deltaTime(deltaTime) {
+GR::Window::Window(float& deltaTime, const std::string& title)
+	: windowTitle(title), confines({ 0.0f, 0.0f }, {1000.0f, 1000.0f}), resolutionPointer(0), deltaTime(deltaTime) {
 	setup(title, 0);
 }
 
@@ -14,8 +12,8 @@ GR::Window::~Window() {
 
 void GR::Window::setup(const std::string& title, int resPtr, unsigned int MSAlevel) {
 	windowTitle = title;
+	mouseWheelSpeed = 1.0f;
 	windowSize = {resolutions[resPtr].first, resolutions[resPtr].second};
-	view = sf::View(0.5f * sf::Vector2f(windowSize.x, windowSize.y), sf::Vector2f(windowSize.x, windowSize.y));
 	mousePosition = sf::Vector2i();
 	mZoom = 1.0f;
 	isWinDone = false;
@@ -28,6 +26,7 @@ void GR::Window::create() {
 	view = sf::View(0.5f * sf::Vector2f(windowSize.x, windowSize.y), sf::Vector2f(windowSize.x, windowSize.y));
 	auto style = (isWinFullscreen ? sf::Style::Fullscreen : sf::Style::Default);
 	window.create({ windowSize.x, windowSize.y, 32 }, windowTitle, style, settings);
+	setViewBorder(confines.left, confines.top, confines.width, confines.height);
 }
 
 void GR::Window::destroy() {
@@ -36,7 +35,6 @@ void GR::Window::destroy() {
 
 void GR::Window::update(float time) {
 	sf::Event event;
-	
 	while (window.pollEvent(event)) {
 		switch (event.type) {
 		case sf::Event::Closed:
@@ -46,34 +44,27 @@ void GR::Window::update(float time) {
 			keyBindings.use(*this, event.key.code);
 			break;
 		case sf::Event::MouseWheelMoved:
-			std::cout << mZoom << std::endl;
-			//std::cout << view.getSize().x << ' ' << view.getSize().y << std::endl;
 			zoom(mouseWheelSpeed * deltaTime * event.mouseWheel.delta);
 			break;
 		case sf::Event::MouseMoved:
 			mousePosition = sf::Vector2i(event.mouseMove.x, event.mouseMove.y);
-			//std::cout << event.mouseMove.x << ' ' << event.mouseMove.y << std::endl;
-
 		}
 	}
-	mouseButtonBindings.listenAndUseAllMouseButtons(*this);
+	//mouseButtonBindings.listenAndUseAllMouseButtons(*this);
 }
 
 void GR::Window::addKeyBinding(sf::Keyboard::Key keyCode, void (GR::Window::*pointer)()) {
 	keyBindings.addBinding(keyCode, pointer);
 }
 
-//void GR::Window::addMouseButtonBinding(sf::Mouse::Button button, void (GR::Window::* pointer)()) {
-//	mouseButtonBindings.addBinding(button, pointer);
-//}
-
 void GR::Window::removeKeyBinding(sf::Keyboard::Key keyCode) {
 	keyBindings.removeBinding(keyCode);
 }
 
-//void GR::Window::removeMouseButtonKeyBinding(sf::Mouse::Button button) {
-//	mouseButtonBindings.removeBinding(button);
-//}
+
+void GR::Window::setKeyArguments(sf::Keyboard::Key keyCode, const std::vector<float>& args) {
+	keyBindings.setArguments(keyCode, args);
+}
 
 void GR::Window::setFramesPerSecond(unsigned int fps) {
 	window.setFramerateLimit(fps);
@@ -142,7 +133,7 @@ sf::Vector2u GR::Window::getWindowSize() const {
 	return windowSize;
 }
 
-void GR::Window::draw(GR::GameObject& drawable) {
+void GR::Window::draw(GR::StaticObject& drawable) {
 	window.draw(drawable.getShape());
 }
 
@@ -152,17 +143,37 @@ void GR::Window::setMultisamplingLevel(unsigned int level) {
 	create();
 }
 
-void GR::Window::setView(float x, float y, float w, float h) {
+bool GR::Window::setView(float x, float y, float w, float h) {
+	if (confines.left > x || confines.top > y || w + x > confines.left + confines.width || y + h > confines.top + confines.height)
+		return false;
 	view = sf::View(sf::FloatRect(x, y, w, h));
 	window.setView(view);
+	return true;
 }
 
 void GR::Window::zoom(float scale) {
+	sf::View temp = view;
+	temp.zoom(1.0f - scale);
+	auto rect = viewRectangle(temp);
+	if (!setView(rect.left, rect.top, rect.width, rect.height)) return;
 	mZoom = mZoom * (1.0f - scale);
-	view.zoom(1.0f - scale);
-	window.setView(view);
 }
 
 void GR::Window::setZoomSpeed(float speed) {
 	mouseWheelSpeed = speed;
+}
+
+sf::FloatRect GR::Window::viewRectangle(sf::View view) const {
+	sf::Vector2f size = view.getSize();
+	sf::Vector2f center = view.getCenter();
+	sf::Vector2f leftTop = { center.x - size.x / 2.0f, center.y - size.y / 2.0f };
+	return sf::FloatRect(leftTop, size);
+}
+
+void GR::Window::setViewBorder(float left, float top, float width, float height) {
+	confines = sf::FloatRect(left, top, width, height);
+	sf::FloatRect vRect = viewRectangle(view);
+	if(left > vRect.left || top > vRect.top || vRect.width + vRect.left > left + width || vRect.top + vRect.height > top + height)
+		setView(left, top, width, height);
+	vRect = viewRectangle(view);
 }
