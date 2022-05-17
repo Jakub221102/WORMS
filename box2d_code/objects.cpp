@@ -27,6 +27,13 @@ const void DynamicObject::setNewPosition(const b2Vec2& position, float angle)
     body->SetTransform(position, angle);
 }
 
+//doklada predkosc do ciala
+void DynamicObject::putVelocity(const b2Vec2 vec)
+{
+    body->SetLinearVelocity(vec);
+}
+
+
 
 ////////////////////////////////////////////////////
 // Polygon
@@ -78,9 +85,3 @@ const b2Shape* Polygon::getShape(int idx = 0)
     return shape;
 }
 
-
-//doklada predkosc do ciala
-void Polygon::putVelocity(const b2Vec2 vec)
-{
-    body->SetLinearVelocity(vec);
-}

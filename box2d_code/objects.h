@@ -7,9 +7,10 @@ class DynamicObject
 {
 public:
     DynamicObject(b2World&, float, float);
-    const void setNewPosition(const b2Vec2&, float);
     b2Vec2 getPosition() const;
     float getAngle() const;
+    const void setNewPosition(const b2Vec2&, float);
+    void putVelocity(b2Vec2);
     b2Body* body;
 
 protected:
@@ -32,7 +33,6 @@ public:
     b2Fixture* getFixture(int idx) const;
     const b2Shape* getShape(int idx);
     const b2Vec2* getVertices();
-    void putVelocity(b2Vec2);
 
 protected:
     const int nVertices;
