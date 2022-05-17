@@ -13,5 +13,5 @@ void GR::Game::restartClock() {
 }
 
 void GR::Game::update(float time) {
-	window.update(time);
+	window.update();
 }
