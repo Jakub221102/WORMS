@@ -14,7 +14,7 @@ int main() {
 	GR::Window wormsWindow(deltaTime);
 	wormsWindow.setKeyArguments(sf::Keyboard::A, {10.0f});
 	wormsWindow.setViewBorder(200.0f, 200.0f, 800.0f, 800.0f);
-	wormsWindow.setView(0.0f, 0.0f, 400.0f, 400.0f);
+	wormsWindow.setView(0.0f, 0.0f, 400.0f, 400.0f); // view does not fit in viewBorder so view is set to viewBorder by default
 	wormsWindow.setZoomSpeed(4.0f);
 
 	std::vector<std::pair<float, float>> vertices{
@@ -31,15 +31,15 @@ int main() {
 	sf::Clock ck;
 	ck.restart();
 	obj.translate({ 500.0f, 0.0f });
-	obj.setPosition({ 600.0f, 400.0f });
+	obj.setPosition({ 600.0f, 500.0f });
 	float global = 0.0f;
-	obj.setScale({ 2.0f, 2.0f });
+	obj.setScale({ 1.5f, 1.5f });
 	while (!wormsWindow.isDone()) {
 		deltaTime = ck.restart().asSeconds();
 		wormsWindow.setBackGroundColor(200, 200, 200);
 		obj.update();
 		obj.rotate(deltaTime);
-		wormsWindow.update(10);
+		wormsWindow.update();							// 10 is a random value for now
 		std::cout << wormsWindow.getMouseWorldCoords().x << ' ' << wormsWindow.getMouseWorldCoords().y << std::endl;
 		wormsWindow.draw(obj);
 		wormsWindow.endDraw();

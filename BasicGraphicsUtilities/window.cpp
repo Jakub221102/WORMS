@@ -33,7 +33,7 @@ void GR::Window::destroy() {
 	window.close();
 }
 
-void GR::Window::update(float time) {
+void GR::Window::update() {
 	sf::Event event;
 	while (window.pollEvent(event)) {
 		switch (event.type) {
