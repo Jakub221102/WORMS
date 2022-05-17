@@ -33,6 +33,12 @@ void DynamicObject::putVelocity(const b2Vec2 vec)
     body->SetLinearVelocity(vec);
 }
 
+void DynamicObject::putForceToCenter(const b2Vec2 vec)
+{
+    body->ApplyForceToCenter(vec, true);
+}
+
+
 
 
 ////////////////////////////////////////////////////
@@ -42,12 +48,12 @@ void DynamicObject::putVelocity(const b2Vec2 vec)
 
 /*Polygon - DynamicObject, zdefiniowane shape, friction i density,
 oraz wzgledne wierzcholki, przechowuje je po to bo nie ma prostej metody w box2d ktora by to robila, przynajmneij nie znalazlem, kiedys byla(?)*/
-Polygon::Polygon(b2World& world, float new_x, float new_y, const b2Vec2* setVertices, int n_vertices) : DynamicObject(world, new_x, new_y), vertices(setVertices), nVertices(n_vertices)
+Polygon::Polygon(b2World& world, float new_x, float new_y, const b2Vec2* setVertices, int n_vertices) : DynamicObject(world, new_x, new_y)
 {
     b2PolygonShape shapePolygon;
     b2FixtureDef fixtureDef;
     
-    shapePolygon.Set(vertices, n_vertices);
+    shapePolygon.Set(setVertices, n_vertices);
     
     fixtureDef.shape = &shapePolygon;
     fixtureDef.density = 1.0f;
@@ -57,10 +63,10 @@ Polygon::Polygon(b2World& world, float new_x, float new_y, const b2Vec2* setVert
 
 
 //czy moge robic kopie i zwracac wskaznik na te kopie??
-const b2Vec2* Polygon::getVertices()
-{
-    return vertices;
-}
+//const b2Vec2* Polygon::getVertices()
+//{
+//    return vertices;
+//}
 
 
 //funkcja zwaraca fixture przypisany do ciala po indexie

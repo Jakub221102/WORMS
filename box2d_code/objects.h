@@ -2,7 +2,6 @@
 #include <box2d.h>
 
 
-
 class DynamicObject
 {
 public:
@@ -11,6 +10,7 @@ public:
     float getAngle() const;
     const void setNewPosition(const b2Vec2&, float);
     void putVelocity(b2Vec2);
+    void putForceToCenter(b2Vec2);
     b2Body* body;
 
 protected:
@@ -35,6 +35,21 @@ public:
     const b2Vec2* getVertices();
 
 protected:
-    const int nVertices;
-    const b2Vec2 *vertices;
+
+};
+
+
+
+////////////////////////////////////////////////////
+//Worm
+////////////////////////////////////////////////////
+
+class Worm : public Polygon
+{
+public:
+    //Worm(b2World& world, float new_x, float new_y, const b2Vec2* setVertices, int n_vertices);
+    //void jump();
+    //
+private:
+
 };
