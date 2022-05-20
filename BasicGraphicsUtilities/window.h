@@ -2,12 +2,14 @@
 #include "SFML/Graphics.hpp"
 #include "input_manager.h"
 
+#include <iostream>
+
 #include <string>
 #include <unordered_map>
 #include <vector>
 
 namespace GR {
-	class GameObject;
+	class StaticObject;
 	const std::vector<std::pair<unsigned int, unsigned int>> resolutions = {
 		{1920, 1080},
 		{1440, 1080},
@@ -19,51 +21,38 @@ namespace GR {
 		{480, 576}
 	};
 
-	//const std::vector<std::pair<float, float>> resolutionScales = {
-	//	{1.0f, 1.0f},
-	//	{1440.0f / 1920.0f, 1080.0f / 1080.0f},
-	//	{1280.0f / 1920.0f, 1080.0f / 1080.0f},
-	//	{1280.0f / 1920.0f, 720.0f / 1080.0f},
-	//	{720.0f / 1920.0f, 576.0f / 1080.0f},
-	//	{704.0f / 1920.0f, 576.0f / 1080.0f},
-	//	{544.0f / 1920.0f, 576.0f / 1080.0f},
-	//	{480.0f / 1920.0f, 576.0f / 1080.0f}
-	//};
-
 	class Window {
 		void setup(const std::string& title, int resolutionPointer, unsigned int MSAlevel = 16);
 		void destroy();
 		void create();
-
+	protected:
 		sf::RenderWindow window;
 		sf::ContextSettings settings;
 		sf::Vector2u windowSize;
 		std::string windowTitle;
 		sf::Vector2f resolutionScale;
 		sf::Vector2i mousePosition;
-		const sf::FloatRect confines;
+		sf::FloatRect confines;
 		sf::View view;
 		int resolutionPointer;
 		bool isWinDone;
 		bool isWinFullscreen;
 		const float& deltaTime;
-		float mouseWheelSpeed = 1.0f;
+		float mouseWheelSpeed;
 		float mZoom;
-		//std::unordered_map<sf::Keyboard::Key, void (GR::Window::*)()> keyBindings;
-		GR::EventManager<sf::Keyboard::Key, GR::Window> keyBindings;
-		GR::RealTimeInputManager<sf::Mouse::Button, GR::Window> mouseButtonBindings;
+		GR::RealTimeMouseManager<GR::Window, sf::Mouse::Button> mouseButtonBindings;
+		EventManager<GR::Window, sf::Keyboard::Key> keyBindings;
 	public:
-		Window(float& deltaTime, sf::FloatRect confines, const std::string& title = "Window");
+		Window(float& deltaTime, const std::string& title = "Window");
 		~Window();
 
 		void addKeyBinding(sf::Keyboard::Key keyCode, void (GR::Window::*pointer)());
-		//void addMouseButtonBinding(sf::Mouse::Button button, void (GR::Window::* pointer)());
 		void removeKeyBinding(sf::Keyboard::Key keyCode);
-		//void removeMouseButtonKeyBinding(sf::Mouse::Button button);
+		void setKeyArguments(sf::Keyboard::Key keyCode, const std::vector<float>& args);
 
 		void beginDraw(unsigned char r=0, unsigned char g=0, unsigned char b=0, unsigned char a = 255);
 		void endDraw();
-		void update(float time);
+		void update();
 		void setFramesPerSecond(unsigned int fps);
 
 		bool isDone() const;
@@ -72,16 +61,16 @@ namespace GR {
 		void setBackGroundColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a=255);
 		sf::Vector2f getMouseWorldCoords() const;
 
-		void draw(GR::GameObject& drawable);
-
-		// member functions to bind keys
+		void draw(GR::StaticObject& drawable);
+		sf::FloatRect viewRectangle(sf::View view) const;
 		void toggleFullScreen();
 		void close();
 		void upscaleResolution();
 		void downscaleResolution();
 		void setMultisamplingLevel(unsigned int level);
-		void setView(float x, float y, float w, float h);
+		bool setView(float x, float y, float w, float h);
 		void zoom(float scale);
 		void setZoomSpeed(float speed);
+		void setViewBorder(float left, float top, float width, float height);
 	};
 }

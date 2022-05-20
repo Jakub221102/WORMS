@@ -10,7 +10,7 @@
 
 
 namespace GR {
-	class GameObject {
+	class StaticObject {
 	protected:
 		GR::Texture texture;
 		sf::ConvexShape shape;
@@ -18,7 +18,7 @@ namespace GR {
 		const std::vector<std::pair<float, float>> vertices;
 		const float& deltaTime;
 	public:
-		GameObject(const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path);
+		StaticObject(const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path);
 		
 		sf::Vector2f getPosition() const;
 		void setPosition(const sf::Vector2f& position);
