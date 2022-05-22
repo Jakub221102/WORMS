@@ -61,8 +61,8 @@ namespace GR {
 
 		void update() {
 			b2Vec2 position = box2dModel->getPosition();
-			sf::Vector2f vec = -boxToSfml(position);
-			setPosition(vec.x, vec.y);
+			sf::Vector2f vec = boxToSfml(position);
+			setPosition(vec.x, -vec.y);
 			float degreeAngle = -box2dModel->getAngle() * 180.0f / 3.1415f;
 			setRotation(degreeAngle);
 			std::cout << "BOX2D: " << position.x << ' ' << position.y << std::endl;
