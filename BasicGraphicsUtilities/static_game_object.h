@@ -2,7 +2,7 @@
 
 #include "texture.h"
 #include "input_manager.h"
-#include "objects.h"
+#include "../box2d_code/objects.h"
 
 #include <vector>
 #include <string>
@@ -10,6 +10,10 @@
 #include <cmath>
 #include <iostream>
 #include <cmath>
+
+b2Vec2 sfmlToBox(std::pair<float, float>&, float x=0, float y=0);
+
+sf::Vector2f boxToSfml(b2Vec2&, float x=0, float y=0);
 
 namespace GR {
 	class StaticObject {
@@ -44,11 +48,11 @@ namespace GR {
 			float x = origin.x, y = origin.y;
 			b2Vec2* verts = new b2Vec2[vertices.size()];
 			for (int i = 0; i < vertices.size(); i++) {
-				verts[i] = { vertices[i].first - x, vertices[i].second - y };
+				verts[vertices.size()-i-1] = sfmlToBox(vertices[i], origin.x, origin.y);
 			}
-			//b2Vec2 verts[4] = { b2Vec2(-2, 1), b2Vec2(-2, -1), b2Vec2(2, -1), b2Vec2(2, 1) };
-
-			box2dModel = std::make_unique<DynamicModel>(world, x, y, verts, vertices.size());
+			std::pair<float, float> pOrigin = { x, y };
+			b2Vec2 boxOrigin = sfmlToBox(pOrigin);
+			box2dModel = std::make_unique<DynamicModel>(world, boxOrigin.x, boxOrigin.y, verts, vertices.size());
 			delete[] verts;
 		}
 		void putVelocity(float x, float y) {
@@ -57,7 +61,8 @@ namespace GR {
 
 		void update() {
 			b2Vec2 position = box2dModel->getPosition();
-			setPosition(position.x, -position.y);
+			sf::Vector2f vec = -boxToSfml(position);
+			setPosition(vec.x, vec.y);
 			float degreeAngle = -box2dModel->getAngle() * 180.0f / 3.1415f;
 			setRotation(degreeAngle);
 			std::cout << "BOX2D: " << position.x << ' ' << position.y << std::endl;

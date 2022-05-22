@@ -1,5 +1,17 @@
 #include "static_game_object.h"
 
+b2Vec2 sfmlToBox(std::pair<float, float> &vec, float x, float y)
+{
+	b2Vec2 resultVec((vec.first - x) / 80 , (vec.second - y) / 80 );	
+	return resultVec;
+}
+
+sf::Vector2f boxToSfml(b2Vec2 &vec, float x, float y)
+{
+	sf::Vector2f resultVec(vec.x * 80 + x, vec.y * 80 + y);
+	return resultVec;
+}
+
 
 GR::StaticObject::StaticObject(const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path)
 	: shape(vertices.size()), vertices(vertices), texture(texture_path), origin{}, deltaTime(time){

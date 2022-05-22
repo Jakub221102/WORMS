@@ -1,27 +1,33 @@
 #include "objects.h"
 
 //konstruktor: tworzy jedynie cialo obiektu
-DynamicObject::DynamicObject(b2World& world, float new_x, float new_y)
+DynamicModel::DynamicModel(b2World& world, float new_x, float new_y, b2Vec2 vertices[], int numberOfVertices)
 {
+    b2BodyDef def;
     def.type = b2_dynamicBody;
     def.position.Set(new_x, new_y);
     body = world.CreateBody(&def);
+    
+    b2PolygonShape shapePolygon;
+    shapePolygon.Set(vertices, numberOfVertices);
+    body->CreateFixture(&shapePolygon, 1);
+
 }
 
 
-b2Vec2 DynamicObject::getPosition() const
+b2Vec2 DynamicModel::getPosition() const
 {
     return body->GetPosition();
 }
 
 
-float DynamicObject::getAngle() const
+float DynamicModel::getAngle() const
 {
     return body->GetAngle();
 }
 
 //funkcja zwaraca fixture przypisany do ciala po indexie
-b2Fixture* DynamicObject::getFixture(int idx = 0) const
+b2Fixture* DynamicModel::getFixture(int idx = 0) const
 {
     //dopisac sprawdznaie czy wgl istniejee fixture o tym indexie
     int i = 0;
@@ -36,7 +42,7 @@ b2Fixture* DynamicObject::getFixture(int idx = 0) const
 }
 
 //zwraca shape obiekietu 
-const b2Shape* DynamicObject::getShape(int idx = 0)
+const b2Shape* DynamicModel::getShape(int idx = 0)
 {
     //tez mozna dopisac sprawdzanie
     const b2Fixture* fixture = getFixture(idx);
@@ -47,24 +53,24 @@ const b2Shape* DynamicObject::getShape(int idx = 0)
 
 
 //mozna ustawic pozycje ciala w zupelnie nowym miejscu i pod innym katem
-void DynamicObject::setNewPosition(const b2Vec2& position, float angle)
+void DynamicModel::setNewPosition(const b2Vec2& position, float angle)
 {
     body->SetTransform(position, angle);
 }
 
 //nadaje predkosc cialu
-void DynamicObject::putVelocity(const b2Vec2 vec)
+void DynamicModel::putVelocity(const b2Vec2 vec)
 {
     body->SetLinearVelocity(vec);
 }
 
-void DynamicObject::putForceToCenter(const b2Vec2 vec)
+void DynamicModel::putForceToCenter(const b2Vec2 vec)
 {
     body->ApplyForceToCenter(vec, true);
 }
 
 
-void DynamicObject::addFixture(const b2FixtureDef* fix)
+void DynamicModel::addFixture(const b2FixtureDef* fix)
 {  
     body->CreateFixture(fix);
 }
@@ -78,24 +84,24 @@ void DynamicObject::addFixture(const b2FixtureDef* fix)
 ////////////////////////////////////////////////////
 
 
-/*Worm - DynamicObject, zdefiniowane shape, friction i density,
+/*Worm - DynamicModel, zdefiniowane shape, friction i density,
 oraz wzgledne wierzcholki, przechowuje je po to bo nie ma prostej metody w box2d ktora by to robila, przynajmneij nie znalazlem, kiedys byla(?)*/
-Worm::Worm(b2World& world, float new_x, float new_y) : DynamicObject(world, new_x, new_y)
-{
-    b2Vec2 vertices[4] = { b2Vec2(-2, 1), b2Vec2(-2, -1), b2Vec2(2, -1), b2Vec2(2, 1) };
-    shapePolygon.Set(vertices, 4);
+//Worm::Worm(b2World& world, float new_x, float new_y) : DynamicModel(world, new_x, new_y)
+//{
+//    b2Vec2 vertices[4] = { b2Vec2(-2, 1), b2Vec2(-2, -1), b2Vec2(2, -1), b2Vec2(2, 1) };
+//    shapePolygon.Set(vertices, 4);
+//
+//
+//    fixtureDef.shape = &shapePolygon;
+//    fixtureDef.density = 1.0f;
+//    fixtureDef.friction = 0.3f;
+//    body->CreateFixture(&fixtureDef);
+//}
 
-
-    fixtureDef.shape = &shapePolygon;
-    fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.3f;
-    body->CreateFixture(&fixtureDef);
-}
-
-void Worm::jump()
-{
-    this->putVelocity(b2Vec2(0, 10));
-}
+//void Worm::jump()
+//{
+//    this->putVelocity(b2Vec2(0, 10));
+//}
 
 
 //czy moge robic kopie i zwracac wskaznik na te kopie??
@@ -112,7 +118,7 @@ Spring::Spring() : mj(nullptr)
 {
 }
 
-void Spring::bind(b2World* world, const DynamicObject* objB)
+void Spring::bind(b2World* world, const DynamicModel* objB)
 {
     b2BodyDef def;
     def.position.Set(1.0f, 1.0f);
@@ -139,8 +145,7 @@ void Spring::bind(b2World* world, const DynamicObject* objB)
     mjd.damping = 0.9f;
     
     mj = (b2MouseJoint*)world->CreateJoint(&mjd);
-    
-    
+       
 }
 
 

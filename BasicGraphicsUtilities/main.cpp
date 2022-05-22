@@ -14,7 +14,7 @@ int main() {
 	GR::Window wormsWindow(deltaTime);
 	//wormsWindow.setFramesPerSecond(60);
 	wormsWindow.setKeyArguments(sf::Keyboard::A, {10.0f});
-	wormsWindow.setViewBorder(-1000.0f, -1000.0f, 2000.0f, 2000.0f);
+	wormsWindow.setViewBorder(0, 0.0f, 1920.0f, 1080.0f);
 	wormsWindow.setView(-1000.0f, -1000.0f, 2000.0f, 2000.0f); // view does not fit in viewBorder so view is set to viewBorder by default
 	wormsWindow.setZoomSpeed(4.0f);
 
@@ -22,6 +22,7 @@ int main() {
 		{300.0f, 300.0f},
 		{700.0f, 300.0f},
 		{700.0f, 700.0f},
+		{450.0f, 800.0f},
 		{300.0f, 700.0f}
 	};
 	std::vector<std::pair<float, float>> vertices2{
@@ -34,11 +35,11 @@ int main() {
 	b2World world(gravity);
 
 	b2BodyDef groundBodyDef;
-	groundBodyDef.position.Set(0.0f, -300.0f);
+	groundBodyDef.position.Set(20.0f, -10.0f);
 
 	b2Body* groundBody = world.CreateBody(&groundBodyDef);
 	b2PolygonShape groundBox;
-	groundBox.SetAsBox(1000.0f, 10.0f);
+	groundBox.SetAsBox(100.0f, 5.0f);
 	groundBody->CreateFixture(&groundBox, 0.0f);
 
 
