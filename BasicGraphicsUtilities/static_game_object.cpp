@@ -9,8 +9,10 @@ GR::StaticObject::StaticObject(const float& time, std::vector<std::pair<float, f
 		origin.x += vertices[i].first;
 		origin.y += vertices[i].second;
 	}
-	shape.setOrigin(origin.x/vertices.size(), origin.y/vertices.size());
-	shape.move(origin.x / vertices.size(), origin.y / vertices.size());
+	origin.x /= vertices.size();
+	origin.y /= vertices.size();
+	shape.setOrigin(origin.x, origin.y);
+	shape.move(origin.x, origin.y);
 }
 
 sf::Vector2f GR::StaticObject::getPosition() const {
