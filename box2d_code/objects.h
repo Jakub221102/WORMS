@@ -1,5 +1,7 @@
 #include <memory>
-#include <box2d.h>
+# include "box2d.h"
+# include <SFML/Vector2.hpp>
+#include <vector>
 
 
 class DynamicModel
@@ -17,7 +19,7 @@ public:
 
 protected:
     b2Body* body;
-    
+
     void addFixture(const b2FixtureDef*);
 
     friend class Spring;
@@ -32,14 +34,16 @@ protected:
 //Worm dziedziczy po dynamic object
 //class Worm  : public DynamicModel
 //{
+//unsigned hp
 //public:
 //    Worm(b2World& world, float new_x, float new_y);
 //    //const b2Vec2* getVertices();
-//    
+//
 //    void addWeapon();
-//    
+//
 //    void jump();
-//    
+//    unsigned GetHP() const {return hp;}
+//    void TakeDamage(unsigned damage) {hp -= damage}
 //
 //
 //protected:
@@ -55,6 +59,13 @@ class Weapon : public DynamicModel
 
 };
 
+class Grenade : public DynamicModel
+{
+public:
+    void GrenadeExplosion(vector<Worm>);
+    void putStartingVelocity(b2Body* body, float StartingX, float StartingY, sf::Vector2i mousePosition, float MouseTimeHold);
+    Grenade(b2World& world, float x, float y, sf::Vector2i mousePosition, float MouseTimeHold);
+};
 
 
 class StaticModel
