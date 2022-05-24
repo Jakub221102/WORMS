@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 #include "box2d/box2d.h"
 #include "input_manager.h"
 
@@ -9,11 +10,19 @@
 //#include "static_animated_object.h"
 //#include "dynamic_game_object.h"
 #include "dynamic_animated_object.h"
+#include "sound_manager.h"
 
 float deltaTime;
 
 int main() {
 	GR::Window wormsWindow(deltaTime);
+	GR::SoundManager sm("sounds.txt");
+	sm.setBackgroundMusic("Drakan.wav");	// Drakan.wav
+	sm.playBackgroundMusic();
+	//sm.playSound("Drakan");
+	//muzyka.openFromFile("Drakan.wav");
+	
+	//muzyka.play();
 	//wormsWindow.setFramesPerSecond(60);
 	wormsWindow.setKeyArguments(sf::Keyboard::A, {10.0f});
 	wormsWindow.setViewBorder(-1000.0f, -1000.0f, 2000.0f, 2000.0f);
