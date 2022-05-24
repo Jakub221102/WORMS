@@ -2,11 +2,13 @@
 #include <iostream>
 
 #include "SFML/Graphics.hpp"
-//#include "box2d/box2d.h"
+#include "box2d/box2d.h"
 #include "input_manager.h"
 
 #include "window.h"
-#include "static_animated_object.h"
+//#include "static_animated_object.h"
+//#include "dynamic_game_object.h"
+#include "dynamic_animated_object.h"
 
 float deltaTime;
 
@@ -41,8 +43,8 @@ int main() {
 	groundBox.SetAsBox(1000.0f, 10.0f);
 	groundBody->CreateFixture(&groundBox, 0.0f);
 
-
-	GR::DynamicObject obj(world, deltaTime, vertices, "pingwin.png");
+	//GR::DynamicAnimatedObject object(world, deltaTime, vertices, "pingwin.png");
+	//GR::DynamicObject obj(world, deltaTime, vertices, "pingwin.png");
 	GR::DynamicObject ob(world, deltaTime, vertices2, "pingwin.png");
 	//obj.putVelocity(-10000000.0f, -10.0f);
 	//obj.addAnimation("IDLE", "pingwin.png", 4, 4.0f);
@@ -54,16 +56,23 @@ int main() {
 	//obj.setPosition({ 0.0f, 0.0f });
 	float global = 0.0f;
 	//obj.setScale({ 1.5f, 1.5f });
+	GR::DynamicAnimatedObject object(world, deltaTime, vertices, "pingwin.png");
+	object.addAnimation("IDLE", "pingwin.png", 4, 4.0f);
+	object.addAnimation("WORM", "robole.png", 4, 3.0f);
+	object.setCurrentAnimation("IDLE");
 	while (!wormsWindow.isDone()) {
 		deltaTime = ck.restart().asSeconds();
 		wormsWindow.setBackGroundColor(200, 200, 200);
-		obj.update();
+		//obj.update();
 		ob.update();
+		object.update();
 		//obj.rotate(deltaTime);
 		wormsWindow.update();							// 10 is a random value for now
+		std::cout << wormsWindow.getMouseWorldCoords().x << ' ' << wormsWindow.getMouseWorldCoords().y << std::endl;
 		//std::cout << wormsWindow.getMouseWorldCoords().x << ' ' << wormsWindow.getMouseWorldCoords().y << std::endl;
-		wormsWindow.draw(obj);
+		//wormsWindow.draw(obj);
 		wormsWindow.draw(ob);
+		wormsWindow.draw(object);
 		wormsWindow.endDraw();
 		world.Step(deltaTime, 6, 2);
 	}

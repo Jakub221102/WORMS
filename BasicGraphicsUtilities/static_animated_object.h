@@ -1,10 +1,12 @@
 #pragma once
 
 #include "animation.h"
-#include "static_game_object.h"
+#include <unordered_map>
+#include "dynamic_game_object.h"
+
 
 namespace GR {
-	class StaticAnimatedObject : public GR::StaticObject {
+	class StaticAnimatedObject : public virtual StaticObject {
 	protected:
 		Animation* animation = nullptr;
 		std::unordered_map<std::string, Animation> animations;
