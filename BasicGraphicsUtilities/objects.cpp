@@ -11,7 +11,6 @@ DynamicModel::DynamicModel(b2World& world, float new_x, float new_y, b2Vec2 vert
     b2PolygonShape shapePolygon;
     shapePolygon.Set(vertices, numberOfVertices);
     body->CreateFixture(&shapePolygon, 1);
-
 }
 
 
