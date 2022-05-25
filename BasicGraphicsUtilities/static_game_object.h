@@ -41,14 +41,14 @@ namespace GR {
 
 	class DynamicObject : public StaticObject {
 	protected:
-		std::unique_ptr<DynamicModel> box2dModel;
 	public:
+		std::unique_ptr<DynamicModel> box2dModel;
 		DynamicObject(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path) 
 			:StaticObject(time, vertices, texture_path) {
 			float x = origin.x, y = origin.y;
 			b2Vec2* verts = new b2Vec2[vertices.size()];
 			for (int i = 0; i < vertices.size(); i++) {
-				verts[vertices.size()-i-1] = sfmlToBox(vertices[i], origin.x, origin.y);
+				verts[i] = sfmlToBox(vertices[vertices.size()-i-1], origin.x, origin.y);
 			}
 			std::pair<float, float> pOrigin = { x, y };
 			b2Vec2 boxOrigin = sfmlToBox(pOrigin);

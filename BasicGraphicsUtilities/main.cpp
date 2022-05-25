@@ -21,9 +21,9 @@ int main() {
 	std::vector<std::pair<float, float>> vertices {
 		{300.0f, 300.0f},
 		{700.0f, 300.0f},
-		{700.0f, 700.0f},
-		{450.0f, 800.0f},
-		{300.0f, 700.0f}
+		{700.0f, 900.0f},
+		//{550.0f, 900.0f},
+		{300.0f, 900.0f}
 	};
 	std::vector<std::pair<float, float>> vertices2{
 		{500.0f, 60.0f},
@@ -35,7 +35,7 @@ int main() {
 	b2World world(gravity);
 
 	b2BodyDef groundBodyDef;
-	groundBodyDef.position.Set(20.0f, -10.0f);
+	groundBodyDef.position.Set(10.0f, -10.0f);
 
 	b2Body* groundBody = world.CreateBody(&groundBodyDef);
 	b2PolygonShape groundBox;
@@ -66,6 +66,13 @@ int main() {
 		wormsWindow.draw(obj);
 		wormsWindow.draw(ob);
 		wormsWindow.endDraw();
+		int a;
+		//std::cin >> a
+		b2Vec2 pos = obj.box2dModel->getPosition();
+		if (pos.y < 0)
+		{
+			obj.box2dModel->transform({ 0, 10 });
+		}
 		world.Step(deltaTime, 6, 2);
 	}
 	return 0;

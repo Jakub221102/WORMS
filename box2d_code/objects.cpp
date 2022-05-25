@@ -52,6 +52,11 @@ const b2Shape* DynamicModel::getShape(int idx = 0)
     return shape;
 }
 
+float DynamicModel::getRotationSpeed() const
+{
+    return body->GetAngularVelocity();
+}
+
 
 
 //mozna ustawic pozycje ciala w zupelnie nowym miejscu i pod innym katem
@@ -59,6 +64,18 @@ void DynamicModel::setNewPosition(const b2Vec2& position, float angle)
 {
     body->SetTransform(position, angle);
 }
+
+void DynamicModel::transform(const b2Vec2& newPosition)
+{
+    b2Vec2 pos = getPosition();
+    setNewPosition(pos + newPosition, getAngle());
+}
+
+void DynamicModel::setRotationSpeed(float speed)
+{
+    body->SetAngularVelocity(speed);
+}
+
 
 //nadaje predkosc cialu
 void DynamicModel::putVelocity(const b2Vec2 vec)
@@ -157,63 +174,64 @@ void Spring::update(b2Vec2& vec)
 }
 
 
-Grenade::Grenade(b2World& world, float x, float y, sf::Vector2i mousePosition, float MouseTimeHold)
-{
-    const float circleSize = 1;
-    b2BodyDef def;
-    def.type = b2_dynamicBody;
-    def.position.Set(x, y);
-    body = world.CreateBody(&def);
-    b2CircleShape circleShape;
-    circleShape.m_radius= circleSize;
-    body->CreateFixture(&circleShape, 1);
-    putStartingVelocity(body, x, y, sf::Vector2i mousePosition, MouseTimeHold);
-
-}
+//Grenade::Grenade(b2World& world, float x, float y, sf::Vector2i mousePosition, float MouseTimeHold)
+//{
+//    const float circleSize = 1;
+//    b2BodyDef def;
+//    def.type = b2_dynamicBody;
+//    def.position.Set(x, y);
+//    body = world.CreateBody(&def);
+//    b2CircleShape circleShape;
+//    circleShape.m_radius= circleSize;
+//    body->CreateFixture(&circleShape, 1);
+//    putStartingVelocity(body, x, y, sf::Vector2i mousePosition, MouseTimeHold);
+//
+//}
 //Sets startin velocity to grenade(based on worm position, mouse clicked position and time of clicking)
-void Grenade::putStartingVelocity(b2Body* body, float StartingX, float StartingY, sf::Vector2i mousePosition, float MouseTimeHold)
-{
-    if (MouseTimeHold < 0) { throw std::invalid_argument("Given time is incorrect"); }
-    if (MouseTimeHold > 1.5) { MouseTimeHold = 1.5; }
-    float maxStartingVelLen = 10;
-    float maxHoldingTime = 1.5;
 
-    float mouseClickedY = mousePosition.y;
-    float mouseClickedX = mousePosition.x;
-
-    float DistanceX = mouseClickedX - StartingX;
-    float DistanceY = mouseClickedY - StartingY;
-
-    float ClickedVecLen = sqrt(pow(DistanceX, 2) + pow(DistanceY, 2));
-
-    float VelY = (maxStartingVelLen * DistanceY) / ClickedVecLen;
-    float VelX = (maxStartingVelLen * DistanceX) / ClickedVecLen;
-
-    b2Vec2 StartingVelVec;
-    StartingVelVec.x = (VelX * MouseTimeHold) / maxHoldingTime;
-    StartingVelVec.y = (VelY * MouseTimeHold) / maxHoldingTime;
-    body->SetLinearVelocity(StartingVelVec);
-}
-
-void Grenade::GrenadeExplosion(vector<Worm> WormList)
-{
-    b2Vec2 position = getPosition();
-    float posX = position.x;
-    float posY = position.y;
-    float DistanceScale = 5;
-    for (const auto& Worm : WormList)
-    {
-        b2Vec2 wormPos = Worm.getPosition();
-        float WormDistance = sqrt(pow(posX - wormPos.x, 2) + pow(posY - wormPos.y, 2));
-        if (WormDistance < DistanceScale * 6) { Worm.TakeDamage(10); }
-        if (WormDistance < DistanceScale * 4) { Worm.TakeDamage(10); }
-        if (WormDistance < DistanceScale * 2)
-        {
-            Worm.TakeDamage(10);
-            //to sie ulepszy pzdr600
-            b2Vec2 RecoilVel((wormPos.x - posX)/2, 0);
-            Worm.putVelocity(RecoilVel);
-        }
-        if (WormDistance < DistanceScale * 1) { Worm.TakeDamage(10); }
-    }
-}
+//void Grenade::putStartingVelocity(b2Body* body, float StartingX, float StartingY, sf::Vector2i mousePosition, float MouseTimeHold)
+//{
+//    if (MouseTimeHold < 0) { throw std::invalid_argument("Given time is incorrect"); }
+//    if (MouseTimeHold > 1.5) { MouseTimeHold = 1.5; }
+//    float maxStartingVelLen = 10;
+//    float maxHoldingTime = 1.5;
+//
+//    float mouseClickedY = mousePosition.y;
+//    float mouseClickedX = mousePosition.x;
+//
+//    float DistanceX = mouseClickedX - StartingX;
+//    float DistanceY = mouseClickedY - StartingY;
+//
+//    float ClickedVecLen = sqrt(pow(DistanceX, 2) + pow(DistanceY, 2));
+//
+//    float VelY = (maxStartingVelLen * DistanceY) / ClickedVecLen;
+//    float VelX = (maxStartingVelLen * DistanceX) / ClickedVecLen;
+//
+//    b2Vec2 StartingVelVec;
+//    StartingVelVec.x = (VelX * MouseTimeHold) / maxHoldingTime;
+//    StartingVelVec.y = (VelY * MouseTimeHold) / maxHoldingTime;
+//    body->SetLinearVelocity(StartingVelVec);
+//}
+//
+//void Grenade::GrenadeExplosion(vector<Worm> WormList)
+//{
+//    b2Vec2 position = getPosition();
+//    float posX = position.x;
+//    float posY = position.y;
+//    float DistanceScale = 5;
+//    for (const auto& Worm : WormList)
+//    {
+//        b2Vec2 wormPos = Worm.getPosition();
+//        float WormDistance = sqrt(pow(posX - wormPos.x, 2) + pow(posY - wormPos.y, 2));
+//        if (WormDistance < DistanceScale * 6) { Worm.TakeDamage(10); }
+//        if (WormDistance < DistanceScale * 4) { Worm.TakeDamage(10); }
+//        if (WormDistance < DistanceScale * 2)
+//        {
+//            Worm.TakeDamage(10);
+//            //to sie ulepszy pzdr600
+//            b2Vec2 RecoilVel((wormPos.x - posX)/2, 0);
+//            Worm.putVelocity(RecoilVel);
+//        }
+//        if (WormDistance < DistanceScale * 1) { Worm.TakeDamage(10); }
+//    }
+//}
