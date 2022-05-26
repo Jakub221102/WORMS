@@ -54,3 +54,15 @@ void GR::StaticObject::translate(const sf::Vector2f& translation) {
 sf::Drawable& GR::StaticObject::getShape() {
 	return shape;
 }
+
+b2Vec2 sfmlToBox(std::pair<float, float>& vec, float x, float y)
+{
+	b2Vec2 resultVec((vec.first - x) / 100, (vec.second - y) / 100);
+	return resultVec;
+}
+
+sf::Vector2f boxToSfml(b2Vec2& vec, float x, float y)
+{
+	sf::Vector2f resultVec(vec.x * 100 + x, vec.y * 100 + y);
+	return resultVec;
+}
