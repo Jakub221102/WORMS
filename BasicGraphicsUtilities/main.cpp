@@ -3,7 +3,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "SFML/Audio.hpp"
-#include "box2d/box2d.h"
+#include "box2d.h"
 #include "input_manager.h"
 
 #include "window.h"
