@@ -11,6 +11,9 @@
 #include <iostream>
 #include <cmath>
 
+b2Vec2 sfmlToBox(std::pair<float, float>&, float x = 0, float y = 0);
+sf::Vector2f boxToSfml(b2Vec2&, float x = 0, float y = 0);
+
 namespace GR {
 	class StaticObject {
 	protected:
@@ -28,7 +31,6 @@ namespace GR {
 		void setRotation(float angle);
 		void setScale(const sf::Vector2f& scale);
 		void setScale(float x, float y);
-
 		void rotate(float angle);
 		void translate(const sf::Vector2f& translation);
 		void translate(float x, float y);

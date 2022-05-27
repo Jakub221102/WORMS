@@ -17,7 +17,7 @@ GR::SoundManager::SoundManager(const std::string& filepath)
 void GR::SoundManager::playSound(const std::string& soundName)  {
 	auto iterator = sounds.find(soundName);
 	if (iterator == sounds.end()) {
-		std::cout << "Could no find " << iterator->first << " in the library!" << std::endl;
+		std::cout << "Could not find " << iterator->first << " in the library!" << std::endl;
 		return;
 	}
 	iterator->second.play();
@@ -28,5 +28,6 @@ void GR::SoundManager::setBackgroundMusic(const std::string& musicPath) {
 }
 
 void GR::SoundManager::playBackgroundMusic() {
+	backGroundMusic.setLoop(true);
 	backGroundMusic.play();
 }
