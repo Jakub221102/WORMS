@@ -63,6 +63,7 @@ namespace GR {
 
 		void draw(GR::StaticObject& drawable);
 		sf::FloatRect viewRectangle(sf::View view) const;
+		sf::FloatRect getViewRect() const;
 		void toggleFullScreen();
 		void close();
 		void upscaleResolution();
@@ -70,6 +71,7 @@ namespace GR {
 		void setMultisamplingLevel(unsigned int level);
 		bool setView(float x, float y, float w, float h);
 		void zoom(float scale);
+		float getZoom() const;
 		void setZoomSpeed(float speed);
 		void setViewBorder(float left, float top, float width, float height);
 	};
