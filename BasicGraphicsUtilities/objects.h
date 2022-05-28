@@ -2,7 +2,6 @@
 #include "box2d/box2d.h"
 #include <SFML/System.hpp>
 #include <vector>
->>>>>>> 03def1ef8f247f38a708dda4245b5a956afe303e
 
 using std::vector;
 
