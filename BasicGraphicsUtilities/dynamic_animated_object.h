@@ -1,4 +1,6 @@
+#pragma once
 #include "static_animated_object.h"
+#include "dynamic_game_object.h"
 
 namespace GR {
 	class DynamicAnimatedObject : public DynamicObject, public StaticAnimatedObject {
