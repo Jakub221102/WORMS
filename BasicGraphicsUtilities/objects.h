@@ -1,5 +1,5 @@
 #include <memory>
-#include "box2d/box2d.h"
+#include "box2d.h"
 #include <SFML/System.hpp>
 #include <vector>
 
