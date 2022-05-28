@@ -2,7 +2,7 @@
 
 #include "animation.h"
 #include <unordered_map>
-#include "dynamic_game_object.h"
+#include "static_game_object.h"
 
 
 namespace GR {

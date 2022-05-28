@@ -1,3 +1,4 @@
+#pragma once
 #include "SFML/Graphics.hpp"
 
 #include "texture.h"
@@ -11,8 +12,6 @@
 #include <iostream>
 #include <cmath>
 
-b2Vec2 sfmlToBox(std::pair<float, float>&, float x = 0, float y = 0);
-sf::Vector2f boxToSfml(b2Vec2&, float x = 0, float y = 0);
 
 namespace GR {
 	class StaticObject {

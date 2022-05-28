@@ -177,3 +177,12 @@ void GR::Window::setViewBorder(float left, float top, float width, float height)
 		setView(left, top, width, height);
 	vRect = viewRectangle(view);
 }
+
+float GR::Window::getZoom() const {
+	return mZoom;
+}
+
+sf::FloatRect GR::Window::getViewRect() const {
+	return viewRectangle(view);
+}
+
