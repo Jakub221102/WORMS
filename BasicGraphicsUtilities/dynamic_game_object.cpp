@@ -6,13 +6,6 @@ GR::DynamicObject::DynamicObject(b2World& world, const float& time, std::vector<
 	:StaticObject(time, vertices, texture_path) {
 	float x = origin.x, y = origin.y;
 	b2Vec2* verts = new b2Vec2[vertices.size()];
-	float maxHeight = { std::numeric_limits<float>::min() }, minHeight = { std::numeric_limits<float>::max() };
-	for (int i = 0; i < vertices.size(); i++) {
-		if (vertices[i].second < minHeight)
-			minHeight = vertices[i].second;
-		if (vertices[i].second > maxHeight)
-			maxHeight = vertices[i].second;
-	}
 
 	for (auto& element : vertices) {
 		element.second += (2.0f * (y - element.second));
