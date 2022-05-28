@@ -7,6 +7,7 @@
 
 #include "window.h"
 #include "static_animated_object.h"
+#include "dynamic_game_object.h"
 
 float deltaTime;
 
@@ -140,8 +141,6 @@ int main() {
 	GR::StaticAnimatedObject worm2p(deltaTime, vertices_worm2p, "polfront.png");
 	GR::StaticAnimatedObject worm3p(deltaTime, vertices_worm3p, "polfront.png");
 
-	//obj.putVelocity(-10000000.0f, -10.0f);
-
 	worm1s.addAnimation("WORM1S", "sovfront.png", 3, 4.0f);
 	worm1s.setCurrentAnimation("WORM1S");
 	worm2s.addAnimation("WORM2S", "sovfront.png", 3, 4.0f);
@@ -178,6 +177,7 @@ int main() {
 	while (!wormsWindow.isDone()) {
 		deltaTime = ck.restart().asSeconds();
 		wormsWindow.setBackGroundColor(200, 200, 200);
+
 		worm1s.update();
 		worm2s.update();
 		worm3s.update();
@@ -210,6 +210,7 @@ int main() {
 		wormsWindow.draw(worm1p);
 		wormsWindow.draw(worm2p);
 		wormsWindow.draw(worm3p);
+
 		wormsWindow.endDraw();
 		world.Step(deltaTime, 6, 2);
 	}
