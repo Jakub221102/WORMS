@@ -2,34 +2,27 @@
 #include <cmath>
 #include <stdexcept>
 
-//konstruktor: tworzy jedynie cialo obiektu
-DynamicModel::DynamicModel(b2World& world, float new_x, float new_y, b2Vec2 vertices[], int numberOfVertices)
-{
-    b2BodyDef def;
-    def.type = b2_dynamicBody;
-    def.position.Set(new_x, new_y);
-    body = world.CreateBody(&def);
-
-    b2PolygonShape shapePolygon;
-    shapePolygon.Set(vertices, numberOfVertices);
-    body->CreateFixture(&shapePolygon, 1);
-
-}
 
 
-b2Vec2 DynamicModel::getPosition() const
+b2Vec2 Model::getPosition() const
 {
     return body->GetPosition();
 }
 
 
-float DynamicModel::getAngle() const
+float Model::getAngle() const
 {
     return body->GetAngle();
 }
 
+
+float Model::getRotationSpeed() const
+{
+    return body->GetAngularVelocity();
+}
+
 //funkcja zwaraca fixture przypisany do ciala po indexie
-b2Fixture* DynamicModel::getFixture(int idx = 0) const
+b2Fixture* Model::getFixture(int idx = 0) const
 {
     //dopisac sprawdznaie czy wgl istniejee fixture o tym indexie
     int i = 0;
@@ -44,7 +37,7 @@ b2Fixture* DynamicModel::getFixture(int idx = 0) const
 }
 
 //zwraca shape obiekietu
-const b2Shape* DynamicModel::getShape(int idx = 0)
+const b2Shape* Model::getShape(int idx = 0)
 {
     //tez mozna dopisac sprawdzanie
     const b2Fixture* fixture = getFixture(idx);
@@ -52,49 +45,73 @@ const b2Shape* DynamicModel::getShape(int idx = 0)
     return shape;
 }
 
-float DynamicModel::getRotationSpeed() const
-{
-    return body->GetAngularVelocity();
-}
-
 
 
 //mozna ustawic pozycje ciala w zupelnie nowym miejscu i pod innym katem
-void DynamicModel::setNewPosition(const b2Vec2& position, float angle)
+void Model::setNewPosition(const b2Vec2& position, float angle)
 {
     body->SetTransform(position, angle);
 }
 
-void DynamicModel::transform(const b2Vec2& newPosition)
+void Model::transform(const b2Vec2& newPosition)
 {
     b2Vec2 pos = getPosition();
     setNewPosition(pos + newPosition, getAngle());
 }
 
-void DynamicModel::setRotationSpeed(float speed)
+void Model::setRotationSpeed(float speed)
 {
     body->SetAngularVelocity(speed);
 }
 
 
 //nadaje predkosc cialu
-void DynamicModel::putVelocity(const b2Vec2 vec)
+void Model::putVelocity(const b2Vec2 vec)
 {
     body->SetLinearVelocity(vec);
 }
 
-void DynamicModel::putForceToCenter(const b2Vec2 vec)
+void Model::putForceToCenter(const b2Vec2 vec)
 {
     body->ApplyForceToCenter(vec, true);
 }
 
 
-void DynamicModel::addFixture(const b2FixtureDef* fix)
+void Model::addFixture(const b2FixtureDef* fix)
 {
     body->CreateFixture(fix);
 }
 
 
+
+//konstruktor: tworzy jedynie cialo obiektu
+DynamicModel::DynamicModel(b2World& world, float new_x, float new_y, b2Vec2 vertices[], int numberOfVertices) : Model()
+{
+    b2BodyDef def;
+    def.type = b2_dynamicBody;
+    def.position.Set(new_x, new_y);
+    body = world.CreateBody(&def);
+
+    b2PolygonShape polygonShape;
+    polygonShape.Set(vertices, numberOfVertices);
+    body->CreateFixture(&polygonShape, 1);
+
+}
+
+StaticModel::StaticModel(b2World& world, float new_x, float new_y, b2Vec2 vertices[], int numberOfVertices)
+{
+    b2BodyDef def;
+    def.type = b2_staticBody;
+    def.position.Set(new_x, new_y);
+    body = world.CreateBody(&def);
+
+    b2ChainShape chainShape;
+    chainShape.CreateLoop(vertices, numberOfVertices);
+    body->CreateFixture(&chainShape, 1);
+}
+
+
+//towrzenie samego ksztalu ciala w klasie sfml albo przekazywanie samej definicji ciala
 
 
 

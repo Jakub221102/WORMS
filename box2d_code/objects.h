@@ -7,14 +7,12 @@ using std::vector;
 
 class Model
 {
+protected:
+    b2Body* body;
 
-};
+    void addFixture(const b2FixtureDef*);
 
-
-class DynamicModel
-{
 public:
-    DynamicModel(b2World& w, float x, float y, b2Vec2 vertices[], int numberOfVertices);        // sizeof(vertices)/sizeof(b2Vec2) = ilosc elementow
     b2Vec2 getPosition() const;
     float getAngle() const;
     b2Fixture* getFixture(int idx) const;
@@ -26,14 +24,24 @@ public:
     void setRotationSpeed(float);
     void putVelocity(const b2Vec2);
     void putForceToCenter(const b2Vec2);
+};
 
 
+class DynamicModel : public Model
+{
 protected:
-    b2Body* body;
-
-    void addFixture(const b2FixtureDef*);
-
     friend class Spring;
+
+public:
+    DynamicModel(b2World& w, float x, float y, b2Vec2 vertices[], int numberOfVertices);        // sizeof(vertices)/sizeof(b2Vec2) = ilosc elementow
+
+
+};
+
+class StaticModel : Model
+{
+public:
+    StaticModel(b2World& w, float x, float y, b2Vec2 vertices[], int numberOfVertices);
 };
 
 
@@ -78,11 +86,6 @@ class Weapon : public DynamicModel
 //    Grenade(b2World& world, float x, float y, sf::Vector2i mousePosition, float MouseTimeHold);
 //};
 
-
-class StaticModel
-{
-
-};
 
 
 class Spring
