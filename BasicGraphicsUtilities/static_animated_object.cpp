@@ -2,6 +2,7 @@
 
 GR::StaticAnimatedObject::StaticAnimatedObject(const float& time, std::vector<std::pair<float, float>> vertices, const std::string& texture_path) 
 	: StaticObject(time, vertices, texture_path) {
+
 }
 
 void GR::StaticAnimatedObject::update() {

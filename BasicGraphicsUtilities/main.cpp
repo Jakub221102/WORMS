@@ -19,11 +19,11 @@ int main() {
 	wormsWindow.setView(960.0f, 540.0f, 960.0f, 540.0f); // view does not fit in viewBorder so view is set to viewBorder by default
 	wormsWindow.setZoomSpeed(200.0f);
 
-	std::vector<std::pair<float, float>> vertices {
-		{300.0f, 300.0f},
-		{700.0f, 300.0f},
-		{700.0f, 700.0f},
-		{300.0f, 700.0f}
+	std::vector<std::pair<float, float>> vertices_background{
+		{960.0f, 540.0f},
+		{1920.0f, 540.0f},
+		{1920.0f, 1080.0f},
+		{960.0f, 1080.0f}
 	};
 
 	std::vector<std::pair<float, float>> vertices_worm1s{
@@ -114,11 +114,11 @@ int main() {
 	b2World world(gravity);
 
 	b2BodyDef groundBodyDef;
-	groundBodyDef.position.Set(0.0f, -300.0f);
+	groundBodyDef.position.Set(700.0f, -600.0f);
 
 	b2Body* groundBody = world.CreateBody(&groundBodyDef);
 	b2PolygonShape groundBox;
-	groundBox.SetAsBox(1000.0f, 10.0f);
+	groundBox.SetAsBox(800.0f, 1.0f);
 	groundBody->CreateFixture(&groundBox, 0.0f);
 
 	GR::StaticObject sky(deltaTime, vertices_background, "niebo.png");
@@ -212,13 +212,6 @@ int main() {
 		wormsWindow.draw(worm3p);
 
 		wormsWindow.endDraw();
-		int a;
-		//std::cin >> a
-		b2Vec2 pos = obj.box2dModel->getPosition();
-		if (pos.y < 0)
-		{
-			obj.box2dModel->transform({ 0, 10 });
-		}
 		world.Step(deltaTime, 6, 2);
 	}
 	return 0;

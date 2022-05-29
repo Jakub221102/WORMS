@@ -1,8 +1,15 @@
+#pragma once
 #include <memory>
 # include "box2d.h"
 # include <SFML/System.hpp>
 #include <vector>
 using std::vector;
+
+class Model
+{
+
+};
+
 
 class DynamicModel
 {
