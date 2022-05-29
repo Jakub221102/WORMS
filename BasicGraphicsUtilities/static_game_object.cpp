@@ -1,4 +1,5 @@
 #include "static_game_object.h"
+#include "window.h"
 
 
 GR::StaticObject::StaticObject(const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path)
@@ -66,3 +67,18 @@ sf::Vector2f boxToSfml(b2Vec2& vec, float x, float y)
 	sf::Vector2f resultVec(vec.x * 100 + x, vec.y * 100 + y);
 	return resultVec;
 }
+
+void GR::StaticObject::attachText(GR::Text& tekst) {
+	text = &tekst;
+}
+
+sf::Text& GR::StaticObject::getText(){
+	return text->getText();
+}
+
+std::string GR::StaticObject::getString() const {
+	if(text)
+		return text->getString();
+	return "";
+}
+

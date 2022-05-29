@@ -20,18 +20,11 @@ void GR::Animation::setAnimation(const std::string& filePath, int count, float t
 	for (int i = 0; i < count; i++) 
 		leftBorders.push_back(i * texture.getSize().x / count);
 }
-#include <iostream>
 
 void GR::Animation::updateAnimation(float deltaTime, sf::Shape& object) {
 	animationTime += deltaTime;
 	animationTime -= std::floor(animationTime / totalTime) * totalTime;
 	counter = floor(animationTime / totalTime * count);
-	/*while (animationTime > totalTime) animationTime -= totalTime;
-	for (int i = 0; i < count; i++) {
-		if (t <= animationTime && animationTime <= t + timeStep) counter = i;
-		t += timeStep;
-	}
-	counter %= count;*/
 	sf::IntRect rectangle{leftBorders[counter], 0, width, heigth};
 	object.setTextureRect(rectangle);
 }

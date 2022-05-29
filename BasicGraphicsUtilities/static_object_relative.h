@@ -6,6 +6,7 @@
 namespace GR {
 	class RelativeStaticObject : public GR::StaticObject {
 		sf::Vector2f translation;
+		sf::Vector2f textTranslation;
 		GR::Window* winPointer;
 		float* zoom;
 	public:

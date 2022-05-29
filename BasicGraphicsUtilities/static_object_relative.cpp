@@ -25,3 +25,4 @@ void GR::RelativeStaticObject::setRelativeVector(float x, float y) {
 void GR::RelativeStaticObject::setRelativeVector(const sf::Vector2f& translation) {
 	this->translation = { translation.x, translation.y };
 }
+

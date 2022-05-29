@@ -1,6 +1,7 @@
 #include "objects.h"
 #include <cmath>
 #include <stdexcept>
+#include <limits>
 
 //konstruktor: tworzy jedynie cialo obiektu
 DynamicModel::DynamicModel(b2World& world, float new_x, float new_y, b2Vec2 vertices[], int numberOfVertices)
@@ -13,7 +14,6 @@ DynamicModel::DynamicModel(b2World& world, float new_x, float new_y, b2Vec2 vert
     b2PolygonShape shapePolygon;
     shapePolygon.Set(vertices, numberOfVertices);
     body->CreateFixture(&shapePolygon, 1);
-
 }
 
 

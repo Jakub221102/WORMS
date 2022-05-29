@@ -135,6 +135,8 @@ sf::Vector2u GR::Window::getWindowSize() const {
 
 void GR::Window::draw(GR::StaticObject& drawable) {
 	window.draw(drawable.getShape());
+	if (drawable.getString() != "")
+		window.draw(drawable.getText());
 }
 
 void GR::Window::setMultisamplingLevel(unsigned int level) {

@@ -10,13 +10,10 @@ GR::DynamicObject::DynamicObject(b2World& world, const float& time, std::vector<
 	for (auto& element : vertices) {
 		element.second += (2.0f * (y - element.second));
 	}
-		///
 	for (int i = 0; i < vertices.size(); i++) {
 		//verts[i] = sfmlToBox(vertices[vertices.size() - i - 1], origin.x, origin.y);
 		verts[i] = { vertices[i].first - x, vertices[i].second - y };
 	}
-	//b2Vec2 verts[4] = { b2Vec2(-2, 1), b2Vec2(-2, -1), b2Vec2(2, -1), b2Vec2(2, 1) };
-
 	box2dModel = std::make_unique<DynamicModel>(world, x, y, verts, vertices.size());
 	delete[] verts;
 }
@@ -31,7 +28,6 @@ void GR::DynamicObject::putVelocity(const sf::Vector2f& vec) {
 
 void GR::DynamicObject::update() {
 	b2Vec2 position = box2dModel->getPosition();
-
 	static_cast<StaticObject&>(*this).setPosition(position.x, -position.y);
 	float degreeAngle = -box2dModel->getAngle() * 180.0f / PI;
 	static_cast<StaticObject&>(*this).setRotation(degreeAngle);
