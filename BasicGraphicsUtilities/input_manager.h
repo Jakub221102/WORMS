@@ -84,7 +84,7 @@ namespace GR {
 
 	template<class Scope, class KeyType>
 	void RealTimeInputManager<Scope, KeyType>::removeBinding(KeyType keyCode) {
-		keyBindings.erase(keyCode);
+		std::remove_if(keyBindings.begin(), keyBindings.end(), [&](const std::pair<KeyType, void (Scope::*)()> a) {return a.first == keyCode; });
 		arguments.erase(keyCode);
 	}
 
@@ -124,7 +124,7 @@ namespace GR {
 		}
 	}
 }
-
+#include <iostream>
 namespace GR {
 	template<class Scope, class KeyType>
 	class RealTimeKeyboardManager : public RealTimeInputManager<Scope, KeyType> {
@@ -135,8 +135,9 @@ namespace GR {
 	template<class Scope, class KeyType>
 	void RealTimeKeyboardManager<Scope, KeyType>::listenAndUseAllKeys(Scope& object) {
 		for (auto& el : this->keyBindings) {
-			if (sf::Keyboard::isKeyPressed(el.first))
+			if (sf::Keyboard::isKeyPressed(el.first)) {
 				(object.*(el.second))();
+			}
 		}
 	}
 }
