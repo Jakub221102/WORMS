@@ -10,11 +10,11 @@ GR::StaticPhysicalObject::StaticPhysicalObject(b2World& world, const float& time
 	}
 	for (int i = 0; i < vertices.size(); i++) {
 		//verts[i] = sfmlToBox(vertices[vertices.size() - i - 1], origin.x, origin.y);
-		verts[i] = { vertices[i].first - x, vertices[i].second - y };
+		verts[i] = { vertices[i].first - x, -(vertices[i].second - y) };
 	}
 	box2dModel = std::make_unique<StaticModel>(world, x, -y, verts, vertices.size());
 	delete[] verts;
-	b2Vec2 position = box2dModel->getPosition();
+	//b2Vec2 position = box2dModel->getPosition();
 	//static_cast<StaticObject&>(*this).setPosition(position.x, -position.y);
 	//float degreeAngle = box2dModel->getAngle() * 180.0f / PI;
 	//static_cast<StaticObject&>(*this).setRotation(degreeAngle);

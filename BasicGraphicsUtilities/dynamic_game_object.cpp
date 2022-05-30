@@ -7,14 +7,14 @@ GR::DynamicObject::DynamicObject(b2World& world, const float& time, std::vector<
 	float x = origin.x, y = origin.y;
 	b2Vec2* verts = new b2Vec2[vertices.size()];
 
-	for (auto& element : vertices) {
+	/*for (auto& element : vertices) {
 		element.second += (2.0f * (y - element.second));
-	}
+	}*/
 	for (int i = 0; i < vertices.size(); i++) {
 		//verts[i] = sfmlToBox(vertices[vertices.size() - i - 1], origin.x, origin.y);
-		verts[i] = { vertices[i].first - x, vertices[i].second - y };
+		verts[i] = { vertices[i].first - x, -(vertices[i].second - y) };
 	}
-	box2dModel = std::make_unique<DynamicModel>(world, x, y, verts, vertices.size());
+	box2dModel = std::make_unique<DynamicModel>(world, x, -y, verts, vertices.size());
 	delete[] verts;
 }
 
