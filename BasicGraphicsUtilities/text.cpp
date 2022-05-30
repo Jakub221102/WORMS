@@ -46,3 +46,11 @@ bool GR::operator==(const GR::Text& first, const GR::Text& second)
 sf::Text& GR::Text::getText() {
 	return text;
 }
+
+sf::Vector2f GR::Text::getTranslation() {
+	return translation;
+}
+
+void GR::Text::setOrigin(float x, float y) {
+	text.setOrigin(x, y);
+}

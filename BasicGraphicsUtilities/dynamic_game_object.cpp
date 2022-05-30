@@ -31,6 +31,10 @@ void GR::DynamicObject::update() {
 	static_cast<StaticObject&>(*this).setPosition(position.x, -position.y);
 	float degreeAngle = -box2dModel->getAngle() * 180.0f / PI;
 	static_cast<StaticObject&>(*this).setRotation(degreeAngle);
+	if (text) {
+		sf::Vector2f translation = text->getTranslation();
+		text->setPosition(position.x + translation.x, -position.y + translation.y);
+	}
 	//std::cout << "BOX2D: " << position.x << ' ' << position.y << std::endl;
 	//std::cout << "SFML: " << shape.getPosition().x << ' ' << shape.getPosition().y << std::endl;
 }

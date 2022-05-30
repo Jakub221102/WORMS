@@ -17,6 +17,8 @@ namespace GR {
 		void setRelativeTranslation(float x, float y);
 		void setPosition(float x, float y);
 		void setCharackterSize(unsigned int size);
+		void setOrigin(float x, float y);
+		sf::Vector2f getTranslation();
 		std::string getString() const;
 		sf::Text& getText();
 		friend bool operator==(const GR::Text& first, const GR::Text& second);

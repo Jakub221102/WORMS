@@ -15,6 +15,14 @@ void GR::RelativeStaticObject::update() {
 		sf::Vector2f topLeft = { viewRect.left, viewRect.top };
 		setScale(zoom, zoom);
 		setPosition(topLeft + zoom * translation);
+		sf::Vector2f position = getPosition();
+		//if (text) {
+		//	sf::Vector2f translation = text->getTranslation();
+		//	sf::Vector2f expression = { topLeft.x + zoom * translation.x  , topLeft.y + zoom * translation.y };
+		//	text->setPosition(expression.x, expression.y);
+		//	//text->setOrigin(expression.x, expression.y);
+		//	text->setScale(zoom, zoom);
+		//}
 	}
 }
 
