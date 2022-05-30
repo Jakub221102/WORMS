@@ -9,6 +9,7 @@
 #include "static_animated_object.h"
 #include "static_object_relative.h"
 #include "dynamic_game_object.h"
+#include "static_physical_object.h"
 #include "worm.h"
 
 float deltaTime;
@@ -40,22 +41,20 @@ int main() {
 	};
 
 	std::vector<std::pair<float, float>> terrain{
-		{140, 60.0f},
-		{600.0f, 60.0f},
-		{600.0f, 140.0f},
-		{140.0f, 140.0f}
+		{600.0f, 700.0f},
+		{600.0f, 800.0f},
+		{0.0f, 800.0f},
+		{0, 700.0f}
 	};
 
 
 	std::vector<std::pair<float, float>> vertices3{
-		{400.0f, -100.0f * sqrt(3) - 200.0f},
-
-
+		{400.0f, 100.0f * sqrt(3) + 50.0f},
 		//{500.0f, -200.0f},
 		//{400.0f, -200.0f},
-		{350.0f, -50.0f * sqrt(3) - 200.0f},
-		{550.0f, -50.0f * sqrt(3) - 200.0f},
-		{500.0f, -100.0f * sqrt(3) - 200.0f},
+		{300.0f, 50.0f * sqrt(3) + 200.0f},
+		{600.0f, 50.0f * sqrt(3) + 200.0f},
+		{500.0f, 100.0f * sqrt(3) + 50.0f},
 		//{400.0f, -100.0f * sqrt(3) - 200.0f},
 		//{500.0f, -100.0f * sqrt(3)- 200.0f},
 		//{550.0f, -50.0f * sqrt(3) - 200.0f},
@@ -66,16 +65,17 @@ int main() {
 	b2Vec2 gravity(0.0f, -10.0f);
 	b2World world(gravity);
 
-	b2BodyDef groundBodyDef;
+	/*b2BodyDef groundBodyDef;
 	groundBodyDef.position.Set(700.0f, -600.0f);
 
 	b2Body* groundBody = world.CreateBody(&groundBodyDef);
 	b2PolygonShape groundBox;
 	groundBox.SetAsBox(800.0f, 1.0f);
-	groundBody->CreateFixture(&groundBox, 0.0f);
+	groundBody->CreateFixture(&groundBox, 0.0f);*/
 
 	Worm obj(world, deltaTime, vertices2, "sovleftmarch.png");
 	Worm obje(world, deltaTime, vertices3, "sovleftmarch.txt");
+	GR::StaticPhysicalObject mTerrain(world, deltaTime, terrain, "dsaw");
 	obj.addAnimation("march", "sovleftmarch.png", 4, 3.0f);
 	obj.setCurrentAnimation("march");
 	obj.addKeyBinding(sf::Keyboard::Space, &Worm::jump, InputType::REALTIME);
@@ -111,6 +111,7 @@ int main() {
 		wormsWindow.draw(obj);
 		//wormsWindow.draw(ob);
 		wormsWindow.draw(git);
+		wormsWindow.draw(mTerrain);
 		wormsWindow.endDraw();
 		world.Step(deltaTime, 6, 2);
 
