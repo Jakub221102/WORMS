@@ -1,3 +1,4 @@
+#pragma once
 #include "objects.h"
 #include <cmath>
 #include <stdexcept>
@@ -19,6 +20,11 @@ float Model::getAngle() const
 float Model::getRotationSpeed() const
 {
     return body->GetAngularVelocity();
+}
+
+b2Vec2 Model::getVelocity()
+{
+    return body->GetLinearVelocity();
 }
 
 //funkcja zwaraca fixture przypisany do ciala po indexie
