@@ -20,13 +20,13 @@ public:
 		b2WorldManifold worldManifold;
 		contact->GetWorldManifold(&worldManifold);
 		
-		if (worldManifold.normal.y < 1.0f || worldManifold.normal.y < -1.0f)
-		{
-			contact->GetFixtureA()->GetBody()->ApplyForceToCenter({ 0, 100000000 }, 1);
+		//if (worldManifold.normal.y < 1.0f || worldManifold.normal.y < -1.0f)
+		//{
+			//contact->GetFixtureA()->GetBody()->ApplyForceToCenter({ 0, 100000000 }, 1);
 			//b2Body* bodyB = contact->GetFixtureB()->GetBody();
 			//bodyB->ApplyForceToCenter({ 0, 1000000 }, 1);
 			//contact->SetEnabled(false);
-		}
+		//}
 	}
 
 	void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)

@@ -21,6 +21,11 @@ float Model::getRotationSpeed() const
     return body->GetAngularVelocity();
 }
 
+b2Vec2 Model::getVelocity()
+{
+    return body->GetLinearVelocity();
+}
+
 //funkcja zwaraca fixture przypisany do ciala po indexie
 b2Fixture* Model::getFixture(int idx = 0) const
 {
