@@ -21,6 +21,9 @@ public:
 	void updateNoControl();
 	// Gameplay functions
 	void jump();
+	void move_right();
+	void move_left();
+	void move_down();
 
 };
 GR::RealTimeKeyboardManager<Worm, sf::Keyboard::Key> Worm::inputManager = {};
@@ -33,6 +36,21 @@ Worm::Worm(b2World& world, const float& time, std::vector<std::pair<float, float
 
 void Worm::jump() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Space);
+	putVelocity({ arguments[0], arguments[1] });
+}
+
+void Worm::move_right() {
+	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Right);
+	putVelocity({ arguments[0], arguments[1] });
+}
+
+void Worm::move_left() {
+	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Left);
+	putVelocity({ arguments[0], arguments[1] });
+}
+
+void Worm::move_down() {
+	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Down);
 	putVelocity({ arguments[0], arguments[1] });
 }
 
