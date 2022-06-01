@@ -23,6 +23,7 @@ public:
 	void jump();
 	void move_right();
 	void move_left();
+	void move_down();
 
 };
 GR::RealTimeKeyboardManager<Worm, sf::Keyboard::Key> Worm::inputManager = {};
@@ -45,6 +46,11 @@ void Worm::move_right() {
 
 void Worm::move_left() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Left);
+	putVelocity({ arguments[0], arguments[1] });
+}
+
+void Worm::move_down() {
+	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Down);
 	putVelocity({ arguments[0], arguments[1] });
 }
 
