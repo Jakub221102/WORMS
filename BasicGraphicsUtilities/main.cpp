@@ -47,21 +47,28 @@ int main() {
 		{0.0f, 1000.0f}
 	};
 
+	std::vector<std::pair<float, float>> terrain2{
+		{1001.0f, 900.0f},
+		{1500.0f, 900.0f},
+		{1500.0f, 1000.0f},
+		{1001.0f, 1000.0f}
+	};
+
 
 	std::vector<std::pair<float, float>> vertices3{
-		//{400.0f, 400.0f},
-		//{500.0f, 580.0f},
-		//{600.0f, 400.0f},
-		//{600.0f, 600.0f},
-		//{400.0f, 600.0f},
+		{400.0f, 400.0f},
+		{500.0f, 580.0f},
+		{600.0f, 400.0f},
+		{600.0f, 600.0f},
+		{400.0f, 600.0f},
 
-		{400.0f, -100.0f * sqrt(3) + 800.0f},
+		/*{400.0f, -100.0f * sqrt(3) + 800.0f},
 		{500.0f, -100.0f * sqrt(3) + 800.0f},
 		{550.0f, -150.0f * sqrt(3) + 800.0f},
 		{650.0f, -150.0f * sqrt(3) + 800.0f},
 		{700.0f, -200.0f * sqrt(3) + 800.0f},
 		{800.0f, -200.0f * sqrt(3) + 800.0f},
-		{850.0f, -150.0f * sqrt(3) + 800.0f},
+		{850.0f, -150.0f * sqrt(3) + 800.0f},*/
 		//{850.0f, -100.0f * sqrt(3) + 800.0f},
 		{850.0f, 800.0f},
 		{400.0f, 800.0f},
@@ -89,6 +96,7 @@ int main() {
 	Worm obj(world, deltaTime, vertices2, "sovleftmarch.png");
 	/*Worm obje(world, deltaTime, vertices3, "sov");*/
 	GR::StaticPhysicalObject mTerrain(world, deltaTime, terrain, "dsaw");
+	GR::StaticPhysicalObject m2Terrain(world, deltaTime, terrain2, "dsaw");
 	obj.addAnimation("march", "sovleftmarch.png", 4, 3.0f);
 	obj.setCurrentAnimation("march");
 	obj.addKeyBinding(sf::Keyboard::Space, &Worm::jump, InputType::REALTIME);
@@ -131,6 +139,7 @@ int main() {
 		//wormsWindow.draw(ob);
 		//wormsWindow.draw(git);
 		wormsWindow.draw(mTerrain);
+		wormsWindow.draw(m2Terrain);
 		wormsWindow.endDraw();
 		world.Step(deltaTime, 6, 2);
 
