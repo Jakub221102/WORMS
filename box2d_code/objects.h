@@ -45,38 +45,8 @@ public:
 };
 
 
-////////////////////////////////////////////////////
-//Worm
-////////////////////////////////////////////////////
 
 
-//Worm dziedziczy po dynamic object
-//class Worm  : public DynamicModel
-//{
-//unsigned hp
-//public:
-//    Worm(b2World& world, float new_x, float new_y);
-//    //const b2Vec2* getVertices();
-//
-//    void addWeapon();
-//
-//    void jump();
-//    unsigned GetHP() const {return hp;}
-//    void TakeDamage(unsigned damage) {hp -= damage}
-//
-//
-//protected:
-//    b2PolygonShape shapePolygon;
-//    b2FixtureDef fixtureDef;
-//
-//    bool isOnGround();
-//};
-
-
-class Weapon : public DynamicModel
-{
-
-};
 
 //class Grenade : public DynamicModel
 //{
