@@ -1,6 +1,5 @@
 #pragma once
-
-#include "../BasicGraphicsUtilities/static_game_object.h"
+#include "../../BasicGraphicsUtilities/static_game_object.h"
 
 namespace GR {
 	class SampleDynamicObject : public virtual StaticObject {

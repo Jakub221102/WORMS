@@ -1,6 +1,5 @@
 #pragma once
 #include "sample_dynamic_game_object.h"
-#include "../BasicGraphicsUtilities/static_game_object.h"
 
 
 #define PI 3.14159265359f
