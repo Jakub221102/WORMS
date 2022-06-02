@@ -37,11 +37,11 @@ int main() {
 	groundBox.SetAsBox(800.0f, 1.0f);
 	groundBody->CreateFixture(&groundBox, 0.0f);*/
 
-	//Worm obj(world, deltaTime, vertices2, "sovleftmarch.png");
+	//Worm obj(world, deltaTime, vertices2, "animacje/sovleftmarch.png");
 	//GR::StaticPhysicalObject mTerrain(world, deltaTime, terrain, "dsaw");
 	//GR::StaticPhysicalObject m2Terrain(world, deltaTime, terrain2, "dsaw");
 	//GR::StaticPhysicalObject m3Terrain(world, deltaTime, vertices3, "dsaw");
-	//obj.addAnimation("march", "sovleftmarch.png", 4, 3.0f);
+	//obj.addAnimation("march", "animacje/sovleftmarch.png", 4, 3.0f);
 	//obj.setCurrentAnimation("march");
 	//obj.addKeyBinding(sf::Keyboard::Space, &Worm::jump, InputType::REALTIME);
 	//obj.setKeyArguments(sf::Keyboard::Space, {0.0f, 25.0f}, InputType::REALTIME); // pass velocity to jump method
@@ -254,43 +254,43 @@ b2PolygonShape groundBox;
 groundBox.SetAsBox(800.0f, 1.0f);
 groundBody->CreateFixture(&groundBox, 0.0f);
 
-GR::StaticObject sky(deltaTime, vertices_background, "niebo.png");
-GR::StaticObject ground(deltaTime, vertices_background, "ziemia.png");
-GR::StaticObject water(deltaTime, vertices_background, "woda.png");
+GR::StaticObject sky(deltaTime, vertices_background, "animacje/niebo.png");
+GR::StaticObject ground(deltaTime, vertices_background, "animacje/ziemia.png");
+GR::StaticObject water(deltaTime, vertices_background, "animacje/woda.png");
 
-GR::StaticPhysicalObject m1Terrain(world, deltaTime, vertices_hitbox1, "hitbox.png");
-GR::StaticPhysicalObject m2Terrain(world, deltaTime, vertices_hitbox2, "hitbox.png");
-GR::StaticPhysicalObject m3Terrain(world, deltaTime, vertices_hitbox3, "hitbox.png");
-GR::StaticPhysicalObject m4Terrain(world, deltaTime, vertices_hitbox4, "hitbox.png");
-GR::StaticPhysicalObject m5Terrain(world, deltaTime, vertices_hitbox5, "hitbox.png");
-GR::StaticPhysicalObject m6Terrain(world, deltaTime, vertices_hitbox6, "hitbox.png");
-GR::StaticPhysicalObject m7Terrain(world, deltaTime, vertices_hitbox7, "hitbox.png");
-GR::StaticPhysicalObject m8Terrain(world, deltaTime, vertices_hitbox8, "hitbox.png");
-GR::StaticPhysicalObject m9Terrain(world, deltaTime, vertices_hitbox9, "hitbox.png");
-GR::StaticPhysicalObject m10Terrain(world, deltaTime, vertices_hitbox10, "hitbox.png");
-GR::StaticPhysicalObject m11Terrain(world, deltaTime, vertices_hitbox11, "hitbox.png");
-GR::StaticPhysicalObject m12Terrain(world, deltaTime, vertices_hitbox12, "hitbox.png");
-GR::StaticPhysicalObject m13Terrain(world, deltaTime, vertices_hitbox13, "hitbox.png");
-GR::StaticPhysicalObject m14Terrain(world, deltaTime, vertices_hitbox14, "hitbox.png");
+GR::StaticPhysicalObject m1Terrain(world, deltaTime, vertices_hitbox1, "animacje/hitbox.png");
+GR::StaticPhysicalObject m2Terrain(world, deltaTime, vertices_hitbox2, "animacje/hitbox.png");
+GR::StaticPhysicalObject m3Terrain(world, deltaTime, vertices_hitbox3, "animacje/hitbox.png");
+GR::StaticPhysicalObject m4Terrain(world, deltaTime, vertices_hitbox4, "animacje/hitbox.png");
+GR::StaticPhysicalObject m5Terrain(world, deltaTime, vertices_hitbox5, "animacje/hitbox.png");
+GR::StaticPhysicalObject m6Terrain(world, deltaTime, vertices_hitbox6, "animacje/hitbox.png");
+GR::StaticPhysicalObject m7Terrain(world, deltaTime, vertices_hitbox7, "animacje/hitbox.png");
+GR::StaticPhysicalObject m8Terrain(world, deltaTime, vertices_hitbox8, "animacje/hitbox.png");
+GR::StaticPhysicalObject m9Terrain(world, deltaTime, vertices_hitbox9, "animacje/hitbox.png");
+GR::StaticPhysicalObject m10Terrain(world, deltaTime, vertices_hitbox10, "animacje/hitbox.png");
+GR::StaticPhysicalObject m11Terrain(world, deltaTime, vertices_hitbox11, "animacje/hitbox.png");
+GR::StaticPhysicalObject m12Terrain(world, deltaTime, vertices_hitbox12, "animacje/hitbox.png");
+GR::StaticPhysicalObject m13Terrain(world, deltaTime, vertices_hitbox13, "animacje/hitbox.png");
+GR::StaticPhysicalObject m14Terrain(world, deltaTime, vertices_hitbox14, "animacje/hitbox.png");
 
-GR::StaticAnimatedObject worm1s(deltaTime, vertices_worm1s, "sovfront.png");
-GR::StaticAnimatedObject worm2s(deltaTime, vertices_worm2s, "sovfront.png");
-GR::StaticAnimatedObject worm3s(deltaTime, vertices_worm3s, "sovfront.png");
+GR::StaticAnimatedObject worm1s(deltaTime, vertices_worm1s, "animacje/sovfront.png");
+GR::StaticAnimatedObject worm2s(deltaTime, vertices_worm2s, "animacje/sovfront.png");
+GR::StaticAnimatedObject worm3s(deltaTime, vertices_worm3s, "animacje/sovfront.png");
 
-GR::StaticAnimatedObject worm1g(deltaTime, vertices_worm1g, "tzegerfront.png");
-GR::StaticAnimatedObject worm2g(deltaTime, vertices_worm2g, "tzegerfront.png");
-GR::StaticAnimatedObject worm3g(deltaTime, vertices_worm3g, "tzegerfront.png");
+GR::StaticAnimatedObject worm1g(deltaTime, vertices_worm1g, "animacje/tzegerfront.png");
+GR::StaticAnimatedObject worm2g(deltaTime, vertices_worm2g, "animacje/tzegerfront.png");
+GR::StaticAnimatedObject worm3g(deltaTime, vertices_worm3g, "animacje/tzegerfront.png");
 
-GR::StaticAnimatedObject worm1b(deltaTime, vertices_worm1b, "britfront.png");
-GR::StaticAnimatedObject worm2b(deltaTime, vertices_worm2b, "britfront.png");
-//GR::StaticAnimatedObject worm3b(deltaTime, vertices_worm3b, "britfront.png");
+GR::StaticAnimatedObject worm1b(deltaTime, vertices_worm1b, "animacje/britfront.png");
+GR::StaticAnimatedObject worm2b(deltaTime, vertices_worm2b, "animacje/britfront.png");
+//GR::StaticAnimatedObject worm3b(deltaTime, vertices_worm3b, "animacje/britfront.png");
 
-GR::StaticAnimatedObject worm1p(deltaTime, vertices_worm1p, "polfront.png");
-GR::StaticAnimatedObject worm2p(deltaTime, vertices_worm2p, "polfront.png");
-GR::StaticAnimatedObject worm3p(deltaTime, vertices_worm3p, "polfront.png");
+GR::StaticAnimatedObject worm1p(deltaTime, vertices_worm1p, "animacje/polfront.png");
+GR::StaticAnimatedObject worm2p(deltaTime, vertices_worm2p, "animacje/polfront.png");
+GR::StaticAnimatedObject worm3p(deltaTime, vertices_worm3p, "animacje/polfront.png");
 
-Worm obj(world, deltaTime, vertices_worm3b, "sovleftmarch.png");
-obj.addAnimation("march", "sovleftmarch.png", 4, 3.0f);
+Worm obj(world, deltaTime, vertices_worm3b, "animacje/sovleftmarch.png");
+obj.addAnimation("march", "animacje/sovleftmarch.png", 4, 3.0f);
 obj.setCurrentAnimation("march");
 obj.addKeyBinding(sf::Keyboard::Space, &Worm::jump, InputType::REALTIME);
 obj.setKeyArguments(sf::Keyboard::Space, {0.0f, 25.0f}, InputType::REALTIME); // pass velocity to jump method
@@ -300,36 +300,36 @@ obj.addKeyBinding(sf::Keyboard::Left, &Worm::move_left, InputType::REALTIME);
 obj.setKeyArguments(sf::Keyboard::Left, {-25.0f, -10.0f }, InputType::REALTIME); // pass velocity to move method
 obj.addKeyBinding(sf::Keyboard::Down, &Worm::move_down, InputType::REALTIME);
 obj.setKeyArguments(sf::Keyboard::Down, { 0.0f, -50.0f }, InputType::REALTIME); // pass velocity to move method
-obj.addAnimation("WORM", "sovleftmarch.png", 4, 3.0f);
+obj.addAnimation("WORM", "animacje/sovleftmarch.png", 4, 3.0f);
 obj.setCurrentAnimation("WORM");
 
 
-worm1s.addAnimation("WORM1S", "sovfront.png", 3, 4.0f);
+worm1s.addAnimation("WORM1S", "animacje/sovfront.png", 3, 4.0f);
 worm1s.setCurrentAnimation("WORM1S");
-worm2s.addAnimation("WORM2S", "sovfront.png", 3, 4.0f);
+worm2s.addAnimation("WORM2S", "animacje/sovfront.png", 3, 4.0f);
 worm2s.setCurrentAnimation("WORM2S");
-worm3s.addAnimation("WORM3S", "sovfront.png", 3, 4.0f);
+worm3s.addAnimation("WORM3S", "animacje/sovfront.png", 3, 4.0f);
 worm3s.setCurrentAnimation("WORM3S");
 
-worm1g.addAnimation("WORM1G", "tzegerfront.png", 3, 4.0f);
+worm1g.addAnimation("WORM1G", "animacje/tzegerfront.png", 3, 4.0f);
 worm1g.setCurrentAnimation("WORM1G");
-worm2g.addAnimation("WORM2G", "tzegerfront.png", 3, 4.0f);
+worm2g.addAnimation("WORM2G", "animacje/tzegerfront.png", 3, 4.0f);
 worm2g.setCurrentAnimation("WORM2G");
-worm3g.addAnimation("WORM3G", "tzegerfront.png", 3, 4.0f);
+worm3g.addAnimation("WORM3G", "animacje/tzegerfront.png", 3, 4.0f);
 worm3g.setCurrentAnimation("WORM3G");
 
-worm1b.addAnimation("WORM1B", "britfront.png", 3, 4.0f);
+worm1b.addAnimation("WORM1B", "animacje/britfront.png", 3, 4.0f);
 worm1b.setCurrentAnimation("WORM1B");
-worm2b.addAnimation("WORM2B", "britfront.png", 3, 4.0f);
+worm2b.addAnimation("WORM2B", "animacje/britfront.png", 3, 4.0f);
 worm2b.setCurrentAnimation("WORM2B");
 //worm3b.addAnimation("WORM3B", "britfront.png", 3, 4.0f);
 //worm3b.setCurrentAnimation("WORM3B");
 
-worm1p.addAnimation("WORM1P", "polfront.png", 3, 4.0f);
+worm1p.addAnimation("WORM1P", "animacje/polfront.png", 3, 4.0f);
 worm1p.setCurrentAnimation("WORM1P");
-worm2p.addAnimation("WORM2P", "polfront.png", 3, 4.0f);
+worm2p.addAnimation("WORM2P", "animacje/polfront.png", 3, 4.0f);
 worm2p.setCurrentAnimation("WORM2P");
-worm3p.addAnimation("WORM3P", "polfront.png", 3, 4.0f);
+worm3p.addAnimation("WORM3P", "animacje/polfront.png", 3, 4.0f);
 worm3p.setCurrentAnimation("WORM3P");
 
 sf::Clock ck;
@@ -339,7 +339,7 @@ ck.restart();
 float global = 0.0f;
 while (!wormsWindow.isDone()) {
 	deltaTime = ck.restart().asSeconds();
-	wormsWindow.setBackGroundColor(200, 200, 200);
+	wormsWindow.setBackGroundColor(100, 100, 100);
 
 	worm1s.update();
 	worm2s.update();
