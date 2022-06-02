@@ -56,11 +56,10 @@ int main() {
 
 
 	std::vector<std::pair<float, float>> vertices3{
-		{400.0f, 400.0f},
-		{500.0f, 580.0f},
-		{600.0f, 400.0f},
-		{600.0f, 600.0f},
-		{400.0f, 600.0f},
+		{400.0f, 800.0f},
+		{500.0f, 800.0f},
+		{600.0f, 900.0f},
+		{300.0f, 900.0f},
 
 		/*{400.0f, -100.0f * sqrt(3) + 800.0f},
 		{500.0f, -100.0f * sqrt(3) + 800.0f},
@@ -70,8 +69,8 @@ int main() {
 		{800.0f, -200.0f * sqrt(3) + 800.0f},
 		{850.0f, -150.0f * sqrt(3) + 800.0f},*/
 		//{850.0f, -100.0f * sqrt(3) + 800.0f},
-		{850.0f, 800.0f},
-		{400.0f, 800.0f},
+		/*{850.0f, 800.0f},
+		{400.0f, 800.0f},*/
 		/*{350.0f, -50.0f * sqrt(3) + 900.0f},*/
 		
 		
@@ -97,6 +96,7 @@ int main() {
 	/*Worm obje(world, deltaTime, vertices3, "sov");*/
 	GR::StaticPhysicalObject mTerrain(world, deltaTime, terrain, "dsaw");
 	GR::StaticPhysicalObject m2Terrain(world, deltaTime, terrain2, "dsaw");
+	GR::StaticPhysicalObject m3Terrain(world, deltaTime, vertices3, "dsaw");
 	obj.addAnimation("march", "sovleftmarch.png", 4, 3.0f);
 	obj.setCurrentAnimation("march");
 	obj.addKeyBinding(sf::Keyboard::Space, &Worm::jump, InputType::REALTIME);
@@ -107,7 +107,7 @@ int main() {
 	obj.setKeyArguments(sf::Keyboard::Left, {-25.0f, -10.0f }, InputType::REALTIME); // pass velocity to move method
 	obj.addKeyBinding(sf::Keyboard::Down, &Worm::move_down, InputType::REALTIME);
 	obj.setKeyArguments(sf::Keyboard::Down, { 0.0f, -50.0f }, InputType::REALTIME); // pass velocity to move method
-	GR::DynamicObject obje(world, deltaTime, vertices3, "cpingwin.png");
+	//GR::DynamicObject obje(world, deltaTime, vertices3, "cpingwin.png");
 	/*GR::DynamicObject ob(world, deltaTime, vertices2, "cpingwin.png");*/
 	//GR::RelativeStaticObject git(deltaTime, vertices3, "raki");
 	//git.attachViewAndZoom(wormsWindow);
@@ -129,12 +129,12 @@ int main() {
 		wormsWindow.setBackGroundColor(200, 200, 200);
 		/*obje.updateNoControl();*/
 		obj.update();
-		obje.update();
+		//obje.update();
 		wormsWindow.update();							// 10 is a random value for now
 		//git.update();									// needs to be called after window.update()
 		//obj.rotate(deltaTime);
 		//std::cout << wormsWindow.getMouseWorldCoords().x << ' ' << wormsWindow.getMouseWorldCoords().y << std::endl;
-		wormsWindow.draw(obje);
+		wormsWindow.draw(m3Terrain);
 		wormsWindow.draw(obj);
 		//wormsWindow.draw(ob);
 		//wormsWindow.draw(git);
