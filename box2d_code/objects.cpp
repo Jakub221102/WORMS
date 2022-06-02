@@ -96,6 +96,8 @@ DynamicModel::DynamicModel(b2World& world, float new_x, float new_y, b2Vec2 vert
     b2BodyDef def;
     def.type = b2_dynamicBody;
     def.position.Set(new_x, new_y);
+    def.fixedRotation = false;
+    
     body = world.CreateBody(&def);
 
     b2PolygonShape polygonShape;

@@ -1,6 +1,6 @@
 #pragma once
 #include "static_game_object.h"
-#include "objects.h"
+#include "../box2d_code/objects.h"
 
 namespace GR {
 	class StaticPhysicalObject : public GR::StaticObject {
