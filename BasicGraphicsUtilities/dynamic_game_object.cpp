@@ -2,7 +2,7 @@
 
 #define PI 3.14159265359f
 
-GR::DynamicObject::DynamicObject(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path)
+GR::DynamicObject::DynamicObject(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, bool noRotation)
 	:StaticObject(time, vertices, texture_path) {
 	float x = origin.x, y = origin.y;
 	b2Vec2* verts = new b2Vec2[vertices.size()];
@@ -14,7 +14,7 @@ GR::DynamicObject::DynamicObject(b2World& world, const float& time, std::vector<
 		//verts[i] = sfmlToBox(vertices[vertices.size() - i - 1], origin.x, origin.y);
 		verts[i] = { vertices[i].first - x, -(vertices[i].second - y) };
 	}
-	box2dModel = std::make_unique<DynamicModel>(world, x, -y, verts, vertices.size());
+	box2dModel = std::make_unique<DynamicModel>(world, x, -y, verts, vertices.size(), noRotation);
 	delete[] verts;
 }
 

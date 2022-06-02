@@ -34,7 +34,7 @@ protected:
     friend class Spring;
 
 public:
-    DynamicModel(b2World& w, float x, float y, b2Vec2 vertices[], int numberOfVertices);        // sizeof(vertices)/sizeof(b2Vec2) = ilosc elementow
+    DynamicModel(b2World& w, float x, float y, b2Vec2 vertices[], int numberOfVertices, bool noRotation = false);        // sizeof(vertices)/sizeof(b2Vec2) = ilosc elementow
 
 
 };

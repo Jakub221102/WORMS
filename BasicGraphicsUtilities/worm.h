@@ -30,7 +30,7 @@ GR::RealTimeKeyboardManager<Worm, sf::Keyboard::Key> Worm::inputManager = {};
 GR::EventManager<Worm, sf::Keyboard::Key> Worm::eventManager = {};
 
 Worm::Worm(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path) 
-	: DynamicAnimatedObject(world, time, vertices, texture_path), StaticObject(time, vertices, texture_path){
+	: DynamicAnimatedObject(world, time, vertices, texture_path, true), StaticObject(time, vertices, texture_path){
 
 }
 
