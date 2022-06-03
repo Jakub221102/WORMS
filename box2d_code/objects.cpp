@@ -91,11 +91,13 @@ void Model::addFixture(const b2FixtureDef* fix)
 
 
 //konstruktor: tworzy jedynie cialo obiektu
-DynamicModel::DynamicModel(b2World& world, float new_x, float new_y, b2Vec2 vertices[], int numberOfVertices) : Model()
+DynamicModel::DynamicModel(b2World& world, float new_x, float new_y, b2Vec2 vertices[], int numberOfVertices, bool noRotation) : Model()
 {
     b2BodyDef def;
     def.type = b2_dynamicBody;
     def.position.Set(new_x, new_y);
+    def.fixedRotation = noRotation;
+    
     body = world.CreateBody(&def);
 
     b2PolygonShape polygonShape;

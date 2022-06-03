@@ -7,7 +7,7 @@ namespace GR {
 	protected:
 		std::unique_ptr<DynamicModel> box2dModel;
 	public:
-		DynamicObject(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path);
+		DynamicObject(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, bool noRotation = false);
 		void setRotation(float angle) = delete;
 		void setScale(float x, float y) = delete;
 		void setScale(const sf::Vector2f& scale) = delete;
