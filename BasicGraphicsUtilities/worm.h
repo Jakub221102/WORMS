@@ -10,6 +10,10 @@ enum class InputType {
 class Worm : public GR::DynamicAnimatedObject {
 	static GR::RealTimeKeyboardManager<Worm, sf::Keyboard::Key> inputManager;
 	static GR::EventManager<Worm, sf::Keyboard::Key> eventManager;
+
+private:
+	unsigned hp = 100;
+
 public:
 	Worm(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path);
     // Bindings
@@ -24,6 +28,7 @@ public:
 	void move_right();
 	void move_left();
 	void move_down();
+	void TakeDamage(unsigned damage) { hp -= damage; }
 
 };
 GR::RealTimeKeyboardManager<Worm, sf::Keyboard::Key> Worm::inputManager = {};
