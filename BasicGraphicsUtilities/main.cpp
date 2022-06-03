@@ -53,6 +53,8 @@ int main() {
 	//obj.setKeyArguments(sf::Keyboard::Down, { 0.0f, -50.0f }, InputType::REALTIME); // pass velocity to move method
 
 
+
+
 std::vector<std::pair<float, float>> vertices_background{
 	{960.0f, 540.0f},
 	{1920.0f, 540.0f},
@@ -144,6 +146,10 @@ std::vector<std::pair<float, float>> vertices_worm3p{
 	{1195.0f, 783.0f}
 };
 
+
+//FIRST ISLAND
+
+
 std::vector<std::pair<float, float>> vertices_hitbox1{
 	{1121.17f, 1050.0f},
 	{1667.35f, 1050.0f},
@@ -214,6 +220,10 @@ std::vector<std::pair<float, float>> vertices_hitbox10{
 	{1621.84f, 1023.0f},
 };
 
+
+//SECOND ISLAND
+
+
 std::vector<std::pair<float, float>> vertices_hitbox11{
 	{1039.0f, 916.0f},
 	{1023.83f, 890.0f},
@@ -230,18 +240,214 @@ std::vector<std::pair<float, float>> vertices_hitbox12{
 
 std::vector<std::pair<float, float>> vertices_hitbox13{
 	{1023.83f, 890.0f},
-	{1039.0f, 864.0f},
-	{1130.03f, 864.0f},
+	{1039.0f, 863.0f},
+	{1130.03f, 863.0f},
 	{1114.86f, 890.0f},
 };
 
 std::vector<std::pair<float, float>> vertices_hitbox14{
-	{1161.39f, 864.0f},
-	{1251.42f, 864.0f},
+	{1161.39f, 863.0f},
+	{1251.42f, 863.0f},
 	{1266.6f, 890.0f},
 	{1176.57f, 890.0f},
 	
 };
+
+std::vector<std::pair<float, float>> vertices_hitbox15{
+	{1069.34f, 863.0f},
+	{1084.52f, 837.0f},
+	{1205.89f, 837.0f},
+	{1221.06f, 863.0f},
+	
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox16{
+	{1114.86f, 837.0f},
+	{1130.03f, 811.0f},
+	{1221.06f, 811.0f},
+	{1205.89f, 837.0f},
+	
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox17{
+	{1160.37f, 811.0f},
+	{1175.55f, 785.0f},
+	{1205.89f, 785.0f},
+	{1221.06f, 811.0f},
+
+};
+
+
+//THIRD ISLAND
+
+
+std::vector<std::pair<float, float>> vertices_hitbox18{
+	{1348.17f, 844.0f},
+	{1333.0f, 817.0f},
+	{1393.69f, 817.0f},
+	{1378.51f, 844.0f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox19{
+	{1439.2f, 844.0f},
+	{1424.03f, 817.0f},
+	{1484.72f, 817.0f},
+	{1469.54f, 844.0f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox20{
+	{1530.23f, 844.0f},
+	{1515.06f, 817.0f},
+	{1575.75f, 817.0f},
+	{1560.57f, 844.0f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox21{
+	{1333.0f, 817.0f},
+	{1348.17f, 790.0f},
+	{1560.57f, 790.0f},
+	{1575.75f, 817.0f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox22{
+	{1378.51f, 790.0f},
+	{1393.69f, 764.0f},
+	{1515.06f, 764.0f},
+	{1530.23f, 790.0f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox23{
+	{1424.03f, 764.0f},
+	{1439.2f, 738.0f},
+	{1469.54f, 738.0f},
+	{1484.72f, 764.0f},
+
+};
+
+
+//FOURTH ISLAND (the single tile one)
+
+
+std::vector<std::pair<float, float>> vertices_hitbox24{
+	{1571.0f, 917.0f},
+	{1555.83f, 890.0f},
+	{1571.0f, 864.0f},
+	{1601.34f, 864.0f},
+	{1616.51f, 890.0f},
+	{1601.34f, 917.0f}
+
+};
+
+
+//FIFTH ISLAND
+
+
+std::vector<std::pair<float, float>> vertices_hitbox25{
+	{1806.0f, 1050.0f},
+	{1790.83f, 1024.0f},
+	{1851.52f, 1024.0f},
+	{1836.35f, 1050.0f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox26{
+	{1760.49f, 1024.0f},
+	{1745.32f, 998.0f},
+	{1836.35f, 998.0f},
+	{1851.52f, 1024.0f},
+	
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox27{
+	{1714.98f, 998.0f},
+	{1699.8f, 972.0f},
+	{1851.52f, 972.0f},
+	{1836.35f, 998.0f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox28{
+	{1669.47f, 972.0f},
+	{1654.29f, 945.0f},
+	{1897.03f, 945.0f},
+	{1881.86f, 972.0f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox29{
+	{1654.29f, 945.0f},
+	{1669.47f, 919.0f},
+	{1699.8f, 919.0f},
+	{1714.98f, 945.0f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox30{
+	{1745.32f, 945.0f},
+	{1760.5f, 919.0f},
+	{1881.87f, 919.0f},
+	{1897.04f, 945.0f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox31{
+	{1790.83f, 919.0f},
+	{1806.01f, 893.0f},
+	{1836.35f, 893.0f},
+	{1851.52f, 919.0f},
+
+};
+
+
+//SIXTH ISLAND (the last one)
+
+
+std::vector<std::pair<float, float>> vertices_hitbox32{
+	{1719.0f, 874.5f},
+	{1703.83f, 848.5f},
+	{1764.52f, 848.5f},
+	{1749.34f, 874.5f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox33{
+	{1673.49f, 848.5f},
+	{1658.32f, 822.5f},
+	{1810.03f, 822.5f},
+	{1794.85f, 848.5f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox34{
+	{1658.32f, 822.5f},
+	{1673.49f, 795.5f},
+	{1855.54f, 795.5f},
+	{1840.36f, 822.5f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox35{
+	{1703.83f, 795.5f},
+	{1719.0f, 769.5f},
+	{1840.36f, 769.5f},
+	{1855.54f, 795.5f},
+
+};
+
+std::vector<std::pair<float, float>> vertices_hitbox36{
+	{1749.34f, 769.5f},
+	{1764.51f, 743.5f},
+	{1794.85f, 743.5f},
+	{1810.03f, 769.5f},
+
+};
+
+
 
 b2Vec2 gravity(0.0f, -10.0f);
 b2World world(gravity);
@@ -254,9 +460,15 @@ b2PolygonShape groundBox;
 groundBox.SetAsBox(800.0f, 1.0f);
 groundBody->CreateFixture(&groundBox, 0.0f);
 
+//Textures of map
+
 GR::StaticObject sky(deltaTime, vertices_background, "animacje/niebo.png");
 GR::StaticObject ground(deltaTime, vertices_background, "animacje/ziemia.png");
 GR::StaticObject water(deltaTime, vertices_background, "animacje/woda.png");
+
+//=============================================================================================================
+
+//FIRST ISLAND
 
 GR::StaticPhysicalObject m1Terrain(world, deltaTime, vertices_hitbox1, "animacje/hitbox.png");
 GR::StaticPhysicalObject m2Terrain(world, deltaTime, vertices_hitbox2, "animacje/hitbox.png");
@@ -268,10 +480,51 @@ GR::StaticPhysicalObject m7Terrain(world, deltaTime, vertices_hitbox7, "animacje
 GR::StaticPhysicalObject m8Terrain(world, deltaTime, vertices_hitbox8, "animacje/hitbox.png");
 GR::StaticPhysicalObject m9Terrain(world, deltaTime, vertices_hitbox9, "animacje/hitbox.png");
 GR::StaticPhysicalObject m10Terrain(world, deltaTime, vertices_hitbox10, "animacje/hitbox.png");
+
+//SECOND ISLAND
+
 GR::StaticPhysicalObject m11Terrain(world, deltaTime, vertices_hitbox11, "animacje/hitbox.png");
 GR::StaticPhysicalObject m12Terrain(world, deltaTime, vertices_hitbox12, "animacje/hitbox.png");
 GR::StaticPhysicalObject m13Terrain(world, deltaTime, vertices_hitbox13, "animacje/hitbox.png");
 GR::StaticPhysicalObject m14Terrain(world, deltaTime, vertices_hitbox14, "animacje/hitbox.png");
+GR::StaticPhysicalObject m15Terrain(world, deltaTime, vertices_hitbox15, "animacje/hitbox.png");
+GR::StaticPhysicalObject m16Terrain(world, deltaTime, vertices_hitbox16, "animacje/hitbox.png");
+GR::StaticPhysicalObject m17Terrain(world, deltaTime, vertices_hitbox17, "animacje/hitbox.png");
+
+//THIRD ISLAND
+
+GR::StaticPhysicalObject m18Terrain(world, deltaTime, vertices_hitbox18, "animacje/hitbox.png");
+GR::StaticPhysicalObject m19Terrain(world, deltaTime, vertices_hitbox19, "animacje/hitbox.png");
+GR::StaticPhysicalObject m20Terrain(world, deltaTime, vertices_hitbox20, "animacje/hitbox.png");
+GR::StaticPhysicalObject m21Terrain(world, deltaTime, vertices_hitbox21, "animacje/hitbox.png");
+GR::StaticPhysicalObject m22Terrain(world, deltaTime, vertices_hitbox22, "animacje/hitbox.png");
+GR::StaticPhysicalObject m23Terrain(world, deltaTime, vertices_hitbox23, "animacje/hitbox.png");
+
+//FOURTH ISLAND (the single tile one)
+
+GR::StaticPhysicalObject m24Terrain(world, deltaTime, vertices_hitbox24, "animacje/hitbox.png");
+
+//FIFTH ISLAND
+
+GR::StaticPhysicalObject m25Terrain(world, deltaTime, vertices_hitbox25, "animacje/hitbox.png");
+GR::StaticPhysicalObject m26Terrain(world, deltaTime, vertices_hitbox26, "animacje/hitbox.png");
+GR::StaticPhysicalObject m27Terrain(world, deltaTime, vertices_hitbox27, "animacje/hitbox.png");
+GR::StaticPhysicalObject m28Terrain(world, deltaTime, vertices_hitbox28, "animacje/hitbox.png");
+GR::StaticPhysicalObject m29Terrain(world, deltaTime, vertices_hitbox29, "animacje/hitbox.png");
+GR::StaticPhysicalObject m30Terrain(world, deltaTime, vertices_hitbox30, "animacje/hitbox.png");
+GR::StaticPhysicalObject m31Terrain(world, deltaTime, vertices_hitbox31, "animacje/hitbox.png");
+
+//SIXTH ISLAND (the last one)
+
+GR::StaticPhysicalObject m32Terrain(world, deltaTime, vertices_hitbox32, "animacje/hitbox.png");
+GR::StaticPhysicalObject m33Terrain(world, deltaTime, vertices_hitbox33, "animacje/hitbox.png");
+GR::StaticPhysicalObject m34Terrain(world, deltaTime, vertices_hitbox34, "animacje/hitbox.png");
+GR::StaticPhysicalObject m35Terrain(world, deltaTime, vertices_hitbox35, "animacje/hitbox.png");
+GR::StaticPhysicalObject m36Terrain(world, deltaTime, vertices_hitbox36, "animacje/hitbox.png");
+
+//===============================================================================================
+
+//Worms
 
 GR::StaticAnimatedObject worm1s(deltaTime, vertices_worm1s, "animacje/sovfront.png");
 GR::StaticAnimatedObject worm2s(deltaTime, vertices_worm2s, "animacje/sovfront.png");
@@ -288,6 +541,8 @@ GR::StaticAnimatedObject worm2b(deltaTime, vertices_worm2b, "animacje/britfront.
 GR::StaticAnimatedObject worm1p(deltaTime, vertices_worm1p, "animacje/polfront.png");
 GR::StaticAnimatedObject worm2p(deltaTime, vertices_worm2p, "animacje/polfront.png");
 GR::StaticAnimatedObject worm3p(deltaTime, vertices_worm3p, "animacje/polfront.png");
+
+//================================================================================================
 
 Worm obj(world, deltaTime, vertices_worm3b, "animacje/sovleftmarch.png");
 obj.addAnimation("march", "animacje/sovleftmarch.png", 4, 3.0f);
@@ -360,8 +615,12 @@ while (!wormsWindow.isDone()) {
 	wormsWindow.update();							// 10 is a random value for now
 	std::cout << wormsWindow.getMouseWorldCoords().x << ' ' << wormsWindow.getMouseWorldCoords().y << std::endl;
 
-	wormsWindow.draw(sky);
-	wormsWindow.draw(ground);
+	//wormsWindow.draw(sky);
+	//wormsWindow.draw(ground);
+
+	//Map hitbox
+
+	//FIRST ISLAND
 	wormsWindow.draw(m1Terrain);
 	wormsWindow.draw(m2Terrain);
 	wormsWindow.draw(m3Terrain);
@@ -372,11 +631,46 @@ while (!wormsWindow.isDone()) {
 	wormsWindow.draw(m8Terrain);
 	wormsWindow.draw(m9Terrain);
 	wormsWindow.draw(m10Terrain);
+	//SECOND ISLAND
 	wormsWindow.draw(m11Terrain);
 	wormsWindow.draw(m12Terrain);
 	wormsWindow.draw(m13Terrain);
 	wormsWindow.draw(m14Terrain);
-	//wormsWindow.draw(water);
+	wormsWindow.draw(m15Terrain);
+	wormsWindow.draw(m16Terrain);
+	wormsWindow.draw(m17Terrain);
+	//THIRD ISLAND
+	wormsWindow.draw(m18Terrain);
+	wormsWindow.draw(m19Terrain);
+	wormsWindow.draw(m20Terrain);
+	wormsWindow.draw(m21Terrain);
+	wormsWindow.draw(m22Terrain);
+	wormsWindow.draw(m23Terrain);
+	//FOURTH ISLAND (the single tile one)
+	wormsWindow.draw(m24Terrain);
+	//FIFTH ISLAND
+	wormsWindow.draw(m25Terrain);
+	wormsWindow.draw(m26Terrain);
+	wormsWindow.draw(m27Terrain);
+	wormsWindow.draw(m28Terrain);
+	wormsWindow.draw(m29Terrain);
+	wormsWindow.draw(m30Terrain);
+	wormsWindow.draw(m31Terrain);
+	//SIXTH ISLAND (the last one)
+	wormsWindow.draw(m32Terrain);
+	wormsWindow.draw(m33Terrain);
+	wormsWindow.draw(m34Terrain);
+	wormsWindow.draw(m35Terrain);
+	wormsWindow.draw(m36Terrain);
+
+	//Map textures
+
+	wormsWindow.draw(sky);
+	wormsWindow.draw(ground);
+	wormsWindow.draw(water);
+
+	//Worms
+
 	wormsWindow.draw(worm1s);
 	wormsWindow.draw(worm2s);
 	wormsWindow.draw(worm3s);
