@@ -447,6 +447,13 @@ std::vector<std::pair<float, float>> vertices_hitbox36{
 
 };
 
+std::vector<std::pair<float, float>> vertices_bum{
+	{1455.0f, 870.0f},
+	{1555.0f, 870.0f},
+	{1555.0f, 970.0f},
+	{1455.0f, 970.0f},
+
+};
 
 
 b2Vec2 gravity(0.0f, -10.0f);
@@ -464,7 +471,8 @@ groundBody->CreateFixture(&groundBox, 0.0f);
 
 GR::StaticObject sky(deltaTime, vertices_background, "animacje/niebo.png");
 GR::StaticObject ground(deltaTime, vertices_background, "animacje/ziemia.png");
-GR::StaticObject water(deltaTime, vertices_background, "animacje/woda.png");
+GR::StaticAnimatedObject water(deltaTime, vertices_background, "animacje/woda.png");
+GR::StaticAnimatedObject bum(deltaTime, vertices_bum, "animacje/explosion.png");
 
 //=============================================================================================================
 
@@ -559,6 +567,11 @@ obj.addAnimation("WORM", "animacje/sovleftmarch.png", 4, 3.0f);
 obj.setCurrentAnimation("WORM");
 
 
+water.addAnimation("WATER", "animacje/woda.png", 4, 2.0f);
+water.setCurrentAnimation("WATER");
+bum.addAnimation("BUM", "animacje/explosion.png", 5, 1.0f);
+bum.setCurrentAnimation("BUM");
+
 worm1s.addAnimation("WORM1S", "animacje/sovfront.png", 3, 4.0f);
 worm1s.setCurrentAnimation("WORM1S");
 worm2s.addAnimation("WORM2S", "animacje/sovfront.png", 3, 4.0f);
@@ -608,6 +621,8 @@ while (!wormsWindow.isDone()) {
 	worm1p.update();
 	worm2p.update();
 	worm3p.update();
+	water.update();
+	bum.update();
 
 	obj.update();
 
@@ -667,7 +682,7 @@ while (!wormsWindow.isDone()) {
 
 	wormsWindow.draw(sky);
 	wormsWindow.draw(ground);
-	wormsWindow.draw(water);
+	/*wormsWindow.draw(water);*/
 
 	//Worms
 
@@ -685,6 +700,9 @@ while (!wormsWindow.isDone()) {
 	wormsWindow.draw(worm3p);
 
 	wormsWindow.draw(obj);
+
+	wormsWindow.draw(water);
+	wormsWindow.draw(bum);
 
 	wormsWindow.endDraw();
 	world.Step(deltaTime, 6, 2);
