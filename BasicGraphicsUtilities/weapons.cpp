@@ -1,8 +1,10 @@
 //# include "weapons.h"
+//# include <cmath>
+//
 //
 //
 ////mouseTimeHold is float(0-1.5) that tells how long was activating grenade button clicked. It affects starting velocity
-//void Grenade::putStartingVelocity(sf::Vector2i mousePosition, float MouseTimeHold)
+//void Grenade::putStartingVelocity(sf::Vector2f mousePosition, float MouseTimeHold)
 //{
 //    if (MouseTimeHold < 0) { throw std::invalid_argument("Given time is incorrect"); }
 //    if (MouseTimeHold > 1.5) { MouseTimeHold = 1.5; }
@@ -18,7 +20,7 @@
 //    float DistanceX = mouseClickedX - ThrowPosition.x;
 //    float DistanceY = mouseClickedY - ThrowPosition.y;
 //
-//    float ClickedVecLen = sqrt(pow(DistanceX, 2) + pow(DistanceY, 2));
+//    double ClickedVecLen = sqrt(pow(DistanceX, 2) + pow(DistanceY, 2));
 //
 //    float VelY = (maxStartingVelLen * DistanceY) / ClickedVecLen;
 //    float VelX = (maxStartingVelLen * DistanceX) / ClickedVecLen;
@@ -28,32 +30,6 @@
 //    StartingVelVec.y = (VelY * MouseTimeHold) / maxHoldingTime;
 //    putVelocity(StartingVelVec);
 //}
-//
-////funkcja ma z założenia dostęp do vectora wormów w gierce
-//void Grenade::GrenadeExplosion();
-//{
-//    sf::Vector2f position = getPosition();
-//    const float posX = position.x;
-//    const float posY = position.y;
-//    //Distance scale is recoil ratio
-//    float DistanceScale = 5;
-//    for (const auto& Worm : WormVector)
-//    {
-//        sf::Vector2f wormPos = Worm.getPosition();
-//        float WormDistance = sqrt(pow(posX - wormPos.x, 2) + pow(posY - wormPos.y, 2));
-//        if (WormDistance < DistanceScale * 6) { Worm.TakeDamage(10); }
-//        if (WormDistance < DistanceScale * 4) { Worm.TakeDamage(10); }
-//        if (WormDistance < DistanceScale * 2)
-//        {
-//            Worm.TakeDamage(10);
-//            sf::Vector2f wormPos Worm.getPosition();
-//            sf::Vector2f RecoilVel((wormPos.x - posX) / 2, (wormPos.y - posY ) /2);
-//            Worm.putVelocity(RecoilVel);
-//        }
-//        if (WormDistance < DistanceScale * 1) { Worm.TakeDamage(10); }
-//    }
-//}
-//
 //
 //
 //void Grenade::update()
@@ -67,21 +43,68 @@
 //
 //}
 //
-//
-//
-//Grenade::Grenade(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path,
-//    sf::Vector2f& startingPos, sf::Vector2f& mousePosition, float MouseTimeHold);
-//    :GR::DynamicObject(world, time, vertices, texture_path)
+//unsigned Baseball::FindLeftNearest(sf::Vector2f hitPos)
 //{
-//    const float circleSize = 1;
-//    b2BodyDef def;
-//    def.type = b2_dynamicBody;
-//    def.position.Set(startingPos.x, startingPos.y);
-//    body = world.CreateBody(&def);
-//    b2CircleShape circleShape;
-//    circleShape.m_radius= circleSize;
-//    body->CreateFixture(&circleShape, 1);
+//    float baseballX = hitPos.x;
+//    float baseballY = hitPos.y;
+//    unsigned IndexOfNearest=100;//code for not found
+//    float DistanceOfNearest = 9999;
+//    for (int i = 0; i < getWormVector().size(); i++)
+//    //{
+//    //    Worm worm = WormVector[i];
+//    //    sf::Vector2f WormPos = worm.getPosition();
+//    //    if (abs(WormPos.y - baseballY) > getHeigthDifference()) { continue; }
+//    //    float distance = baseballX - WormPos.x;
+//    //    if ((distance < DistanceOfNearest)&&(distance > 0.5))
+//    //    {
+//    //        IndexOfNearest = i;
+//    //        DistanceOfNearest = distance;
+//    //    }
+//    //}
+//    if (DistanceOfNearest > getRange()) { return 100; }
+//    return IndexOfNearest;
+//}
 //
-//    setPosition(startingPos);
-//    putStartingVelocity(sf::Vector2i mousePosition, float MouseTimeHold);
+//void Baseball::leftHit(sf::Vector2f hitPos)
+//{
+//    unsigned indexOfNearest = FindLeftNearest(hitPos);
+//    if (indexOfNearest == 100) { return; }
+//    //Worm hitWorm = WormVector[indexOfNearest];
+//    //hitWorm.putVelocity(-5, 5);
+//    //hitWorm.TakeDamage(getDamage());
+//}
+//
+//
+//
+//
+//unsigned Baseball::FindRightNearest(sf::Vector2f hitPos)
+//{
+//    float baseballX = hitPos.x;
+//    float baseballY = hitPos.y;
+//    unsigned IndexOfNearest = 100; //code for not found
+//    float DistanceOfNearest = 9999;
+//
+//    //for (int i = 0; i < getWormVector().size(); i++)
+//    //{
+//    //    Worm worm = WormVector[i];
+//    //    sf::Vector2f WormPos = worm.getPosition();
+//    //    if (abs(WormPos.y - baseballY) > getHeigthDifference()) { continue; }
+//    //    float distance = WormPos.x - baseballX;
+//    //    if ((distance < DistanceOfNearest) && (distance > 0.5))
+//    //    {
+//    //        IndexOfNearest = i;
+//    //        DistanceOfNearest = distance;
+//    //    }
+//    //}
+//    if (DistanceOfNearest > getRange()) { return 100; }
+//    return IndexOfNearest;
+//}
+//
+//void Baseball::rightHit(sf::Vector2f hitPos)
+//{
+//    unsigned indexOfNearest = FindRightNearest(hitPos);
+//    if (indexOfNearest == 100) { return; }
+//    //Worm hitWorm = WormVector[indexOfNearest];
+//    //hitWorm.putVelocity(5, 5);
+//    //hitWorm.TakeDamage(getDamage());
 //}
