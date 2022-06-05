@@ -2,9 +2,10 @@
 #include <iostream>
 
 #include "SFML/Graphics.hpp"
-#include "box2d.h"
+#include "box2d.h"				// usun
 #include "input_manager.h"
 
+#include "cyclic_singly_linked_list.h"
 #include "window.h"
 #include "static_animated_object.h"
 #include "static_object_relative.h"
@@ -26,7 +27,7 @@ int main() {
 	wormsWindow.setViewBorder(0, 0.0f, 1920.0f, 1080.0f);
 	//wormsWindow.setView(0, 0.0f, 1920.0f, 1080.0f);
 	wormsWindow.setView(960.0f, 540.0f, 960.0f, 540.0f); // view does not fit in viewBorder so view is set to viewBorder by default
-	wormsWindow.setZoomSpeed(200.0f);
+	wormsWindow.setZoomSpeed(1.0f);
 	
 
 	/*b2BodyDef groundBodyDef;
@@ -455,6 +456,13 @@ std::vector<std::pair<float, float>> vertices_bum{
 
 };
 
+std::vector<std::pair<float, float>> vertices_icon{
+	{0.0f, 0.0f},
+	{2.2*56.90f, 0.0f},
+	{2.2*56.90f, 2.2*18.90f},
+	{0.0f, 2.2*18.90f}
+};
+
 
 b2Vec2 gravity(0.0f, -10.0f);
 b2World world(gravity);
@@ -552,7 +560,22 @@ GR::StaticAnimatedObject worm3p(deltaTime, vertices_worm3p, "animacje/polfront.p
 
 //================================================================================================
 
+//Icons
+
+GR::RelativeStaticObject icon(deltaTime, vertices_icon, "animacje/wepons_icon.png");
+
+//================================================================================================
+
+icon.attachViewAndZoom(wormsWindow);
 Worm obj(world, deltaTime, vertices_worm3b, "animacje/sovleftmarch.png");
+icon.setRelativeVector({ 73.0f, 30.0f }); 
+GR::Text teks;
+teks.setRelativeTranslation(-5.5f, -10.0f);
+teks.setCharackterSize(8);
+teks.setColor(255, 0, 0);
+obj.attachText(teks);
+
+
 obj.addAnimation("march", "animacje/sovleftmarch.png", 4, 3.0f);
 obj.setCurrentAnimation("march");
 obj.addKeyBinding(sf::Keyboard::Space, &Worm::jump, InputType::REALTIME);
@@ -573,6 +596,7 @@ bum.addAnimation("BUM", "animacje/explosion.png", 5, 1.0f);
 bum.setCurrentAnimation("BUM");
 
 worm1s.addAnimation("WORM1S", "animacje/sovfront.png", 3, 4.0f);
+
 worm1s.setCurrentAnimation("WORM1S");
 worm2s.addAnimation("WORM2S", "animacje/sovfront.png", 3, 4.0f);
 worm2s.setCurrentAnimation("WORM2S");
@@ -605,6 +629,7 @@ ck.restart();
 //sky.translate({ 500.0f, 0.0f });
 //sky.setPosition({ 0.0f, 0.0f });
 float global = 0.0f;
+//list.addToTail()
 while (!wormsWindow.isDone()) {
 	deltaTime = ck.restart().asSeconds();
 	wormsWindow.setBackGroundColor(100, 100, 100);
@@ -628,7 +653,8 @@ while (!wormsWindow.isDone()) {
 
 	//obj.rotate(deltaTime);
 	wormsWindow.update();							// 10 is a random value for now
-	std::cout << wormsWindow.getMouseWorldCoords().x << ' ' << wormsWindow.getMouseWorldCoords().y << std::endl;
+	icon.update();									// NEEDS TO BE AFTER wormsWindow.update() !!!!!!!!!!!!!!!
+	//std::cout << wormsWindow.getMouseWorldCoords().x << ' ' << wormsWindow.getMouseWorldCoords().y << std::endl;
 
 	//wormsWindow.draw(sky);
 	//wormsWindow.draw(ground);
@@ -703,6 +729,10 @@ while (!wormsWindow.isDone()) {
 
 	wormsWindow.draw(water);
 	wormsWindow.draw(bum);
+
+	//icon needs to be drawn at very end
+	wormsWindow.draw(icon);
+	std::cout << icon.getPosition().x << icon.getPosition().y << std::endl;
 
 	wormsWindow.endDraw();
 	world.Step(deltaTime, 6, 2);
