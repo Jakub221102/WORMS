@@ -595,8 +595,80 @@ water.setCurrentAnimation("WATER");
 bum.addAnimation("BUM", "animacje/explosion.png", 5, 1.0f);
 bum.setCurrentAnimation("BUM");
 
-worm1s.addAnimation("WORM1S", "animacje/sovfront.png", 3, 4.0f);
+GR::Text teks1;
+teks1.setRelativeTranslation(-5.5f, -10.0f);
+teks1.setCharackterSize(8);
+teks1.setColor(255, 0, 0);
+worm1s.attachText(teks1);
 
+GR::Text teks2;
+teks2.setRelativeTranslation(-5.5f, -10.0f);
+teks2.setCharackterSize(8);
+teks2.setColor(255, 0, 0);
+worm2s.attachText(teks2);
+
+GR::Text teks3;
+teks3.setRelativeTranslation(-5.5f, -10.0f);
+teks3.setCharackterSize(8);
+teks3.setColor(255, 0, 0);
+worm3s.attachText(teks3);
+
+GR::Text teks4;
+teks4.setRelativeTranslation(-5.5f, -10.0f);
+teks4.setCharackterSize(8);
+teks4.setColor(255, 0, 0);
+worm1g.attachText(teks4);
+
+GR::Text teks5;
+teks5.setRelativeTranslation(-5.5f, -10.0f);
+teks5.setCharackterSize(8);
+teks5.setColor(255, 0, 0);
+worm2g.attachText(teks5);
+
+GR::Text teks6;
+teks6.setRelativeTranslation(-5.5f, -10.0f);
+teks6.setCharackterSize(8);
+teks6.setColor(255, 0, 0);
+worm3g.attachText(teks6);
+
+GR::Text teks7;
+teks7.setRelativeTranslation(-5.5f, -10.0f);
+teks7.setCharackterSize(8);
+teks7.setColor(255, 0, 0);
+worm1b.attachText(teks7);
+
+GR::Text teks8;
+teks8.setRelativeTranslation(-5.5f, -10.0f);
+teks8.setCharackterSize(8);
+teks8.setColor(255, 0, 0);
+worm2b.attachText(teks8);
+
+//GR::Text teks9;
+//teks9.setRelativeTranslation(-5.5f, -10.0f);
+//teks9.setCharackterSize(8);
+//teks9.setColor(255, 0, 0);
+//worm3b.attachText(teks9);
+
+GR::Text teks10;
+teks10.setRelativeTranslation(-5.5f, -10.0f);
+teks10.setCharackterSize(8);
+teks10.setColor(255, 0, 0);
+worm1p.attachText(teks10);
+
+GR::Text teks11;
+teks11.setRelativeTranslation(-5.5f, -10.0f);
+teks11.setCharackterSize(8);
+teks11.setColor(255, 0, 0);
+worm2p.attachText(teks11);
+
+GR::Text teks12;
+teks12.setRelativeTranslation(-5.5f, -10.0f);
+teks12.setCharackterSize(8);
+teks12.setColor(255, 0, 0);
+worm3p.attachText(teks);
+
+
+worm1s.addAnimation("WORM1S", "animacje/sovfront.png", 3, 4.0f);
 worm1s.setCurrentAnimation("WORM1S");
 worm2s.addAnimation("WORM2S", "animacje/sovfront.png", 3, 4.0f);
 worm2s.setCurrentAnimation("WORM2S");
