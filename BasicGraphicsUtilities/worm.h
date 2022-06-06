@@ -11,6 +11,12 @@ enum class InputType {
 	EVENTKEYBOARD,
 };
 
+enum class JumpState {
+	ready,
+	oneLeft,
+	noneLeft
+};
+
 class Worm : public GR::DynamicAnimatedObject {
 	static GR::RealTimeKeyboardManager<Worm, sf::Keyboard::Key> inputManager;
 	static GR::EventManager<Worm, sf::Keyboard::Key> eventManager;
@@ -20,6 +26,7 @@ class Worm : public GR::DynamicAnimatedObject {
 	int ptrprim;
 	unsigned hp = 100;
 	float jumpCooldown = 0;
+	JumpState jumpReady = JumpState::noneLeft;
 
 public:
 	Worm(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path);
@@ -41,5 +48,7 @@ public:
 	void pickWeapon3();
 	void TakeDamage(unsigned damage) { hp -= damage; }
 	void updateCooldowns();
+	void contactHandler();
+	void setJumpReady()
 	GR::StaticObject& getCurrentWeapon();
 };

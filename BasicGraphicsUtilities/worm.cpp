@@ -76,6 +76,7 @@ void Worm::move_down() {
 void Worm::update(float mouseX, float mouseY) {
 	updateNoControl();
 	updateCooldowns();
+	contactHandler();
 	listenAndUseAll();
 	sf::Vector2f pos = getPosition();
 	sf::Vector2f direction = { mouseX - pos.x, mouseY - pos.y };
@@ -160,9 +161,4 @@ void Worm::pickWeapon2() {
 
 void Worm::pickWeapon3() {
 	pointer = 4;
-}
-
-void contactHandler()
-{
-
 }
