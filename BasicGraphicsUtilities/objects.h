@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-# include "box2d/box2d.h"
+# include "box2d.h"
 # include <SFML/System.hpp>
 #include <vector>
 using std::vector;
@@ -29,6 +29,8 @@ public:
     void putForceToPoint(const b2Vec2, const b2Vec2);
     void putImpulseToCenter(const b2Vec2);
     void putImpulseToPoint(const b2Vec2, const b2Vec2);
+
+    b2ContactEdge* getContactList();
 
 };
 

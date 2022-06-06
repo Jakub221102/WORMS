@@ -108,6 +108,11 @@ void Model::addFixture(const b2FixtureDef* fix)
     body->CreateFixture(fix);
 }
 
+b2ContactEdge* Model::getContactList()
+{
+    return body->GetContactList();
+}
+
 
 
 //konstruktor: tworzy jedynie cialo obiektu
@@ -137,44 +142,6 @@ StaticModel::StaticModel(b2World& world, float new_x, float new_y, b2Vec2 vertic
     chainShape.CreateLoop(vertices, numberOfVertices);
     body->CreateFixture(&chainShape, 1);
 }
-
-
-//towrzenie samego ksztalu ciala w klasie sfml albo przekazywanie samej definicji ciala
-
-
-
-////////////////////////////////////////////////////
-// Worm
-////////////////////////////////////////////////////
-
-
-/*Worm - DynamicModel, zdefiniowane shape, friction i density,
-oraz wzgledne wierzcholki, przechowuje je po to bo nie ma prostej metody w box2d ktora by to robila, przynajmneij nie znalazlem, kiedys byla(?)*/
-//Worm::Worm(b2World& world, float new_x, float new_y) : DynamicModel(world, new_x, new_y)
-//{
-//    b2Vec2 vertices[4] = { b2Vec2(-2, 1), b2Vec2(-2, -1), b2Vec2(2, -1), b2Vec2(2, 1) };
-//    shapePolygon.Set(vertices, 4);
-//
-//
-//    fixtureDef.shape = &shapePolygon;
-//    fixtureDef.density = 1.0f;
-//    fixtureDef.friction = 0.3f;
-//    body->CreateFixture(&fixtureDef);
-//}
-
-//void Worm::jump()
-//{
-//    this->putVelocity(b2Vec2(0, 10));
-//}
-
-
-//czy moge robic kopie i zwracac wskaznik na te kopie??
-//const b2Vec2* Polygon::getVertices()
-//{
-//    return vertices;
-//}
-
-
 
 
 
