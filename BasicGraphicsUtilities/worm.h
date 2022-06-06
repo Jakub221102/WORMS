@@ -45,15 +45,17 @@ void Worm::jump() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Space);
 	if (jumpCooldown == 0)
 	{
-	box2dModel->putImpulseToCenter({ arguments[0], arguments[1]*500 });
-	jumpCooldown = 10000;
+	b2Vec2 velo = box2dModel->getVelocity();
+	putVelocity({ velo.x, 0});
+	box2dModel->putImpulseToCenter({ arguments[0], arguments[1]*400 });
+	jumpCooldown = 7000;
 	}
 }
 
 void Worm::move_right() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Right);
 	b2Vec2 velocity = box2dModel->getVelocity();
-	if (velocity.x < 5)
+	if (velocity.x < 30)
 	{
 		box2dModel->addVelocity({ arguments[0], arguments[1] });
 	}
@@ -62,7 +64,7 @@ void Worm::move_right() {
 void Worm::move_left() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Left);
 	b2Vec2 velocity = box2dModel->getVelocity();
-	if (velocity.x > -5)
+	if (velocity.x > -30)
 	{
 		box2dModel->addVelocity({ arguments[0], arguments[1] });
 	}
@@ -70,7 +72,11 @@ void Worm::move_left() {
 
 void Worm::move_down() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Down);
-	box2dModel->addVelocity({ arguments[0], arguments[1] });
+	b2Vec2 velocity = box2dModel->getVelocity();
+	if (velocity.y > -10)
+	{
+		box2dModel->addVelocity({ arguments[0], arguments[1] });
+	}
 }
 
 void Worm::update() {
