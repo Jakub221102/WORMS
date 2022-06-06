@@ -82,6 +82,20 @@ void Model::putForceToCenter(const b2Vec2 vec)
     body->ApplyForceToCenter(vec, true);
 }
 
+void Model::putForceToPoint(const b2Vec2 vec, const b2Vec2 point)
+{
+    body->ApplyForce(vec, point, true);
+}
+
+void Model::putImpulseToCenter(const b2Vec2 vec)
+{
+    body->ApplyLinearImpulseToCenter(vec, true);
+}
+
+void Model::putImpulseToPoint(const b2Vec2 vec, const b2Vec2 point)
+{
+    body->ApplyLinearImpulse(vec, point, true);
+}
 
 void Model::addFixture(const b2FixtureDef* fix)
 {
