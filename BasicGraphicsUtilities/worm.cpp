@@ -37,12 +37,14 @@ Worm::Worm(b2World& world, const float& time, std::vector<std::pair<float, float
 
 void Worm::jump() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Space);
-	if (jumpCooldown <= 0)
+	if (jumpCooldown <= 0 && jumpReady < JumpState::noneLeft)
 	{
 		b2Vec2 velo = box2dModel->getVelocity();
 		putVelocity({ velo.x, 0 });
 		box2dModel->putImpulseToCenter({ arguments[0], arguments[1] * 400 });
-		jumpCooldown = 5;
+		jumpCooldown = 0.5;
+		if (jumpReady == JumpState::ready) { jumpReady = JumpState::oneLeft; }
+		else { jumpReady = JumpState::noneLeft; }
 	}
 }
 
@@ -67,7 +69,7 @@ void Worm::move_left() {
 void Worm::move_down() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Down);
 	b2Vec2 velocity = box2dModel->getVelocity();
-	if (velocity.y > -10)
+	if (velocity.y > -30)
 	{
 		box2dModel->addVelocity({ arguments[0], arguments[1] });
 	}

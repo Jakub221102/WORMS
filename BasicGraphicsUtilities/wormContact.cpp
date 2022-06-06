@@ -3,6 +3,7 @@
 void Worm::setJumpReady()
 {
 	jumpReady = JumpState::ready;
+	//jumpCooldown = 0;
 }
 
 
