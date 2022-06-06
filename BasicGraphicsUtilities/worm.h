@@ -49,6 +49,6 @@ public:
 	void TakeDamage(unsigned damage) { hp -= damage; }
 	void updateCooldowns();
 	void contactHandler();
-	void setJumpReady()
+	void setJumpReady();
 	GR::StaticObject& getCurrentWeapon();
 };
