@@ -3,7 +3,7 @@
 void Worm::setJumpReady()
 {
 	jumpReady = JumpState::ready;
-	//jumpCooldown = 0;
+	jumpCooldown = 0;
 }
 
 
@@ -21,7 +21,10 @@ void Worm::contactHandler()
 		//bodyB->ApplyLinearImpulseToCenter({ 0, 10000 }, 1);
 		if (bodyA->GetType() == b2_staticBody)
 		{
-			this->setJumpReady();
+			if (worldManifold.normal.y > 0)
+			{
+				this->setJumpReady();
+			}
 			std::cout << "A: STATIC" << std::endl;
 			std::cout << "X: \t" << worldManifold.normal.x << std::endl;
 			std::cout << "Y: \t" << worldManifold.normal.y << std::endl;
