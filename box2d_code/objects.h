@@ -25,6 +25,10 @@ public:
     void setRotationSpeed(float);
     void putVelocity(const b2Vec2);
     void putForceToCenter(const b2Vec2);
+    void putForceToPoint(const b2Vec2, const b2Vec2);
+    void putImpulseToCenter(const b2Vec2);
+    void putImpulseToPoint(const b2Vec2, const b2Vec2);
+
 };
 
 
