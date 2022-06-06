@@ -711,8 +711,8 @@ int main() {
 		//bum.update();
 
 		//Test worm
-
-		obj.update();
+		auto mouse = wormsWindow.getMouseWorldCoords();
+		obj.update(mouse.x, mouse.y);
 
 		//obj.rotate(deltaTime);
 		wormsWindow.update();							// 10 is a random value for now

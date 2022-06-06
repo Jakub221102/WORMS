@@ -1,5 +1,5 @@
+#pragma once
 #include "window.h"
-#include "static_game_object.h"
 
 GR::Window::Window(float& deltaTime, const std::string& title)
 	: windowTitle(title), confines({ 0.0f, 0.0f }, {1000.0f, 1000.0f}), resolutionPointer(0), deltaTime(deltaTime) {
@@ -138,6 +138,16 @@ void GR::Window::draw(GR::StaticObject& drawable) {
 	if (drawable.getString() != "")
 		window.draw(drawable.getText());
 }
+
+void GR::Window::draw(Worm& worm) {
+	draw(static_cast<GR::StaticObject&>(worm));
+	draw(worm.getCurrentWeapon());
+}
+
+
+//void GR::Window::draw(Worm worm) {
+//
+//}
 
 void GR::Window::setMultisamplingLevel(unsigned int level) {
 	settings.antialiasingLevel = level;

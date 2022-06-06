@@ -1,15 +1,18 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "input_manager.h"
-
+//#include "worm.h"
+#include "static_game_object.h"
+#include "worm.h"
 #include <iostream>
 
 #include <string>
 #include <unordered_map>
 #include <vector>
 
+//class Worm;
+
 namespace GR {
-	class StaticObject;
 	const std::vector<std::pair<unsigned int, unsigned int>> resolutions = {
 		{1920, 1080},
 		{1440, 1080},
@@ -20,7 +23,6 @@ namespace GR {
 		{544, 576},
 		{480, 576}
 	};
-
 	class Window {
 		void setup(const std::string& title, int resolutionPointer, unsigned int MSAlevel = 16);
 		void destroy();
@@ -62,6 +64,8 @@ namespace GR {
 		sf::Vector2f getMouseWorldCoords() const;
 
 		void draw(GR::StaticObject& drawable);
+		void draw(Worm& worm);
+		//void draw(const Worm& worm);
 		sf::FloatRect viewRectangle(sf::View view) const;
 		sf::FloatRect getViewRect() const;
 		void toggleFullScreen();
