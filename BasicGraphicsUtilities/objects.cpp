@@ -108,6 +108,11 @@ void Model::addFixture(const b2FixtureDef* fix)
     body->CreateFixture(fix);
 }
 
+b2ContactEdge* Model::getContactList()
+{
+    return body->GetContactList();
+}
+
 
 
 //konstruktor: tworzy jedynie cialo obiektu
