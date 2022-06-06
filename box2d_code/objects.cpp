@@ -77,6 +77,12 @@ void Model::putVelocity(const b2Vec2 vec)
     body->SetLinearVelocity(vec);
 }
 
+void Model::addVelocity(const b2Vec2 vec)
+{
+    b2Vec2 velocity = body->GetLinearVelocity();
+    body->SetLinearVelocity(velocity + vec);
+}
+
 void Model::putForceToCenter(const b2Vec2 vec)
 {
     body->ApplyForceToCenter(vec, true);
