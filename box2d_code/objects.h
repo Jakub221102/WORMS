@@ -30,6 +30,8 @@ public:
     void putImpulseToCenter(const b2Vec2);
     void putImpulseToPoint(const b2Vec2, const b2Vec2);
 
+    b2ContactEdge* getContactList();
+
 };
 
 
