@@ -2,7 +2,7 @@
 #include <iostream>
 #include <array>
 #include "SFML/Graphics.hpp"
-#include "box2d.h"				// usun
+#include "box2d/box2d.h"				// usun
 #include "input_manager.h"
 
 #include "cyclic_singly_linked_list.h"
