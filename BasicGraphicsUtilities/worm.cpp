@@ -37,12 +37,12 @@ Worm::Worm(b2World& world, const float& time, std::vector<std::pair<float, float
 
 void Worm::jump() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Space);
-	if (jumpCooldown == 0)
+	if (jumpCooldown <= 0)
 	{
 		b2Vec2 velo = box2dModel->getVelocity();
 		putVelocity({ velo.x, 0 });
 		box2dModel->putImpulseToCenter({ arguments[0], arguments[1] * 400 });
-		jumpCooldown = 7000;
+		jumpCooldown = 5;
 	}
 }
 
@@ -146,7 +146,7 @@ void Worm::updateCooldowns()
 {
 	if (jumpCooldown > 0)
 	{
-		--jumpCooldown;
+		jumpCooldown -= deltaTime;
 	}
 }
 
@@ -160,4 +160,9 @@ void Worm::pickWeapon2() {
 
 void Worm::pickWeapon3() {
 	pointer = 4;
+}
+
+void contactHandler()
+{
+
 }

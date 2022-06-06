@@ -19,7 +19,7 @@ class Worm : public GR::DynamicAnimatedObject {
 	int pointer;
 	int ptrprim;
 	unsigned hp = 100;
-	unsigned int jumpCooldown = 0;
+	float jumpCooldown = 0;
 
 public:
 	Worm(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path);
