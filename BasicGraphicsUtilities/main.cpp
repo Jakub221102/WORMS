@@ -645,7 +645,9 @@ int main() {
 
 	//Seting up object animations
 
-	obj.addAnimation("WORM", "animacje/sovleftmarch.png", 4, 3.0f);
+	obj.addAnimation("LEFT", "animacje/sovleftmarch.png", 4, 3.0f);
+	obj.addAnimation("RIGHT", "animacje/sovrightmarch.png", 4, 3.0f);
+	obj.addAnimation("JUMP", "animacje/worm_jump_sov.png", 4, 3.0f);
 	obj.setCurrentAnimation("WORM");
 
 
@@ -654,33 +656,33 @@ int main() {
 	bum.addAnimation("BUM", "animacje/explosion.png", 5, 1.0f);
 	bum.setCurrentAnimation("BUM");
 
-	worm1s.addAnimation("WORM1S", "animacje/sovfront.png", 3, 4.0f);
-	worm1s.setCurrentAnimation("WORM1S");
-	worm2s.addAnimation("WORM2S", "animacje/sovfront.png", 3, 4.0f);
-	worm2s.setCurrentAnimation("WORM2S");
-	worm3s.addAnimation("WORM3S", "animacje/sovfront.png", 3, 4.0f);
-	worm3s.setCurrentAnimation("WORM3S");
+	worm1s.addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
+	worm1s.setCurrentAnimation("WORM");
+	worm2s.addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
+	worm2s.setCurrentAnimation("WORM");
+	worm3s.addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
+	worm3s.setCurrentAnimation("WORM");
 
-	worm1g.addAnimation("WORM1G", "animacje/tzegerfront.png", 3, 4.0f);
-	worm1g.setCurrentAnimation("WORM1G");
-	worm2g.addAnimation("WORM2G", "animacje/tzegerfront.png", 3, 4.0f);
-	worm2g.setCurrentAnimation("WORM2G");
-	worm3g.addAnimation("WORM3G", "animacje/tzegerfront.png", 3, 4.0f);
-	worm3g.setCurrentAnimation("WORM3G");
+	worm1g.addAnimation("WORM", "animacje/tzegerfront.png", 3, 4.0f);
+	worm1g.setCurrentAnimation("WORM");
+	worm2g.addAnimation("WORM", "animacje/tzegerfront.png", 3, 4.0f);
+	worm2g.setCurrentAnimation("WORM");
+	worm3g.addAnimation("WORM", "animacje/tzegerfront.png", 3, 4.0f);
+	worm3g.setCurrentAnimation("WORM");
 
-	worm1b.addAnimation("WORM1B", "animacje/britfront.png", 3, 4.0f);
-	worm1b.setCurrentAnimation("WORM1B");
-	worm2b.addAnimation("WORM2B", "animacje/britfront.png", 3, 4.0f);
-	worm2b.setCurrentAnimation("WORM2B");
-	worm3b.addAnimation("WORM3B", "britfront.png", 3, 4.0f);
-	worm3b.setCurrentAnimation("WORM3B");
+	worm1b.addAnimation("WORM", "animacje/britfront.png", 3, 4.0f);
+	worm1b.setCurrentAnimation("WORM");
+	worm2b.addAnimation("WORM", "animacje/britfront.png", 3, 4.0f);
+	worm2b.setCurrentAnimation("WORM");
+	worm3b.addAnimation("WORM", "britfront.png", 3, 4.0f);
+	worm3b.setCurrentAnimation("WORM");
 
-	worm1p.addAnimation("WORM1P", "animacje/polfront.png", 3, 4.0f);
-	worm1p.setCurrentAnimation("WORM1P");
-	worm2p.addAnimation("WORM2P", "animacje/polfront.png", 3, 4.0f);
-	worm2p.setCurrentAnimation("WORM2P");
-	worm3p.addAnimation("WORM3P", "animacje/polfront.png", 3, 4.0f);
-	worm3p.setCurrentAnimation("WORM3P");
+	worm1p.addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
+	worm1p.setCurrentAnimation("WORM");
+	worm2p.addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
+	worm2p.setCurrentAnimation("WORM");
+	worm3p.addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
+	worm3p.setCurrentAnimation("WORM");
 
 	//actual game loop
 

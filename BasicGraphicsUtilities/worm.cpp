@@ -86,9 +86,11 @@ void Worm::update(float mouseX, float mouseY) {
 	float rotation;
 	if (mouseX > pos.x) {
 		rotation = mouseY > pos.y ? std::acos(dotP) : -std::acos(dotP);
+		setCurrentAnimation("RIGHT", true);
 	}
 	else {
 		rotation = mouseY > pos.y ? std::acos(dotP) : -std::acos(dotP);
+		setCurrentAnimation("LEFT", true);
 		rotation += 3.1415;
 	}
 	std::cout << rotation << std::endl;
