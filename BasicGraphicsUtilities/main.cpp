@@ -2,7 +2,7 @@
 #include <iostream>
 #include <array>
 #include "SFML/Graphics.hpp"
-#include "box2d/box2d.h"				// usun
+#include "box2d.h"				// usun
 #include "input_manager.h"
 
 #include "cyclic_singly_linked_list.h"
@@ -553,7 +553,7 @@ int main() {
 	teks.setCharackterSize(8);
 	teks.setColor(255, 0, 0);
 	obj.attachText(teks);
-
+	
 	//test worm object
 
 	obj.addAnimation("march", "animacje/sovleftmarch.png", 4, 3.0f);
@@ -566,7 +566,9 @@ int main() {
 	obj.setKeyArguments(sf::Keyboard::Left, { -25.0f, 0.0f }, InputType::REALTIME); // pass velocity to move method
 	obj.addKeyBinding(sf::Keyboard::Down, &Worm::move_down, InputType::REALTIME);
 	obj.setKeyArguments(sf::Keyboard::Down, { 0.0f, -5.0f }, InputType::REALTIME); // pass velocity to move method
-
+	obj.addKeyBinding(sf::Keyboard::Num1, &Worm::pickWeapon1, InputType::REALTIME);
+	obj.addKeyBinding(sf::Keyboard::Num2, &Worm::pickWeapon2, InputType::REALTIME);
+	obj.addKeyBinding(sf::Keyboard::Num3, &Worm::pickWeapon3, InputType::REALTIME);
 	//seting up worms text
 
 	GR::Text teks1;

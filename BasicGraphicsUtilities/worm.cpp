@@ -10,18 +10,29 @@ std::vector<std::pair<float, float>> gun_v{
 	{0.0f, 6.1f}
 };
 
+std::vector<std::pair<float, float>> base_v{
+	{0.0f, 0.0f},
+	{16.3f, 0.0f},
+	{16.3f, 11.4f},
+	{0.0f, 11.4f}
+};
+
+std::vector<std::pair<float, float>> gren_v{
+	{0.0f, 0.0f},
+	{0.5f * 16.0f, 0.0f},
+	{0.5f * 16.0f, 0.5f * 23.0f},
+	{0.0f, 0.5f * 23.0f}
+};
+
+
 Worm::Worm(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path)
 	: DynamicAnimatedObject(world, time, vertices, texture_path, true), StaticObject(time, vertices, texture_path), pointer(0) {
 	equipment.push_back(std::make_unique<GR::StaticObject>(time, gun_v, "animacje/gunleft.png"));
 	equipment.push_back(std::make_unique<GR::StaticObject>(time, gun_v, "animacje/gunright.png"));
-	equipment.push_back(std::make_unique<GR::StaticObject>(time, gun_v, "animacje/baseballright.png"));
-	equipment.push_back(std::make_unique<GR::StaticObject>(time, gun_v, "animacje/baseballeft.png"));
-	equipment.push_back(std::make_unique<GR::StaticObject>(time, gun_v, "animacje/grenade.png"));
-}
-
-
-void Worm::pickWeapon1() {
-
+	equipment.push_back(std::make_unique<GR::StaticObject>(time, base_v, "animacje/baseballright.png"));
+	equipment.push_back(std::make_unique<GR::StaticObject>(time, base_v, "animacje/baseballeft.png"));
+	equipment.push_back(std::make_unique<GR::StaticObject>(time, gren_v, "animacje/granade.png"));
+	equipment.push_back(std::make_unique<GR::StaticObject>(time, gren_v, "animacje/granade.png"));
 }
 
 void Worm::jump() {
@@ -137,4 +148,16 @@ void Worm::updateCooldowns()
 	{
 		--jumpCooldown;
 	}
+}
+
+void Worm::pickWeapon1() {
+	pointer = 0;
+}
+
+void Worm::pickWeapon2() {
+	pointer = 2;
+}
+
+void Worm::pickWeapon3() {
+	pointer = 4;
 }
