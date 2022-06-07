@@ -462,87 +462,101 @@ int main() {
 	GR::StaticAnimatedObject water(deltaTime, vertices_background, "animacje/woda.png");
 	GR::StaticAnimatedObject bum(deltaTime, vertices_bum, "animacje/explosion.png");
 
-	//=============================================================================================================
-
-	//FIRST ISLAND
-
-	GR::StaticPhysicalObject m1Terrain(world, deltaTime, vertices_hitbox1, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m2Terrain(world, deltaTime, vertices_hitbox2, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m3Terrain(world, deltaTime, vertices_hitbox3, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m4Terrain(world, deltaTime, vertices_hitbox4, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m5Terrain(world, deltaTime, vertices_hitbox5, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m6Terrain(world, deltaTime, vertices_hitbox6, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m7Terrain(world, deltaTime, vertices_hitbox7, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m8Terrain(world, deltaTime, vertices_hitbox8, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m9Terrain(world, deltaTime, vertices_hitbox9, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m10Terrain(world, deltaTime, vertices_hitbox10, "animacje/hitbox.png");
-
-	//SECOND ISLAND
-
-	GR::StaticPhysicalObject m11Terrain(world, deltaTime, vertices_hitbox11, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m12Terrain(world, deltaTime, vertices_hitbox12, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m13Terrain(world, deltaTime, vertices_hitbox13, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m14Terrain(world, deltaTime, vertices_hitbox14, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m15Terrain(world, deltaTime, vertices_hitbox15, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m16Terrain(world, deltaTime, vertices_hitbox16, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m17Terrain(world, deltaTime, vertices_hitbox17, "animacje/hitbox.png");
-
-	//THIRD ISLAND
-
-	GR::StaticPhysicalObject m18Terrain(world, deltaTime, vertices_hitbox18, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m19Terrain(world, deltaTime, vertices_hitbox19, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m20Terrain(world, deltaTime, vertices_hitbox20, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m21Terrain(world, deltaTime, vertices_hitbox21, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m22Terrain(world, deltaTime, vertices_hitbox22, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m23Terrain(world, deltaTime, vertices_hitbox23, "animacje/hitbox.png");
-
-	//FOURTH ISLAND (the single tile one)
-
-	GR::StaticPhysicalObject m24Terrain(world, deltaTime, vertices_hitbox24, "animacje/hitbox.png");
-
-	//FIFTH ISLAND
-
-	GR::StaticPhysicalObject m25Terrain(world, deltaTime, vertices_hitbox25, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m26Terrain(world, deltaTime, vertices_hitbox26, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m27Terrain(world, deltaTime, vertices_hitbox27, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m28Terrain(world, deltaTime, vertices_hitbox28, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m29Terrain(world, deltaTime, vertices_hitbox29, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m30Terrain(world, deltaTime, vertices_hitbox30, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m31Terrain(world, deltaTime, vertices_hitbox31, "animacje/hitbox.png");
-
-	//SIXTH ISLAND (the last one)
-
-	GR::StaticPhysicalObject m32Terrain(world, deltaTime, vertices_hitbox32, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m33Terrain(world, deltaTime, vertices_hitbox33, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m34Terrain(world, deltaTime, vertices_hitbox34, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m35Terrain(world, deltaTime, vertices_hitbox35, "animacje/hitbox.png");
-	GR::StaticPhysicalObject m36Terrain(world, deltaTime, vertices_hitbox36, "animacje/hitbox.png");
 
 	//===============================================================================================
 
-	//Creating worms objects (Static for now)
+	//Creating hitbox of terain objects Vector
 
-	GR::StaticAnimatedObject worm1s(deltaTime, vertices_worm1s, "animacje/sovfront.png");
-	GR::StaticAnimatedObject worm2s(deltaTime, vertices_worm2s, "animacje/sovfront.png");
-	GR::StaticAnimatedObject worm3s(deltaTime, vertices_worm3s, "animacje/sovfront.png");
+	std::vector<std::unique_ptr<GR::StaticPhysicalObject>> terainqueue;
 
-	GR::StaticAnimatedObject worm1g(deltaTime, vertices_worm1g, "animacje/tzegerfront.png");
-	GR::StaticAnimatedObject worm2g(deltaTime, vertices_worm2g, "animacje/tzegerfront.png");
-	GR::StaticAnimatedObject worm3g(deltaTime, vertices_worm3g, "animacje/tzegerfront.png");
+	//FIRST ISLAND
 
-	GR::StaticAnimatedObject worm1b(deltaTime, vertices_worm1b, "animacje/britfront.png");
-	GR::StaticAnimatedObject worm2b(deltaTime, vertices_worm2b, "animacje/britfront.png");
-	GR::StaticAnimatedObject worm3b(deltaTime, vertices_worm3b, "animacje/britfront.png");
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox1, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox2, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox3, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox4, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox5, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox6, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox7, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox8, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox9, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox10, "animacje/hitbox.png"));
+	
+	//SECOND ISLAND
 
-	GR::StaticAnimatedObject worm1p(deltaTime, vertices_worm1p, "animacje/polfront.png");
-	GR::StaticAnimatedObject worm2p(deltaTime, vertices_worm2p, "animacje/polfront.png");
-	GR::StaticAnimatedObject worm3p(deltaTime, vertices_worm3p, "animacje/polfront.png");
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox11, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox12, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox13, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox14, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox15, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox16, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox17, "animacje/hitbox.png"));
 
+	//THIRD ISLAND
+
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox18, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox19, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox20, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox21, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox22, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox23, "animacje/hitbox.png"));
+
+	//FOURTH ISLAND (the single tile one)
+
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox24, "animacje/hitbox.png"));
+
+	//FIFTH ISLAND
+
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox25, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox26, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox27, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox28, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox29, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox30, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox31, "animacje/hitbox.png"));
+
+	//SIXTH ISLAND (the last one)
+
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox32, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox33, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox34, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox35, "animacje/hitbox.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox36, "animacje/hitbox.png"));
+	
 	//================================================================================================
-	std::vector<std::unique_ptr<Worm>> wormqueue;
-	wormqueue.push_back(make_unique<Worm>(world, deltaTime, vertices_worm1p, "animacje/polfront.png"));
+	//Creating worms objects Vector
 
-	std::array<GR::StaticAnimatedObject, 12> wormarrey = { worm1p, worm1g, worm1s, worm1b, worm2b, worm2s, worm2g, worm2p, worm3p, worm3g, worm3s, worm3b };
+	std::vector<std::unique_ptr<Worm>> wormqueue;
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1p, "animacje/polfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1g, "animacje/tzegerfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1s, "animacje/sovfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1b, "animacje/britfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm2b, "animacje/britfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm2s, "animacje/sovfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm2g, "animacje/tzegerfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm2p, "animacje/polfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm3p, "animacje/polfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm3g, "animacje/tzegerfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm3s, "animacje/sovfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm3b, "animacje/britfront.png"));
+
+	//Creating text objects Vector
+
+	std::vector<std::unique_ptr<GR::Text>> textqueue;
+	textqueue.push_back(std::make_unique<GR::Text>());
+	textqueue.push_back(std::make_unique<GR::Text>());
+	textqueue.push_back(std::make_unique<GR::Text>());
+	textqueue.push_back(std::make_unique<GR::Text>());
+	textqueue.push_back(std::make_unique<GR::Text>());
+	textqueue.push_back(std::make_unique<GR::Text>());
+	textqueue.push_back(std::make_unique<GR::Text>());
+	textqueue.push_back(std::make_unique<GR::Text>());
+	textqueue.push_back(std::make_unique<GR::Text>());
+	textqueue.push_back(std::make_unique<GR::Text>());
+	textqueue.push_back(std::make_unique<GR::Text>());
+	textqueue.push_back(std::make_unique<GR::Text>());
+
+
 
 	//Icons
 
@@ -578,80 +592,16 @@ int main() {
 	obj.addKeyBinding(sf::Keyboard::Num1, &Worm::pickWeapon1, InputType::REALTIME);
 	obj.addKeyBinding(sf::Keyboard::Num2, &Worm::pickWeapon2, InputType::REALTIME);
 	obj.addKeyBinding(sf::Keyboard::Num3, &Worm::pickWeapon3, InputType::REALTIME);
+
 	//seting up worms text
 
-	GR::Text teks1;
+	/*GR::Text teks1;
 	teks1.setRelativeTranslation(-5.5f, -10.0f);
 	teks1.setCharackterSize(8);
 	teks1.setColor(255, 0, 0);
-	worm1s.attachText(teks1);
+	worm1s.attachText(teks1);*/
 
-	GR::Text teks2;
-	teks2.setRelativeTranslation(-5.5f, -10.0f);
-	teks2.setCharackterSize(8);
-	teks2.setColor(255, 0, 0);
-	worm2s.attachText(teks2);
-
-	GR::Text teks3;
-	teks3.setRelativeTranslation(-5.5f, -10.0f);
-	teks3.setCharackterSize(8);
-	teks3.setColor(255, 0, 0);
-	worm3s.attachText(teks3);
-
-	GR::Text teks4;
-	teks4.setRelativeTranslation(-5.5f, -10.0f);
-	teks4.setCharackterSize(8);
-	teks4.setColor(255, 0, 0);
-	worm1g.attachText(teks4);
-
-	GR::Text teks5;
-	teks5.setRelativeTranslation(-5.5f, -10.0f);
-	teks5.setCharackterSize(8);
-	teks5.setColor(255, 0, 0);
-	worm2g.attachText(teks5);
-
-	GR::Text teks6;
-	teks6.setRelativeTranslation(-5.5f, -10.0f);
-	teks6.setCharackterSize(8);
-	teks6.setColor(255, 0, 0);
-	worm3g.attachText(teks6);
-
-	GR::Text teks7;
-	teks7.setRelativeTranslation(-5.5f, -10.0f);
-	teks7.setCharackterSize(8);
-	teks7.setColor(255, 0, 0);
-	worm1b.attachText(teks7);
-
-	GR::Text teks8;
-	teks8.setRelativeTranslation(-5.5f, -10.0f);
-	teks8.setCharackterSize(8);
-	teks8.setColor(255, 0, 0);
-	worm2b.attachText(teks8);
-
-	GR::Text teks9;
-	teks9.setRelativeTranslation(-5.5f, -10.0f);
-	teks9.setCharackterSize(8);
-	teks9.setColor(255, 0, 0);
-	worm3b.attachText(teks9);
-
-	GR::Text teks10;
-	teks10.setRelativeTranslation(-5.5f, -10.0f);
-	teks10.setCharackterSize(8);
-	teks10.setColor(255, 0, 0);
-	worm1p.attachText(teks10);
-
-	GR::Text teks11;
-	teks11.setRelativeTranslation(-5.5f, -10.0f);
-	teks11.setCharackterSize(8);
-	teks11.setColor(255, 0, 0);
-	worm2p.attachText(teks11);
-
-	GR::Text teks12;
-	teks12.setRelativeTranslation(-5.5f, -10.0f);
-	teks12.setCharackterSize(8);
-	teks12.setColor(255, 0, 0);
-	worm3p.attachText(teks);
-
+	
 	//Seting up object animations
 
 	obj.addAnimation("LEFT", "animacje/sovleftmarch.png", 4, 3.0f);
@@ -665,33 +615,33 @@ int main() {
 	bum.addAnimation("BUM", "animacje/explosion.png", 5, 1.0f);
 	bum.setCurrentAnimation("BUM");
 
-	worm1s.addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
-	worm1s.setCurrentAnimation("WORM");
-	worm2s.addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
-	worm2s.setCurrentAnimation("WORM");
-	worm3s.addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
-	worm3s.setCurrentAnimation("WORM");
+	wormqueue[2]->addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
+	wormqueue[2]->setCurrentAnimation("WORM");
+	wormqueue[5]->addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
+	wormqueue[5]->setCurrentAnimation("WORM");
+	wormqueue[10]->addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
+	wormqueue[10]->setCurrentAnimation("WORM");
 
-	worm1g.addAnimation("WORM", "animacje/tzegerfront.png", 3, 4.0f);
-	worm1g.setCurrentAnimation("WORM");
-	worm2g.addAnimation("WORM", "animacje/tzegerfront.png", 3, 4.0f);
-	worm2g.setCurrentAnimation("WORM");
-	worm3g.addAnimation("WORM", "animacje/tzegerfront.png", 3, 4.0f);
-	worm3g.setCurrentAnimation("WORM");
+	wormqueue[1]->addAnimation("WORM", "animacje/tzegerfront.png", 3, 4.0f);
+	wormqueue[1]->setCurrentAnimation("WORM");
+	wormqueue[6]->addAnimation("WORM", "animacje/tzegerfront.png", 3, 4.0f);
+	wormqueue[6]->setCurrentAnimation("WORM");
+	wormqueue[9]->addAnimation("WORM", "animacje/tzegerfront.png", 3, 4.0f);
+	wormqueue[9]->setCurrentAnimation("WORM");
 
-	worm1b.addAnimation("WORM", "animacje/britfront.png", 3, 4.0f);
-	worm1b.setCurrentAnimation("WORM");
-	worm2b.addAnimation("WORM", "animacje/britfront.png", 3, 4.0f);
-	worm2b.setCurrentAnimation("WORM");
-	worm3b.addAnimation("WORM", "britfront.png", 3, 4.0f);
-	worm3b.setCurrentAnimation("WORM");
+	wormqueue[3]->addAnimation("WORM", "animacje/britfront.png", 3, 4.0f);
+	wormqueue[3]->setCurrentAnimation("WORM");
+	wormqueue[4]->addAnimation("WORM", "animacje/britfront.png", 3, 4.0f);
+	wormqueue[4]->setCurrentAnimation("WORM");
+	wormqueue[11]->addAnimation("WORM", "britfront.png", 3, 4.0f);
+	wormqueue[11]->setCurrentAnimation("WORM");
 
-	worm1p.addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
-	worm1p.setCurrentAnimation("WORM");
-	worm2p.addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
-	worm2p.setCurrentAnimation("WORM");
-	worm3p.addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
-	worm3p.setCurrentAnimation("WORM");
+	wormqueue[0]->addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
+	wormqueue[0]->setCurrentAnimation("WORM");
+	wormqueue[7]->addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
+	wormqueue[7]->setCurrentAnimation("WORM");
+	wormqueue[8]->addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
+	wormqueue[8]->setCurrentAnimation("WORM");
 
 	//actual game loop
 
@@ -705,20 +655,8 @@ int main() {
 		deltaTime = ck.restart().asSeconds();
 		wormsWindow.setBackGroundColor(100, 100, 100);
 
-		worm1s.update();
-		worm2s.update();
-		worm3s.update();
-		worm1g.update();
-		worm2g.update();
-		worm3g.update();
-		worm1b.update();
-		worm2b.update();
-		worm3b.update();
-		worm1p.update();
-		worm2p.update();
-		worm3p.update();
-
-		//water effect
+		
+	
 
 		water.update();
 		//bum.update();
@@ -739,47 +677,7 @@ int main() {
 		//Map hitbox
 
 		//FIRST ISLAND
-		wormsWindow.draw(m1Terrain);
-		wormsWindow.draw(m2Terrain);
-		wormsWindow.draw(m3Terrain);
-		wormsWindow.draw(m4Terrain);
-		wormsWindow.draw(m5Terrain);
-		wormsWindow.draw(m6Terrain);
-		wormsWindow.draw(m7Terrain);
-		wormsWindow.draw(m8Terrain);
-		wormsWindow.draw(m9Terrain);
-		wormsWindow.draw(m10Terrain);
-		//SECOND ISLAND
-		wormsWindow.draw(m11Terrain);
-		wormsWindow.draw(m12Terrain);
-		wormsWindow.draw(m13Terrain);
-		wormsWindow.draw(m14Terrain);
-		wormsWindow.draw(m15Terrain);
-		wormsWindow.draw(m16Terrain);
-		wormsWindow.draw(m17Terrain);
-		//THIRD ISLAND
-		wormsWindow.draw(m18Terrain);
-		wormsWindow.draw(m19Terrain);
-		wormsWindow.draw(m20Terrain);
-		wormsWindow.draw(m21Terrain);
-		wormsWindow.draw(m22Terrain);
-		wormsWindow.draw(m23Terrain);
-		//FOURTH ISLAND (the single tile one)
-		wormsWindow.draw(m24Terrain);
-		//FIFTH ISLAND
-		wormsWindow.draw(m25Terrain);
-		wormsWindow.draw(m26Terrain);
-		wormsWindow.draw(m27Terrain);
-		wormsWindow.draw(m28Terrain);
-		wormsWindow.draw(m29Terrain);
-		wormsWindow.draw(m30Terrain);
-		wormsWindow.draw(m31Terrain);
-		//SIXTH ISLAND (the last one)
-		wormsWindow.draw(m32Terrain);
-		wormsWindow.draw(m33Terrain);
-		wormsWindow.draw(m34Terrain);
-		wormsWindow.draw(m35Terrain);
-		wormsWindow.draw(m36Terrain);
+
 
 		//Map textures
 
@@ -788,19 +686,6 @@ int main() {
 
 		//Worms
 
-		wormsWindow.draw(worm1s);
-		wormsWindow.draw(worm2s);
-		wormsWindow.draw(worm3s);
-		wormsWindow.draw(worm1g);
-		wormsWindow.draw(worm2g);
-		wormsWindow.draw(worm3g);
-		wormsWindow.draw(worm1b);
-		wormsWindow.draw(worm2b);
-		wormsWindow.draw(worm3b);
-		wormsWindow.draw(worm1p);
-		wormsWindow.draw(worm2p);
-		wormsWindow.draw(worm3p);
-
 		wormsWindow.draw(obj);
 
 		wormsWindow.draw(water); //water has to be drawn after the worms
@@ -808,6 +693,7 @@ int main() {
 		//wormsWindow.draw(bum);
 
 		//icon needs to be drawn at very end
+
 		wormsWindow.draw(icon);
 		wormsWindow.draw(icon1);
 		std::cout << icon.getPosition().x << icon.getPosition().y << std::endl;
