@@ -535,19 +535,35 @@ int main() {
 	//================================================================================================
 	//Creating worms objects Vector
 
-	std::vector<std::unique_ptr<Worm>> wormqueue;
-	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1p, "animacje/polfront.png"));
-	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1g, "animacje/tzegerfront.png"));
-	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1s, "animacje/sovfront.png"));
-	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1b, "animacje/britfront.png"));
-	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm2b, "animacje/britfront.png"));
-	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm2s, "animacje/sovfront.png"));
-	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm2g, "animacje/tzegerfront.png"));
-	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm2p, "animacje/polfront.png"));
-	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm3p, "animacje/polfront.png"));
-	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm3g, "animacje/tzegerfront.png"));
-	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm3s, "animacje/sovfront.png"));
-	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm3b, "animacje/britfront.png"));
+	Worm worm1s(world, deltaTime, vertices_worm1s, "animacje/sovfront.png");
+	Worm worm2s(world, deltaTime, vertices_worm2s, "animacje/sovfront.png");
+	Worm worm3s(world, deltaTime, vertices_worm3s, "animacje/sovfront.png");
+
+	Worm worm1g(world, deltaTime, vertices_worm1g, "animacje/tzegerfront.png");
+	Worm worm2g(world, deltaTime, vertices_worm2g, "animacje/tzegerfront.png");
+	Worm worm3g(world, deltaTime, vertices_worm3g, "animacje/tzegerfront.png");
+
+	Worm worm1b(world, deltaTime, vertices_worm1b, "animacje/britfront.png");
+	Worm worm2b(world, deltaTime, vertices_worm2b, "animacje/britfront.png");
+	Worm worm3b(world, deltaTime, vertices_worm3b, "animacje/britfront.png");
+
+	Worm worm1p(world, deltaTime, vertices_worm1p, "animacje/polfront.png");
+	Worm worm2p(world, deltaTime, vertices_worm2p, "animacje/polfront.png");
+	Worm worm3p(world, deltaTime, vertices_worm3p, "animacje/polfront.png");
+
+	std::vector<Worm*> wormqueue;
+	wormqueue.push_back(&worm1p);
+	wormqueue.push_back(&worm1g);
+	wormqueue.push_back(&worm1s);
+	wormqueue.push_back(&worm1b);
+	wormqueue.push_back(&worm2b);
+	wormqueue.push_back(&worm2s);
+	wormqueue.push_back(&worm2g);
+	wormqueue.push_back(&worm2p);
+	wormqueue.push_back(&worm3p);
+	wormqueue.push_back(&worm3g);
+	wormqueue.push_back(&worm3s);
+	wormqueue.push_back(&worm3b);
 
 	//Creating text objects Vector
 
