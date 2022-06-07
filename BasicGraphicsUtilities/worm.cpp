@@ -50,19 +50,35 @@ void Worm::jump() {
 
 void Worm::move_right() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Right);
-	b2Vec2 velocity = box2dModel->getVelocity();
-	if (velocity.x < 30)
+	b2Vec2 vel = box2dModel->getVelocity();
+
+	//float angle = box2dModel->getAngle();
+	//float relVelX = cos(angle) * velocity.x + sin(angle) * velocity.y;
+
+	if (vel.x < 30)
 	{
-		box2dModel->addVelocity({ arguments[0], arguments[1] });
+		float y;
+		if (jumpReady == JumpState::ready && vel.y > 10)
+		{
+			y = 0;
+		}
+		else { y = arguments[1]; }
+		box2dModel->addVelocity({ arguments[0], y });
 	}
 }
 
 void Worm::move_left() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Left);
-	b2Vec2 velocity = box2dModel->getVelocity();
-	if (velocity.x > -30)
+	b2Vec2 vel = box2dModel->getVelocity();
+	if (vel.x > -30)
 	{
-		box2dModel->addVelocity({ arguments[0], arguments[1] });
+		float y;
+		if (jumpReady == JumpState::ready && vel.y > 10)
+		{
+			y = 0;
+		}
+		else { y = arguments[1]; }
+		box2dModel->addVelocity({ arguments[0], y });
 	}
 }
 

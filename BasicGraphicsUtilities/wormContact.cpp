@@ -21,14 +21,17 @@ void Worm::contactHandler()
 		//bodyB->ApplyLinearImpulseToCenter({ 0, 10000 }, 1);
 		if (bodyA->GetType() == b2_staticBody)
 		{
-			if (worldManifold.normal.y > 0)
+			if (worldManifold.normal.y > 0 && contact->IsTouching())
 			{
+				//bodyB->ApplyForceToCenter({ -worldManifold.normal.x * 100000, -worldManifold.normal.y * 100000 }, 1);
 				this->setJumpReady();
+				if (worldManifold.normal.y > 0.8 && worldManifold.normal.y < 0.9)
+				{
+					//bodyB->SetLinearVelocity({ worldManifold.normal.x, -worldManifold.normal.y * 1000000 }, 1);
+					//bodyB->SetFixedRotation(false);
+					//bodyB->ApplyLinearImpulse({ 0, 1000 }, bodyB->GetPosition() + b2Vec2(10, 0), 1);
+				}
 			}
-			std::cout << "A: STATIC" << std::endl;
-			std::cout << "X: \t" << worldManifold.normal.x << std::endl;
-			std::cout << "Y: \t" << worldManifold.normal.y << std::endl;
-			bodyB->ApplyForceToCenter({ 0, -10 }, 1);
 		}
 		else if (bodyA->GetType() == b2_dynamicBody)
 		{
