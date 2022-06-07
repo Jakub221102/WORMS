@@ -91,7 +91,6 @@ void Worm::move_down() {
 void Worm::update(float mouseX, float mouseY) {
 	updateNoControl();
 	updateCooldowns();
-	contactHandler();
 	listenAndUseAll();
 	sf::Vector2f pos = getPosition();
 	sf::Vector2f direction = { mouseX - pos.x, mouseY - pos.y };
@@ -118,6 +117,7 @@ void Worm::update(float mouseX, float mouseY) {
 void Worm::updateNoControl() {
 	static_cast<GR::DynamicAnimatedObject&>(*this).update();
 	text->setString(std::to_string(hp) + '%');
+	contactHandler();
 }
 
 void Worm::addKeyBinding(sf::Keyboard::Key keyCode, void (Worm::* pointer)(), InputType type) {
@@ -178,4 +178,13 @@ void Worm::pickWeapon2() {
 
 void Worm::pickWeapon3() {
 	pointer = 4;
+}
+
+
+void Worm::TakeDamage(int dmg)
+{
+	if (hp > 0)
+	{
+		hp -= dmg;
+	}
 }

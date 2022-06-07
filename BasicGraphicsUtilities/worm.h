@@ -46,7 +46,7 @@ public:
 	void pickWeapon1();
 	void pickWeapon2();
 	void pickWeapon3();
-	void TakeDamage(unsigned damage) { hp -= damage; }
+	void TakeDamage(int dmg);
 	void updateCooldowns();
 	void contactHandler();
 	void setJumpReady();

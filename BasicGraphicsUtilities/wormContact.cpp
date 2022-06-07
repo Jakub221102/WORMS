@@ -33,9 +33,14 @@ void Worm::contactHandler()
 		}
 		else if (bodyA->GetType() == b2_dynamicBody)
 		{
-			if (bodyA->GetMass() == bodyB->GetMass()) //wstaw mase pocisku i sprawdz setBullet
+			float mass = bodyA->GetMass();
+			if (mass == 10) //wstaw mase pocisku i sprawdz setBullet
 			{
-				this->TakeDamage(10);
+				TakeDamage(10);
+			}
+			else if (mass == bodyB->GetMass())
+			{
+
 			}
 		}
 		
