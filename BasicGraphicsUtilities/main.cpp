@@ -644,7 +644,7 @@ int main() {
 	wormqueue[3]->setCurrentAnimation("WORM");
 	wormqueue[4]->addAnimation("WORM", "animacje/britfront.png", 3, 4.0f);
 	wormqueue[4]->setCurrentAnimation("WORM");
-	wormqueue[11]->addAnimation("WORM", "britfront.png", 3, 4.0f);
+	wormqueue[11]->addAnimation("WORM", "animacje/britfront.png", 3, 4.0f);
 	wormqueue[11]->setCurrentAnimation("WORM");
 
 	wormqueue[0]->addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
