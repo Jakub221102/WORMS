@@ -441,7 +441,7 @@ int main() {
 
 	//Setings of the world like gravity
 
-	b2Vec2 gravity(0.0f, -10.0f);
+	b2Vec2 gravity(0.0f, -20.0f);
 	b2World world(gravity);
 
 	b2BodyDef groundBodyDef;
@@ -561,11 +561,11 @@ int main() {
 	obj.addKeyBinding(sf::Keyboard::Space, &Worm::jump, InputType::REALTIME);
 	obj.setKeyArguments(sf::Keyboard::Space, { 0.0f, 25.0f }, InputType::REALTIME); // pass velocity to jump method
 	obj.addKeyBinding(sf::Keyboard::Right, &Worm::move_right, InputType::REALTIME);
-	obj.setKeyArguments(sf::Keyboard::Right, { 25.0f, 0.0f }, InputType::REALTIME); // pass velocity to move method
+	obj.setKeyArguments(sf::Keyboard::Right, { 0.5f, 0.0f }, InputType::REALTIME); // pass velocity to move method
 	obj.addKeyBinding(sf::Keyboard::Left, &Worm::move_left, InputType::REALTIME);
-	obj.setKeyArguments(sf::Keyboard::Left, { -25.0f, 0.0f }, InputType::REALTIME); // pass velocity to move method
+	obj.setKeyArguments(sf::Keyboard::Left, { -0.5f, 0.0f }, InputType::REALTIME); // pass velocity to move method
 	obj.addKeyBinding(sf::Keyboard::Down, &Worm::move_down, InputType::REALTIME);
-	obj.setKeyArguments(sf::Keyboard::Down, { 0.0f, -5.0f }, InputType::REALTIME); // pass velocity to move method
+	obj.setKeyArguments(sf::Keyboard::Down, { 0.0f, -25.0f }, InputType::REALTIME); // pass velocity to move method
 	obj.addKeyBinding(sf::Keyboard::Num1, &Worm::pickWeapon1, InputType::REALTIME);
 	obj.addKeyBinding(sf::Keyboard::Num2, &Worm::pickWeapon2, InputType::REALTIME);
 	obj.addKeyBinding(sf::Keyboard::Num3, &Worm::pickWeapon3, InputType::REALTIME);
@@ -802,6 +802,7 @@ int main() {
 		std::cout << icon.getPosition().x << icon.getPosition().y << std::endl;
 
 		wormsWindow.endDraw();
+		world.Step(deltaTime, 6, 2);
 		world.Step(deltaTime, 6, 2);
 	}
 	return 0;
