@@ -571,7 +571,7 @@ int main() {
 
 	GR::RelativeStaticObject icon(deltaTime, vertices_icon, "animacje/wepons_icon.png");
 	GR::StaticAnimatedRelativeObject icon1(deltaTime, vertices_icon1, "animacje/wepons_icon.png");
-	icon1.addAnimation("IDLE", "animacje/timer.png", 30, 30.0f);
+	icon1.addAnimation("IDLE", "animacje/timer.png", 31, 30.0f);
 	icon1.setCurrentAnimation("IDLE");
 	icon1.attachViewAndZoom(wormsWindow);
 	icon1.setRelativeVector({ 480.0f, 30.0f });
@@ -698,7 +698,6 @@ int main() {
 		wormsWindow.draw(obj);
 
 		wormsWindow.draw(water); //water has to be drawn after the worms
-
 		//wormsWindow.draw(bum);
 
 		//icon needs to be drawn at very end
