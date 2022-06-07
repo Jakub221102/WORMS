@@ -57,13 +57,11 @@ void Worm::move_right() {
 
 	if (vel.x < 30)
 	{
-		float y;
-		if (jumpReady == JumpState::ready && vel.y > 10)
+		if (jumpReady == JumpState::ready && vel.y > 20)
 		{
-			y = 0;
+			putVelocity({ vel.x, 20 });
 		}
-		else { y = arguments[1]; }
-		box2dModel->addVelocity({ arguments[0], y });
+		box2dModel->addVelocity({ arguments[0], arguments[1]});
 	}
 }
 
@@ -73,12 +71,11 @@ void Worm::move_left() {
 	if (vel.x > -30)
 	{
 		float y;
-		if (jumpReady == JumpState::ready && vel.y > 10)
+		if (jumpReady == JumpState::ready && vel.y > 5)
 		{
-			y = 0;
+			putVelocity({ vel.x, 20 });
 		}
-		else { y = arguments[1]; }
-		box2dModel->addVelocity({ arguments[0], y });
+		box2dModel->addVelocity({ arguments[0], arguments[1]});
 	}
 }
 
