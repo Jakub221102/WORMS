@@ -11,6 +11,7 @@
 #include "static_object_relative.h"
 #include "dynamic_game_object.h"
 #include "static_physical_object.h"
+#include "static_animated_relative_object.h"
 #include "worm.h"
 
 float deltaTime;
@@ -542,7 +543,11 @@ int main() {
 	//Icons
 
 	GR::RelativeStaticObject icon(deltaTime, vertices_icon, "animacje/wepons_icon.png");
-
+	GR::StaticAnimatedRelativeObject icon1(deltaTime, vertices_icon, "animacje/wepons_icon.png");
+	icon1.addAnimation("IDLE", "animacje/polfront.png", 3, 3.0f);
+	icon1.setCurrentAnimation("IDLE");
+	icon1.attachViewAndZoom(wormsWindow);
+	icon1.setRelativeVector({ 373.0f, 130.0f });
 	//================================================================================================
 
 	icon.attachViewAndZoom(wormsWindow);
@@ -720,7 +725,8 @@ int main() {
 
 		//obj.rotate(deltaTime);
 		wormsWindow.update();							// 10 is a random value for now
-		icon.update();									// NEEDS TO BE AFTER wormsWindow.update() !!!!!!!!!!!!!!!
+		icon.update();		// NEEDS TO BE AFTER wormsWindow.update() !!!!!!!!!!!!!!!
+		icon1.update();
 		//std::cout << wormsWindow.getMouseWorldCoords().x << ' ' << wormsWindow.getMouseWorldCoords().y << std::endl;
 
 		//wormsWindow.draw(sky);
@@ -799,6 +805,7 @@ int main() {
 
 		//icon needs to be drawn at very end
 		wormsWindow.draw(icon);
+		wormsWindow.draw(icon1);
 		std::cout << icon.getPosition().x << icon.getPosition().y << std::endl;
 
 		wormsWindow.endDraw();
