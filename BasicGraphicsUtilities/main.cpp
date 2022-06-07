@@ -314,12 +314,12 @@ int main() {
 
 
 	std::vector<std::pair<float, float>> vertices_hitbox24{
-		{1571.0f, 917.0f},
-		{1555.83f, 890.0f},
-		{1571.0f, 864.0f},
-		{1601.34f, 864.0f},
-		{1616.51f, 890.0f},
-		{1601.34f, 917.0f}
+		{1575.17f, 934.0f},
+		{1560.0f, 907.0f},
+		{1575.17f, 880.0f},
+		{1606.51f, 880.0f},
+		{1621.68f, 907.0f},
+		{1606.17f, 934.0f}
 
 	};
 
@@ -696,6 +696,7 @@ int main() {
 		//Worms
 
 		wormsWindow.draw(obj);
+		wormsWindow.draw(*terainqueue[23]);
 
 		wormsWindow.draw(water); //water has to be drawn after the worms
 		//wormsWindow.draw(bum);
