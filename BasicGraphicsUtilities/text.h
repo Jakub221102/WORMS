@@ -10,7 +10,7 @@ namespace GR {
 		sf::Vector2f translation;
 		std::string txt = "";
 	public:
-		Text(const std::string& txt="", std::string font_path="arial.ttf");
+		Text(const std::string& txt="", std::string font_path="animacje/arial.ttf");
 		void setScale(float x, float y);
 		void setColor(unsigned char r, unsigned char g, unsigned char b);
 		void setString(const std::string& text);
