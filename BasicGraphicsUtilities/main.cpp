@@ -442,6 +442,15 @@ int main() {
 		{0.0f, 2.2 * 18.90f}
 	};
 
+	std::vector<std::pair<float, float>> vertices_icon1{
+		{0.0f, 0.0f},
+		{0.35f * 109.0f, 0.0f},
+		{0.35f * 109.0f, 0.35f * 128.0f},
+		{0.0f, 0.35f * 128.0f}
+	};
+
+
+
 	//Setings of the world like gravity
 
 	b2Vec2 gravity(0.0f, -20.0f);
@@ -561,11 +570,11 @@ int main() {
 	//Icons
 
 	GR::RelativeStaticObject icon(deltaTime, vertices_icon, "animacje/wepons_icon.png");
-	GR::StaticAnimatedRelativeObject icon1(deltaTime, vertices_icon, "animacje/wepons_icon.png");
-	icon1.addAnimation("IDLE", "animacje/polfront.png", 3, 3.0f);
+	GR::StaticAnimatedRelativeObject icon1(deltaTime, vertices_icon1, "animacje/wepons_icon.png");
+	icon1.addAnimation("IDLE", "animacje/timer.png", 30, 30.0f);
 	icon1.setCurrentAnimation("IDLE");
 	icon1.attachViewAndZoom(wormsWindow);
-	icon1.setRelativeVector({ 373.0f, 130.0f });
+	icon1.setRelativeVector({ 480.0f, 30.0f });
 	//================================================================================================
 
 	icon.attachViewAndZoom(wormsWindow);
