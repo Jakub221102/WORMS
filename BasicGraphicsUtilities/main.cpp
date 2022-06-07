@@ -1,9 +1,11 @@
 #pragma once
 #include <iostream>
 #include <array>
+#include <vector>
 #include "SFML/Graphics.hpp"
 #include "box2d.h"				// usun
 #include "input_manager.h"
+#include "memory"
 
 #include "cyclic_singly_linked_list.h"
 #include "window.h"
@@ -537,6 +539,8 @@ int main() {
 	GR::StaticAnimatedObject worm3p(deltaTime, vertices_worm3p, "animacje/polfront.png");
 
 	//================================================================================================
+	std::vector<std::unique_ptr<Worm>> wormqueue;
+	wormqueue.push_back(make_unique<Worm>(world, deltaTime, vertices_worm1p, "animacje/polfront.png"));
 
 	std::array<GR::StaticAnimatedObject, 12> wormarrey = { worm1p, worm1g, worm1s, worm1b, worm2b, worm2s, worm2g, worm2p, worm3p, worm3g, worm3s, worm3b };
 
