@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
-#include "C:\Users\elPrezes\source\repos\WORMS\proi_projekt_2022l_lab205_ejzak_kowalski_kowalczyk_wozniak\box2d_code\objects.h"
+#include "objects.h"
 #include "texture.h"
 #include "input_manager.h"
 #include "text.h"
