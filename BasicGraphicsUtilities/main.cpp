@@ -535,7 +535,23 @@ int main() {
 	//================================================================================================
 	//Creating worms objects Vector
 
-	Worm worm1s(world, deltaTime, vertices_worm1s, "animacje/sovfront.png");
+	std::vector<std::unique_ptr<Worm>> wormqueue;
+	wormqueue.push_back(make_unique<Worm>(world, deltaTime, vertices_worm1p, "animacje/polfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1p, "animacje/polfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1g, "animacje/tzegerfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1s, "animacje/sovfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1b, "animacje/britfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm2b, "animacje/britfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm2s, "animacje/sovfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm2g, "animacje/tzegerfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm2p, "animacje/polfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm3p, "animacje/polfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm3g, "animacje/tzegerfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm3s, "animacje/sovfront.png"));
+	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm3b, "animacje/britfront.png"));
+
+
+	/*Worm worm1s(world, deltaTime, vertices_worm1s, "animacje/sovfront.png");
 	Worm worm2s(world, deltaTime, vertices_worm2s, "animacje/sovfront.png");
 	Worm worm3s(world, deltaTime, vertices_worm3s, "animacje/sovfront.png");
 
@@ -563,7 +579,7 @@ int main() {
 	wormqueue.push_back(&worm3p);
 	wormqueue.push_back(&worm3g);
 	wormqueue.push_back(&worm3s);
-	wormqueue.push_back(&worm3b);
+	wormqueue.push_back(&worm3b);*/
 
 	//Creating text objects Vector
 
@@ -581,9 +597,12 @@ int main() {
 	textqueue.push_back(std::make_unique<GR::Text>());
 	textqueue.push_back(std::make_unique<GR::Text>());
 
-
-
-	//Icons
+	for (int i = 0; i < textqueue.size(); i++) {
+		textqueue[i]->setRelativeTranslation(-5.5f, -10.0f);
+		textqueue[i]->setCharackterSize(8);
+		textqueue[i]->setColor(255, 0, 0);
+		wormqueue[i]->attachText(*textqueue[i]);
+	};
 
 	GR::RelativeStaticObject icon(deltaTime, vertices_icon, "animacje/wepons_icon.png");
 	GR::StaticAnimatedRelativeObject icon1(deltaTime, vertices_icon1, "animacje/wepons_icon.png");
@@ -632,7 +651,7 @@ int main() {
 	obj.addAnimation("LEFT", "animacje/sovleftmarch.png", 4, 3.0f);
 	obj.addAnimation("RIGHT", "animacje/sovrightmarch.png", 4, 3.0f);
 	obj.addAnimation("JUMP", "animacje/worm_jump_sov.png", 4, 3.0f);
-	obj.setCurrentAnimation("WORM");
+	obj.setCurrentAnimation("LEFT");
 
 
 	water.addAnimation("WATER", "animacje/woda.png", 4, 2.0f);
@@ -640,7 +659,6 @@ int main() {
 	bum.addAnimation("BUM", "animacje/explosion.png", 5, 1.0f);
 	bum.setCurrentAnimation("BUM");
 
-	wormqueue[2]->addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
 	wormqueue[2]->setCurrentAnimation("WORM");
 	wormqueue[5]->addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
 	wormqueue[5]->setCurrentAnimation("WORM");
@@ -700,7 +718,8 @@ int main() {
 		//wormsWindow.draw(ground);
 
 		//Map hitbox
-
+		//worm1b.update(mouse.x, mouse.y);
+		wormqueue[0]->updateNoControl();
 		//FIRST ISLAND
 
 
@@ -710,10 +729,10 @@ int main() {
 		wormsWindow.draw(ground);
 
 		//Worms
-
+		//wormsWindow.draw(worm1b);
 		wormsWindow.draw(obj);
 		wormsWindow.draw(*terainqueue[23]);
-
+		wormsWindow.draw(*wormqueue[0]);
 		wormsWindow.draw(water); //water has to be drawn after the worms
 		//wormsWindow.draw(bum);
 
