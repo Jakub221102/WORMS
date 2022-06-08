@@ -10,6 +10,7 @@
 enum class InputType {
 	REALTIME,
 	EVENTKEYBOARD,
+	EVENTMOUSE
 };
 
 enum class JumpState {
@@ -45,6 +46,7 @@ public:
 class Worm : public GR::DynamicAnimatedObject {
 	static GR::RealTimeKeyboardManager<Worm, sf::Keyboard::Key> inputManager;
 	static GR::EventManager<Worm, sf::Keyboard::Key> eventManager;
+	static GR::RealTimeMouseManager<Worm, sf::Mouse::Button> mouseManager;
 	std::vector<std::unique_ptr<GR::StaticObject>> equipment;
 	GR::StaticObject* currentWeapon;
 	int pointer;
@@ -60,8 +62,11 @@ public:
 	Worm(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path);
     // Bindings
 	static void addKeyBinding(sf::Keyboard::Key keyCode, void (Worm::* pointer)(), InputType type);
+	static void addKeyBinding(sf::Mouse::Button keyCode, void (Worm::* pointer)(), InputType type);
 	static void removeKeyBinding(sf::Keyboard::Key keyCode, InputType type);
+	static void removeKeyBinding(sf::Mouse::Button keyCode, InputType type);
 	static void setKeyArguments(sf::Keyboard::Key keyCode, const std::vector<float>& args, InputType type);
+	static void setKeyArguments(sf::Mouse::Button keyCode, const std::vector<float>& args, InputType type);
 	void listenAndUseAll();
 	void update(float mouseX, float mouseY);
 	void updateNoControl();
@@ -72,7 +77,7 @@ public:
 	void move_right();
 	void move_left();
 	void move_down();
-	void shot(const sf::Vector2f& direction);
+	void shot();
 	void destroyBullet();
 	GR::StaticObject& drawableBullet();
 	void pickWeapon1();
