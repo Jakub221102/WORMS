@@ -1,6 +1,7 @@
 #pragma once
 
 #include "dynamic_animated_object.h"
+//#include "bullet.h"
 
 #include <memory>
 //#include "weapons.h"
@@ -17,6 +18,25 @@ enum class JumpState {
 	noneLeft
 };
 
+enum class WeaponType {
+	basic,
+	baseball,
+	granade
+};
+
+//bullet is created with starting vel
+class Bullet : public GR::DynamicAnimatedObject
+{
+private:
+	sf::Vector2f velVec;
+	const float MaxBulletVel = 999;
+public:
+	void setVelocity(sf::Vector2f mouseClickedPos);
+	void update();
+	Bullet(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, sf::Vector2f mousePosition);
+};
+
+
 class Worm : public GR::DynamicAnimatedObject {
 	static GR::RealTimeKeyboardManager<Worm, sf::Keyboard::Key> inputManager;
 	static GR::EventManager<Worm, sf::Keyboard::Key> eventManager;
@@ -27,6 +47,8 @@ class Worm : public GR::DynamicAnimatedObject {
 	unsigned hp = 100;
 	float jumpCooldown = 0;
 	JumpState jumpReady = JumpState::noneLeft;
+	WeaponType weapon = WeaponType::basic;
+	std::unique_ptr<Bullet> bullet = nullptr;
 
 public:
 	Worm(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path);
@@ -43,12 +65,15 @@ public:
 	void move_right();
 	void move_left();
 	void move_down();
+	void shot(const sf::Vector2f& direction);
+	void destroyBullet();
 	void pickWeapon1();
 	void pickWeapon2();
 	void pickWeapon3();
 	void TakeDamage(int dmg);
 	void updateCooldowns();
 	void contactHandler();
+	void bulletContactHandler();
 	void setJumpReady();
 	GR::StaticObject& getCurrentWeapon();
 };

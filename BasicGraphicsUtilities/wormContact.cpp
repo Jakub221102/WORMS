@@ -55,3 +55,22 @@ void Worm::contactHandler()
 
 	}
 }
+
+
+void Worm::bulletContactHandler()
+{
+	if (bullet)
+	{
+		b2WorldManifold worldManifold;
+		for (b2ContactEdge* edge = box2dModel->getContactList(); edge; edge = edge->next)
+		{
+			b2Contact* contact = edge->contact;
+			contact->GetWorldManifold(&worldManifold);
+			b2Body* bodyA = contact->GetFixtureA()->GetBody();
+			b2Body* bodyB = contact->GetFixtureB()->GetBody();
+
+			this->destroyBullet();
+		}
+	}
+
+}

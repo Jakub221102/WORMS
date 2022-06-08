@@ -88,6 +88,29 @@ void Worm::move_down() {
 	}
 }
 
+void Worm::shot(const sf::Vector2f& direction)
+{
+	sf::Vector2f start = getPosition();
+
+	std::vector<std::pair<float, float>> vertices{
+	{start.x - 1, start.y + 1},
+	{start.x + 1, start.y + 1},
+	{start.x + 1, start.y - 1},
+	{start.x - 1, start.y - 1}
+	};
+
+	b2World* world = box2dModel->getWorld();
+
+	bullet = std::make_unique<Bullet>( *world, deltaTime, vertices, "path", direction );
+
+}
+
+void Worm::destroyBullet()
+{
+	bullet.reset();
+}
+
+
 void Worm::update(float mouseX, float mouseY) {
 	updateNoControl();
 	updateCooldowns();
