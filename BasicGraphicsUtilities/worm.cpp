@@ -37,6 +37,19 @@ Worm::Worm(b2World& world, const float& time, std::vector<std::pair<float, float
 	equipment.push_back(std::make_unique<GR::StaticObject>(time, gren_v, "animacje/granade.png"));
 }
 
+void Worm::setJumpReady()
+{
+	jumpReady = JumpState::ready;
+	jumpCooldown = 0;
+}
+
+void Worm::setHalfJump()
+{
+	jumpReady = JumpState::oneLeft;
+	jumpCooldown = 0;
+}
+
+
 void Worm::jump() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Space);
 	if (jumpCooldown <= 0 && jumpReady < JumpState::noneLeft)
@@ -118,7 +131,7 @@ void Worm::shot()
 
 void Worm::destroyBullet()
 {
-	//bullet->box2dModel->destroy();
+	//auto call destructor of class Model (delete body from the b2World), not allowed to do during time step
 	bullet.reset();
 }
 
@@ -164,11 +177,17 @@ void Worm::updateNoControl() {
 	static_cast<GR::DynamicAnimatedObject&>(*this).update();
 	text->setString(std::to_string(hp) + '%');
 	contactHandler();
-	bulletContactHandler();
 	if (bullet)
 	{
-		bullet->update();
-		//std::cout << "BULLET CREATED" << std::endl;
+		if (bullet->isLive)
+		{
+			bulletContactHandler();
+			bullet->update();
+		}
+		else if (bulletStepCooldown == 0) 
+		{
+			destroyBullet();
+		}
 	}
 }
 
@@ -231,6 +250,10 @@ void Worm::updateCooldowns()
 	if (jumpCooldown > 0)
 	{
 		jumpCooldown -= deltaTime;
+	}
+	if (bulletStepCooldown > 0)
+	{
+		bulletStepCooldown--;
 	}
 }
 

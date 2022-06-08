@@ -1,7 +1,7 @@
 #include "worm.h"
 
 Bullet::Bullet(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, sf::Vector2f mousePosition)
-	:GR::DynamicAnimatedObject(world, time, vertices, texture_path), StaticObject(time, vertices, texture_path)
+	:GR::DynamicAnimatedObject(world, time, vertices, texture_path), StaticObject(time, vertices, texture_path), isLive(true)
 {
 	box2dModel->setAsBullet();
 	setShotVelocity(mousePosition);
