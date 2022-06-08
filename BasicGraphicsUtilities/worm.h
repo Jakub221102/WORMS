@@ -1,9 +1,10 @@
 #pragma once
 
-#include "dynamic_animated_object.h"
-//#include "bullet.h"
-
 #include <memory>
+#include <cmath>
+
+#include "dynamic_animated_object.h"
+
 //#include "weapons.h"
 //#include "static_object_relative.h"
 
@@ -32,7 +33,8 @@ class Bullet : public GR::DynamicAnimatedObject
 private:
 
 	friend class Worm;
-
+	
+	bool isLive;
 	sf::Vector2f velVec;
 	const float MaxBulletVel = 50;
 public:
@@ -53,9 +55,12 @@ class Worm : public GR::DynamicAnimatedObject {
 	int ptrprim;
 	unsigned hp = 100;
 	float jumpCooldown = 0;
+	float dmgCooldown = 0;
+	//int bulletStepCooldown = 3;
 	JumpState jumpReady = JumpState::noneLeft;
 	WeaponType weapon = WeaponType::basic;
 	std::unique_ptr<Bullet> bullet = nullptr;
+
 
 public:
 	
@@ -88,5 +93,6 @@ public:
 	void contactHandler();
 	void bulletContactHandler();
 	void setJumpReady();
+	void setHalfJump();
 	GR::StaticObject& getCurrentWeapon();
 };

@@ -4,6 +4,10 @@
 #include <stdexcept>
 
 
+Model::~Model()
+{
+    destroy();
+}
 
 b2Vec2 Model::getPosition() const
 {

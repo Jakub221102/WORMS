@@ -37,6 +37,19 @@ Worm::Worm(b2World& world, const float& time, std::vector<std::pair<float, float
 	equipment.push_back(std::make_unique<GR::StaticObject>(time, gren_v, "animacje/granade.png"));
 }
 
+void Worm::setJumpReady()
+{
+	jumpReady = JumpState::ready;
+	jumpCooldown = 0;
+}
+
+void Worm::setHalfJump()
+{
+	jumpReady = JumpState::oneLeft;
+	jumpCooldown = 0;
+}
+
+
 void Worm::jump() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Space);
 	if (jumpCooldown <= 0 && jumpReady < JumpState::noneLeft)
@@ -93,21 +106,26 @@ void Worm::move_down() {
 void Worm::shot()
 {
 	std::vector<float> arguments = mouseManager.getArguments(sf::Mouse::Left);
-	const sf::Vector2f& direction = { arguments[0], arguments[1] };
-	std::cout << arguments[0] << ' ' << arguments[1] << std::endl;
+	const sf::Vector2f& mousePos = { arguments[0], arguments[1] };
+	//std::cout << arguments[0] << ' ' << arguments[1] << std::endl;
 	if (!bullet) {
 		sf::Vector2f start = getPosition();
-		float x_offset = 15;
-		if ((direction.x - start.x) < 0)
-		{
-			x_offset = -15;
-		}
+		sf::Vector2f direction(mousePos.x - start.x, start.y - mousePos.y );	//reversed y for box2d 
+		
+		float angle = -atan2(direction.x , -direction.y) + 1.5; //angular offset of our world
+		
+		float x_offset = cos(angle) * 15; // 10 is a radius (pistol length)
+		float y_offset = sin(angle) * 20;
+
+	
+		std::cout <<"angle: \t " << angle << std::endl;
+
 
 		std::vector<std::pair<float, float>> vertices{
-		{start.x - 1 + x_offset, start.y + 1},
-		{start.x + 1 + x_offset, start.y + 1},
-		{start.x + 1 + x_offset, start.y - 1},
-		{start.x - 1 + x_offset, start.y - 1}
+		{start.x - 1 + x_offset, start.y + 1 + y_offset},
+		{start.x + 1 + x_offset, start.y + 1 + y_offset},
+		{start.x + 1 + x_offset, start.y - 1 + y_offset},
+		{start.x - 1 + x_offset, start.y - 1 + y_offset}
 		};
 
 		b2World* world = box2dModel->getWorld();
@@ -118,7 +136,7 @@ void Worm::shot()
 
 void Worm::destroyBullet()
 {
-	//bullet->box2dModel->destroy();
+	//auto call destructor of class Model (delete body from the b2World), not allowed to do during time step
 	bullet.reset();
 }
 
@@ -164,11 +182,17 @@ void Worm::updateNoControl() {
 	static_cast<GR::DynamicAnimatedObject&>(*this).update();
 	text->setString(std::to_string(hp) + '%');
 	contactHandler();
-	bulletContactHandler();
 	if (bullet)
 	{
-		bullet->update();
-		//std::cout << "BULLET CREATED" << std::endl;
+		if (bullet->isLive)
+		{
+			bulletContactHandler();
+			bullet->update();
+		}
+		else 
+		{
+			destroyBullet();
+		}
 	}
 }
 
@@ -232,6 +256,10 @@ void Worm::updateCooldowns()
 	{
 		jumpCooldown -= deltaTime;
 	}
+	//if (bulletStepCooldown > 0)
+	//{
+	//	bulletStepCooldown--;
+	//}
 }
 
 void Worm::pickWeapon1() {

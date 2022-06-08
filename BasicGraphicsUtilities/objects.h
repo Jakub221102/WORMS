@@ -11,6 +11,7 @@ protected:
     b2Body* body;
 
     void addFixture(const b2FixtureDef*);
+    ~Model();
 
 public:
     b2Vec2 getPosition() const;
