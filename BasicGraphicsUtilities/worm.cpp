@@ -1,7 +1,9 @@
 #include "worm.h"
 #include <cmath>
+
 GR::RealTimeKeyboardManager<Worm, sf::Keyboard::Key> Worm::inputManager = {};
 GR::EventManager<Worm, sf::Keyboard::Key> Worm::eventManager = {};
+GR::RealTimeMouseManager<Worm, sf::Mouse::Button> Worm::mouseManager = {};
 
 std::vector<std::pair<float, float>> gun_v{
 	{0.0f, 0.0f},
@@ -88,10 +90,53 @@ void Worm::move_down() {
 	}
 }
 
+void Worm::shot()
+{
+	std::vector<float> arguments = mouseManager.getArguments(sf::Mouse::Left);
+	const sf::Vector2f& direction = { arguments[0], arguments[1] };
+	std::cout << arguments[0] << ' ' << arguments[1] << std::endl;
+	if (!bullet) {
+		sf::Vector2f start = getPosition();
+		float x_offset = 15;
+		if ((direction.x - start.x) < 0)
+		{
+			x_offset = -15;
+		}
+
+		std::vector<std::pair<float, float>> vertices{
+		{start.x - 1 + x_offset, start.y + 1},
+		{start.x + 1 + x_offset, start.y + 1},
+		{start.x + 1 + x_offset, start.y - 1},
+		{start.x - 1 + x_offset, start.y - 1}
+		};
+
+		b2World* world = box2dModel->getWorld();
+
+		bullet = std::make_unique<Bullet>( *world, deltaTime, vertices, "animacje/bulet.png", direction );
+	}
+}
+
+void Worm::destroyBullet()
+{
+	//bullet->box2dModel->destroy();
+	bullet.reset();
+}
+
+GR::StaticObject& Worm::drawableBullet()
+{
+	return static_cast<GR::StaticObject&>(*bullet);
+}
+
+
+bool Worm::hasBullet()
+{
+	if (bullet) { return true; }
+	else { return false; }
+}
+
 void Worm::update(float mouseX, float mouseY) {
 	updateNoControl();
 	updateCooldowns();
-	contactHandler();
 	listenAndUseAll();
 	sf::Vector2f pos = getPosition();
 	sf::Vector2f direction = { mouseX - pos.x, mouseY - pos.y };
@@ -108,7 +153,7 @@ void Worm::update(float mouseX, float mouseY) {
 		setCurrentAnimation("LEFT", true);
 		rotation += 3.1415;
 	}
-	std::cout << rotation << std::endl;
+	//std::cout << rotation << std::endl;
 	ptrprim = mouseX > pos.x ? pointer + 1 : pointer;
 	equipment[ptrprim]->setPosition(pos + (8.0f*direction));
 	equipment[ptrprim]->setRotation(rotation*180.0f/3.1415);
@@ -118,6 +163,13 @@ void Worm::update(float mouseX, float mouseY) {
 void Worm::updateNoControl() {
 	static_cast<GR::DynamicAnimatedObject&>(*this).update();
 	text->setString(std::to_string(hp) + '%');
+	contactHandler();
+	bulletContactHandler();
+	if (bullet)
+	{
+		bullet->update();
+		//std::cout << "BULLET CREATED" << std::endl;
+	}
 }
 
 void Worm::addKeyBinding(sf::Keyboard::Key keyCode, void (Worm::* pointer)(), InputType type) {
@@ -129,6 +181,19 @@ void Worm::addKeyBinding(sf::Keyboard::Key keyCode, void (Worm::* pointer)(), In
 		eventManager.addBinding(keyCode, pointer);
 	}
 }
+
+void Worm::addKeyBinding(sf::Mouse::Button keyCode, void (Worm::* pointer)(), InputType type) {
+	mouseManager.addBinding(keyCode, pointer);
+}
+//
+void Worm::removeKeyBinding(sf::Mouse::Button keyCode, InputType type) {
+	mouseManager.removeBinding(keyCode);
+}
+
+void Worm::setKeyArguments(sf::Mouse::Button keyCode, const std::vector<float>& args, InputType type) {
+	mouseManager.setArguments(keyCode, args);
+}
+
 
 void Worm::removeKeyBinding(sf::Keyboard::Key keyCode, InputType type) {
 	switch (type) {
@@ -153,6 +218,7 @@ void Worm::setKeyArguments(sf::Keyboard::Key keyCode, const std::vector<float>& 
 
 void Worm::listenAndUseAll() {
 	inputManager.listenAndUseAllKeys(*this);
+	mouseManager.listenAndUseAllMouseButtons(*this);
 }
 
 GR::StaticObject& Worm::getCurrentWeapon() {
@@ -178,4 +244,13 @@ void Worm::pickWeapon2() {
 
 void Worm::pickWeapon3() {
 	pointer = 4;
+}
+
+
+void Worm::TakeDamage(int dmg)
+{
+	if (hp > 0)
+	{
+		hp -= dmg;
+	}
 }

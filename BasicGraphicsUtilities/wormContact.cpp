@@ -17,13 +17,11 @@ void Worm::contactHandler()
 		b2Body* bodyA = contact->GetFixtureA()->GetBody();
 		b2Body* bodyB = contact->GetFixtureB()->GetBody();
 		
-		//bodyA->ApplyLinearImpulseToCenter({ 0, 10000 }, 1);
-		//bodyB->ApplyLinearImpulseToCenter({ 0, 10000 }, 1);
+		
 		if (bodyA->GetType() == b2_staticBody)
 		{
 			if (worldManifold.normal.y > 0 && contact->IsTouching())
 			{
-				//bodyB->ApplyForceToCenter({ -worldManifold.normal.x * 100000, -worldManifold.normal.y * 100000 }, 1);
 				this->setJumpReady();
 				if (worldManifold.normal.y > 0.8 && worldManifold.normal.y < 0.9)
 				{
@@ -33,9 +31,16 @@ void Worm::contactHandler()
 				}
 			}
 		}
-		else if (bodyA->GetType() == b2_dynamicBody)
+		else if (bodyA->GetType() == b2_dynamicBody && bodyB->GetType() == b2_dynamicBody)
 		{
-			std::cout << "A: DYNAMIC" << std::endl;
+			float mass = bodyA->GetMass();
+			std::cout << "MASS A:\t" << mass << std::endl;
+			std::cout << "MASS B:\t" << bodyB->GetMass() << std::endl;
+			if (bodyA->IsBullet() or bodyB->IsBullet()) //wstaw mase pocisku i sprawdz setBullet
+			{
+				TakeDamage(10);
+			}
+
 		}
 		
 		//if (bodyB->GetType() == b2_staticBody)
@@ -48,4 +53,25 @@ void Worm::contactHandler()
 		//}
 
 	}
+}
+
+
+void Worm::bulletContactHandler()
+{
+	if (bullet)
+	{
+		b2WorldManifold worldManifold;
+		for (b2ContactEdge* edge = bullet->box2dModel->getContactList(); edge; edge = edge->next)
+		{
+			b2Contact* contact = edge->contact;
+			contact->GetWorldManifold(&worldManifold);
+			b2Body* bodyA = contact->GetFixtureA()->GetBody();
+			b2Body* bodyB = contact->GetFixtureB()->GetBody();
+			
+			float mass = bodyB->GetMass();
+			std::cout << "MASS BULLET:\t" << mass << std::endl;
+			this->destroyBullet();
+		}
+	}
+
 }

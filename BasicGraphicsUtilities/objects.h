@@ -19,7 +19,11 @@ public:
     const b2Shape* getShape(int idx);
     float getRotationSpeed() const;
     b2Vec2 getVelocity();
+    b2World* getWorld();
+    void destroy();
 
+    void setAsBullet() const;
+    bool isBullet();
     void setNewPosition(const b2Vec2&, float);
     void transform(const b2Vec2&);
     void setRotationSpeed(float);

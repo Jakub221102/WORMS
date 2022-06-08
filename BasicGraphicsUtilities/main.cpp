@@ -592,17 +592,21 @@ int main() {
 
 	obj.addAnimation("march", "animacje/sovleftmarch.png", 4, 3.0f);
 	obj.setCurrentAnimation("march");
-	obj.addKeyBinding(sf::Keyboard::Space, &Worm::jump, InputType::REALTIME);
-	obj.setKeyArguments(sf::Keyboard::Space, { 0.0f, 25.0f }, InputType::REALTIME); // pass velocity to jump method
-	obj.addKeyBinding(sf::Keyboard::Right, &Worm::move_right, InputType::REALTIME);
-	obj.setKeyArguments(sf::Keyboard::Right, { 0.5f, 0.0f }, InputType::REALTIME); // pass velocity to move method
-	obj.addKeyBinding(sf::Keyboard::Left, &Worm::move_left, InputType::REALTIME);
-	obj.setKeyArguments(sf::Keyboard::Left, { -0.5f, 0.0f }, InputType::REALTIME); // pass velocity to move method
-	obj.addKeyBinding(sf::Keyboard::Down, &Worm::move_down, InputType::REALTIME);
-	obj.setKeyArguments(sf::Keyboard::Down, { 0.0f, -25.0f }, InputType::REALTIME); // pass velocity to move method
-	obj.addKeyBinding(sf::Keyboard::Num1, &Worm::pickWeapon1, InputType::REALTIME);
-	obj.addKeyBinding(sf::Keyboard::Num2, &Worm::pickWeapon2, InputType::REALTIME);
-	obj.addKeyBinding(sf::Keyboard::Num3, &Worm::pickWeapon3, InputType::REALTIME);
+
+	Worm::addKeyBinding(sf::Keyboard::Space, &Worm::jump, InputType::REALTIME);
+	Worm::setKeyArguments(sf::Keyboard::Space, { 0.0f, 25.0f }, InputType::REALTIME); // pass velocity to jump method
+	Worm::addKeyBinding(sf::Keyboard::Right, &Worm::move_right, InputType::REALTIME);
+	Worm::setKeyArguments(sf::Keyboard::Right, { 0.5f, 0.0f }, InputType::REALTIME); // pass velocity to move method
+	Worm::addKeyBinding(sf::Keyboard::Left, &Worm::move_left, InputType::REALTIME);
+	Worm::setKeyArguments(sf::Keyboard::Left, { -0.5f, 0.0f }, InputType::REALTIME); // pass velocity to move method
+	Worm::addKeyBinding(sf::Keyboard::Down, &Worm::move_down, InputType::REALTIME);
+	Worm::setKeyArguments(sf::Keyboard::Down, { 0.0f, -25.0f }, InputType::REALTIME); // pass velocity to move method
+	//obj.addKeyBinding(sf::Keyboard::Q, &Worm::shot, InputType::REALTIME);
+	//obj.setKeyArguments(sf::Keyboard::Q, {0 , 0}, InputType::REALTIME);
+	Worm::addKeyBinding(sf::Keyboard::Num1, &Worm::pickWeapon1, InputType::REALTIME);
+	Worm::addKeyBinding(sf::Keyboard::Num2, &Worm::pickWeapon2, InputType::REALTIME);
+	Worm::addKeyBinding(sf::Keyboard::Num3, &Worm::pickWeapon3, InputType::REALTIME);
+	Worm::addKeyBinding(sf::Mouse::Left, &Worm::shot, InputType::EVENTMOUSE);
 
 	//seting up worms text
 
@@ -671,10 +675,18 @@ int main() {
 		//Test worm
 		auto mouse = wormsWindow.getMouseWorldCoords();
 		obj.update(mouse.x, mouse.y);
+		Worm::setKeyArguments(sf::Mouse::Left, { mouse.x, mouse.y }, InputType::EVENTMOUSE);
+		//if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		//{
+		//	obj.shot();
+		//}
+
+
 
 		wormsWindow.update();							// 10 is a random value for now
 		icon.update();		// NEEDS TO BE AFTER wormsWindow.update() !!!!!!!!!!!!!!!
 		icon1.update();
+
 
 		//std::cout << wormsWindow.getMouseWorldCoords().x << ' ' << wormsWindow.getMouseWorldCoords().y << std::endl;
 
@@ -705,7 +717,7 @@ int main() {
 
 		wormsWindow.draw(icon);
 		wormsWindow.draw(icon1);
-		std::cout << icon.getPosition().x << icon.getPosition().y << std::endl;
+		//std::cout << icon.getPosition().x << icon.getPosition().y << std::endl;
 
 		wormsWindow.endDraw();
 		world.Step(deltaTime, 6, 2);

@@ -27,6 +27,17 @@ b2Vec2 Model::getVelocity()
     return body->GetLinearVelocity();
 }
 
+b2World* Model::getWorld()
+{
+    return body->GetWorld();
+}
+
+void Model::destroy()
+{
+    body->GetWorld()->DestroyBody(body);
+}
+
+
 //funkcja zwaraca fixture przypisany do ciala po indexie
 b2Fixture* Model::getFixture(int idx = 0) const
 {
@@ -69,6 +80,18 @@ void Model::setRotationSpeed(float speed)
 {
     body->SetAngularVelocity(speed);
 }
+
+void Model::setAsBullet() const
+{
+    body->SetBullet(true);
+}
+
+bool Model::isBullet()
+{
+    return body->IsBullet();
+}
+
+
 
 
 //nadaje predkosc cialu
