@@ -600,6 +600,8 @@ int main() {
 	obj.setKeyArguments(sf::Keyboard::Left, { -0.5f, 0.0f }, InputType::REALTIME); // pass velocity to move method
 	obj.addKeyBinding(sf::Keyboard::Down, &Worm::move_down, InputType::REALTIME);
 	obj.setKeyArguments(sf::Keyboard::Down, { 0.0f, -25.0f }, InputType::REALTIME); // pass velocity to move method
+	//obj.addKeyBinding(sf::Keyboard::Q, &Worm::shot, InputType::REALTIME);
+	//obj.setKeyArguments(sf::Keyboard::Q, {0 , 0}, InputType::REALTIME);
 	obj.addKeyBinding(sf::Keyboard::Num1, &Worm::pickWeapon1, InputType::REALTIME);
 	obj.addKeyBinding(sf::Keyboard::Num2, &Worm::pickWeapon2, InputType::REALTIME);
 	obj.addKeyBinding(sf::Keyboard::Num3, &Worm::pickWeapon3, InputType::REALTIME);
@@ -666,17 +668,23 @@ int main() {
 		deltaTime = ck.restart().asSeconds();
 		wormsWindow.setBackGroundColor(100, 100, 100);
 
-
-
 		water.update();
 
 		//Test worm
 		auto mouse = wormsWindow.getMouseWorldCoords();
 		obj.update(mouse.x, mouse.y);
 
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			obj.shot(mouse);
+		}
+
+
+
 		wormsWindow.update();							// 10 is a random value for now
 		icon.update();		// NEEDS TO BE AFTER wormsWindow.update() !!!!!!!!!!!!!!!
 		icon1.update();
+
 
 		//std::cout << wormsWindow.getMouseWorldCoords().x << ' ' << wormsWindow.getMouseWorldCoords().y << std::endl;
 
@@ -691,6 +699,7 @@ int main() {
 		//Worms
 		//wormsWindow.draw(worm1b);
 		wormsWindow.draw(obj);
+
 
 		for (int i = 0; i < wormqueue.size(); i++) {
 			wormqueue[i]->updateNoControl();

@@ -24,16 +24,21 @@ enum class WeaponType {
 	granade
 };
 
+
 //bullet is created with starting vel
 class Bullet : public GR::DynamicAnimatedObject
 {
 private:
+
+	friend class Worm;
+
 	sf::Vector2f velVec;
-	const float MaxBulletVel = 999;
+	const float MaxBulletVel = 50;
 public:
-	void setVelocity(sf::Vector2f mouseClickedPos);
+	void setShotVelocity(sf::Vector2f mouseClickedPos);
 	void update();
 	Bullet(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, sf::Vector2f mousePosition);
+	//~Bullet();
 };
 
 
@@ -51,6 +56,7 @@ class Worm : public GR::DynamicAnimatedObject {
 	std::unique_ptr<Bullet> bullet = nullptr;
 
 public:
+	
 	Worm(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path);
     // Bindings
 	static void addKeyBinding(sf::Keyboard::Key keyCode, void (Worm::* pointer)(), InputType type);
@@ -59,6 +65,7 @@ public:
 	void listenAndUseAll();
 	void update(float mouseX, float mouseY);
 	void updateNoControl();
+	bool hasBullet();
 	// Gameplay functions
 	//void addEquipment(const std::vector<GR::StaticObject>& weapons);
 	void jump();
@@ -67,6 +74,7 @@ public:
 	void move_down();
 	void shot(const sf::Vector2f& direction);
 	void destroyBullet();
+	GR::StaticObject& drawableBullet();
 	void pickWeapon1();
 	void pickWeapon2();
 	void pickWeapon3();

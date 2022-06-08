@@ -142,6 +142,9 @@ void GR::Window::draw(GR::StaticObject& drawable) {
 void GR::Window::draw(Worm& worm) {
 	draw(static_cast<GR::StaticObject&>(worm));
 	draw(worm.getCurrentWeapon());
+	if (worm.hasBullet()) { 
+		draw(worm.drawableBullet());
+	}
 }
 
 

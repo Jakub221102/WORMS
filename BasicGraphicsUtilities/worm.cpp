@@ -90,26 +90,44 @@ void Worm::move_down() {
 
 void Worm::shot(const sf::Vector2f& direction)
 {
-	sf::Vector2f start = getPosition();
+	if (!bullet) {
+		sf::Vector2f start = getPosition();
+		float x_offset = 15;
+		if ((direction.x - start.x) < 0)
+		{
+			x_offset = -15;
+		}
 
-	std::vector<std::pair<float, float>> vertices{
-	{start.x - 1, start.y + 1},
-	{start.x + 1, start.y + 1},
-	{start.x + 1, start.y - 1},
-	{start.x - 1, start.y - 1}
-	};
+		std::vector<std::pair<float, float>> vertices{
+		{start.x - 1 + x_offset, start.y + 1},
+		{start.x + 1 + x_offset, start.y + 1},
+		{start.x + 1 + x_offset, start.y - 1},
+		{start.x - 1 + x_offset, start.y - 1}
+		};
 
-	b2World* world = box2dModel->getWorld();
+		b2World* world = box2dModel->getWorld();
 
-	bullet = std::make_unique<Bullet>( *world, deltaTime, vertices, "path", direction );
-
+		bullet = std::make_unique<Bullet>( *world, deltaTime, vertices, "animacje/bulet.png", direction );
+	}
 }
 
 void Worm::destroyBullet()
 {
+	//bullet->box2dModel->destroy();
 	bullet.reset();
 }
 
+GR::StaticObject& Worm::drawableBullet()
+{
+	return static_cast<GR::StaticObject&>(*bullet);
+}
+
+
+bool Worm::hasBullet()
+{
+	if (bullet) { return true; }
+	else { return false; }
+}
 
 void Worm::update(float mouseX, float mouseY) {
 	updateNoControl();
@@ -141,6 +159,12 @@ void Worm::updateNoControl() {
 	static_cast<GR::DynamicAnimatedObject&>(*this).update();
 	text->setString(std::to_string(hp) + '%');
 	contactHandler();
+	bulletContactHandler();
+	if (bullet)
+	{
+		bullet->update();
+		//std::cout << "BULLET CREATED" << std::endl;
+	}
 }
 
 void Worm::addKeyBinding(sf::Keyboard::Key keyCode, void (Worm::* pointer)(), InputType type) {

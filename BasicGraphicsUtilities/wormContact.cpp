@@ -31,17 +31,16 @@ void Worm::contactHandler()
 				}
 			}
 		}
-		else if (bodyA->GetType() == b2_dynamicBody)
+		else if (bodyA->GetType() == b2_dynamicBody && bodyB->GetType() == b2_dynamicBody)
 		{
 			float mass = bodyA->GetMass();
-			if (mass == 10) //wstaw mase pocisku i sprawdz setBullet
+			std::cout << "MASS A:\t" << mass << std::endl;
+			std::cout << "MASS B:\t" << bodyB->GetMass() << std::endl;
+			if (bodyA->IsBullet() or bodyB->IsBullet()) //wstaw mase pocisku i sprawdz setBullet
 			{
 				TakeDamage(10);
 			}
-			else if (mass == bodyB->GetMass())
-			{
 
-			}
 		}
 		
 		//if (bodyB->GetType() == b2_staticBody)
@@ -62,13 +61,15 @@ void Worm::bulletContactHandler()
 	if (bullet)
 	{
 		b2WorldManifold worldManifold;
-		for (b2ContactEdge* edge = box2dModel->getContactList(); edge; edge = edge->next)
+		for (b2ContactEdge* edge = bullet->box2dModel->getContactList(); edge; edge = edge->next)
 		{
 			b2Contact* contact = edge->contact;
 			contact->GetWorldManifold(&worldManifold);
 			b2Body* bodyA = contact->GetFixtureA()->GetBody();
 			b2Body* bodyB = contact->GetFixtureB()->GetBody();
-
+			
+			float mass = bodyB->GetMass();
+			std::cout << "MASS BULLET:\t" << mass << std::endl;
 			this->destroyBullet();
 		}
 	}
