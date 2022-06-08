@@ -27,6 +27,12 @@ b2Vec2 Model::getVelocity()
     return body->GetLinearVelocity();
 }
 
+b2World* Model::getWorld()
+{
+    return body->GetWorld();
+}
+
+
 //funkcja zwaraca fixture przypisany do ciala po indexie
 b2Fixture* Model::getFixture(int idx = 0) const
 {

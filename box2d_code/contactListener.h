@@ -33,3 +33,14 @@ public:
 	{ /* handle post-solve event */
 	}
 };
+
+/*
+class ContactFilter : public b2ContactFilter
+{
+public:
+	bool ShouldCollide(b2Fixture* fixA , b2Fixture* fixB)
+	{
+
+	}
+};
+*/

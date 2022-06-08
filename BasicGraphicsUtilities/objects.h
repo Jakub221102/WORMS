@@ -19,6 +19,7 @@ public:
     const b2Shape* getShape(int idx);
     float getRotationSpeed() const;
     b2Vec2 getVelocity();
+    b2World* getWorld();
 
     void setNewPosition(const b2Vec2&, float);
     void transform(const b2Vec2&);
