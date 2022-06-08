@@ -1,9 +1,10 @@
 #pragma once
 
-#include "dynamic_animated_object.h"
-//#include "bullet.h"
-
 #include <memory>
+#include <cmath>
+
+#include "dynamic_animated_object.h"
+
 //#include "weapons.h"
 //#include "static_object_relative.h"
 
@@ -55,7 +56,7 @@ class Worm : public GR::DynamicAnimatedObject {
 	unsigned hp = 100;
 	float jumpCooldown = 0;
 	float dmgCooldown = 0;
-	int bulletStepCooldown = 3;
+	//int bulletStepCooldown = 3;
 	JumpState jumpReady = JumpState::noneLeft;
 	WeaponType weapon = WeaponType::basic;
 	std::unique_ptr<Bullet> bullet = nullptr;
