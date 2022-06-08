@@ -490,7 +490,7 @@ int main() {
 	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox8, "animacje/hitbox.png"));
 	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox9, "animacje/hitbox.png"));
 	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox10, "animacje/hitbox.png"));
-	
+
 	//SECOND ISLAND
 
 	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox11, "animacje/hitbox.png"));
@@ -531,7 +531,7 @@ int main() {
 	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox34, "animacje/hitbox.png"));
 	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox35, "animacje/hitbox.png"));
 	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox36, "animacje/hitbox.png"));
-	
+
 	//================================================================================================
 	//Creating worms objects Vector
 
@@ -587,7 +587,7 @@ int main() {
 	teks.setCharackterSize(8);
 	teks.setColor(255, 0, 0);
 	obj.attachText(teks);
-	
+
 	//test worm object
 
 	obj.addAnimation("march", "animacje/sovleftmarch.png", 4, 3.0f);
@@ -612,7 +612,7 @@ int main() {
 	teks1.setColor(255, 0, 0);
 	worm1s.attachText(teks1);*/
 
-	
+
 	//Seting up object animations
 
 	obj.addAnimation("LEFT", "animacje/sovleftmarch.png", 4, 3.0f);
@@ -626,6 +626,7 @@ int main() {
 	bum.addAnimation("BUM", "animacje/explosion.png", 5, 1.0f);
 	bum.setCurrentAnimation("BUM");
 
+	wormqueue[2]->addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
 	wormqueue[2]->setCurrentAnimation("WORM");
 	wormqueue[5]->addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
 	wormqueue[5]->setCurrentAnimation("WORM");
@@ -643,7 +644,7 @@ int main() {
 	wormqueue[3]->setCurrentAnimation("WORM");
 	wormqueue[4]->addAnimation("WORM", "animacje/britfront.png", 3, 4.0f);
 	wormqueue[4]->setCurrentAnimation("WORM");
-	wormqueue[11]->addAnimation("WORM", "britfront.png", 3, 4.0f);
+	wormqueue[11]->addAnimation("WORM", "animacje/britfront.png", 3, 4.0f);
 	wormqueue[11]->setCurrentAnimation("WORM");
 
 	wormqueue[0]->addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
@@ -664,8 +665,6 @@ int main() {
 	while (!wormsWindow.isDone()) {
 		deltaTime = ck.restart().asSeconds();
 		wormsWindow.setBackGroundColor(100, 100, 100);
-
-		
 
 		water.update();
 
@@ -690,12 +689,18 @@ int main() {
 		//Worms
 		//wormsWindow.draw(worm1b);
 		wormsWindow.draw(obj);
-		wormsWindow.draw(*terainqueue[23]);
 
-		wormsWindow.draw(*wormqueue[0]);
-		wormsWindow.draw(*wormqueue[1]);
+
+		for (int i = 0; i < wormqueue.size(); i++) {
+			wormqueue[i]->updateNoControl();
+		}
+
+
 		wormsWindow.draw(water); //water has to be drawn after the worms
 
+		for (int i = 0; i < wormqueue.size(); i++) {
+			wormsWindow.draw(*wormqueue[i]);
+		}
 		//icon needs to be drawn at very end
 
 		wormsWindow.draw(icon);
