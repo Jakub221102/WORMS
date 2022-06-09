@@ -86,7 +86,7 @@ bool Worm::active() const {
 }
 
 void Worm::jump() {
-	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Space);
+	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Up);
 	if (jumpCooldown <= 0 && jumpReady < JumpState::noneLeft)
 	{
 		b2Vec2 velo = box2dModel->getVelocity();
