@@ -26,6 +26,13 @@ std::vector<std::pair<float, float>> gren_v{
 	{0.0f, 0.5f * 23.0f}
 };
 
+unsigned int Worm::getHealthPoints() const {
+	return hp;
+}
+
+Worm::Type Worm::getType() const {
+	return team;
+}
 
 Worm::Worm(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path)
 	: DynamicAnimatedObject(world, time, vertices, texture_path, true), StaticObject(time, vertices, texture_path), pointer(0) {
@@ -35,6 +42,47 @@ Worm::Worm(b2World& world, const float& time, std::vector<std::pair<float, float
 	equipment.push_back(std::make_unique<GR::StaticObject>(time, base_v, "animacje/baseballeft.png"));
 	equipment.push_back(std::make_unique<GR::StaticObject>(time, gren_v, "animacje/granade.png"));
 	equipment.push_back(std::make_unique<GR::StaticObject>(time, gren_v, "animacje/granade.png"));
+	if (texture_path.find("sov") != std::string::npos) team = Type::SOVIET;
+	else if (texture_path.find("ger") != std::string::npos) team = Type::GERMAN;
+	else if (texture_path.find("pol") != std::string::npos) team = Type::POLISH;
+	else if (texture_path.find("brit") != std::string::npos) team = Type::BRITISH;
+	else throw WrongNameException("Wrong name exception!");
+}
+
+void Worm::setJumpReady()
+{
+	jumpReady = JumpState::ready;
+	jumpCooldown = 0;
+}
+
+void Worm::setHalfJump()
+{
+	jumpReady = JumpState::oneLeft;
+	jumpCooldown = 0;
+}
+
+void Worm::inactivate() {
+	isActive = false;
+}
+
+void Worm::enableShooting() {
+	canShoot = true;
+}
+
+void Worm::disableShooting() {
+	canShoot = false;
+}
+
+bool Worm::readyShot() const {
+	return canShoot;
+}
+
+void Worm::activate() {
+	isActive = true;
+}
+
+bool Worm::active() const {
+	return isActive;
 }
 
 void Worm::jump() {
@@ -57,27 +105,26 @@ void Worm::move_right() {
 	//float angle = box2dModel->getAngle();
 	//float relVelX = cos(angle) * velocity.x + sin(angle) * velocity.y;
 
-	if (vel.x < 30)
+	if (vel.x < 30) // 30 -> it can by arguments[0]
 	{
-		if (jumpReady == JumpState::ready && vel.y > 20)
+		if (jumpReady == JumpState::ready && vel.y > 20) // 20 -> it can be arguement [1]
 		{
-			putVelocity({ vel.x, 20 });
+			box2dModel->putVeloY( 20 );
 		}
-		box2dModel->addVelocity({ arguments[0], arguments[1]});
+		box2dModel->putVeloX( 30 );
 	}
 }
 
 void Worm::move_left() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Left);
 	b2Vec2 vel = box2dModel->getVelocity();
-	if (vel.x > -30)
+	if (vel.x > -30) // -30 -> it can by arguments[0]
 	{
-		float y;
-		if (jumpReady == JumpState::ready && vel.y > 5)
+		if (jumpReady == JumpState::ready && vel.y > 20) // 20 -> it can be arguement [1]
 		{
-			putVelocity({ vel.x, 20 });
+			box2dModel->putVeloY(20);
 		}
-		box2dModel->addVelocity({ arguments[0], arguments[1]});
+		box2dModel->putVeloX(-30);
 	}
 }
 
@@ -90,24 +137,35 @@ void Worm::move_down() {
 	}
 }
 
+void Worm::setHealthPoints(unsigned int hp) {
+	this->hp = hp;
+}
+
 void Worm::shot()
 {
+	if (!canShoot) return;
+	canShoot = false;
 	std::vector<float> arguments = mouseManager.getArguments(sf::Mouse::Left);
-	const sf::Vector2f& direction = { arguments[0], arguments[1] };
-	std::cout << arguments[0] << ' ' << arguments[1] << std::endl;
+	const sf::Vector2f& mousePos = { arguments[0], arguments[1] };
+	//std::cout << arguments[0] << ' ' << arguments[1] << std::endl;
 	if (!bullet) {
 		sf::Vector2f start = getPosition();
-		float x_offset = 15;
-		if ((direction.x - start.x) < 0)
-		{
-			x_offset = -15;
-		}
+		sf::Vector2f direction(mousePos.x - start.x, start.y - mousePos.y );	//reversed y for box2d 
+		
+		float angle = -atan2(direction.x , -direction.y) + 1.5; //angular offset of our world
+		
+		float x_offset = cos(angle) * 15; // 10 is a radius (pistol length)
+		float y_offset = sin(angle) * 20;
+
+	
+		std::cout <<"angle: \t " << angle << std::endl;
+
 
 		std::vector<std::pair<float, float>> vertices{
-		{start.x - 1 + x_offset, start.y + 1},
-		{start.x + 1 + x_offset, start.y + 1},
-		{start.x + 1 + x_offset, start.y - 1},
-		{start.x - 1 + x_offset, start.y - 1}
+		{start.x - 1 + x_offset, start.y + 1 + y_offset},
+		{start.x + 1 + x_offset, start.y + 1 + y_offset},
+		{start.x + 1 + x_offset, start.y - 1 + y_offset},
+		{start.x - 1 + x_offset, start.y - 1 + y_offset}
 		};
 
 		b2World* world = box2dModel->getWorld();
@@ -118,7 +176,7 @@ void Worm::shot()
 
 void Worm::destroyBullet()
 {
-	//bullet->box2dModel->destroy();
+	//auto call destructor of class Model (delete body from the b2World), not allowed to do during time step
 	bullet.reset();
 }
 
@@ -164,11 +222,17 @@ void Worm::updateNoControl() {
 	static_cast<GR::DynamicAnimatedObject&>(*this).update();
 	text->setString(std::to_string(hp) + '%');
 	contactHandler();
-	bulletContactHandler();
 	if (bullet)
 	{
-		bullet->update();
-		//std::cout << "BULLET CREATED" << std::endl;
+		if (bullet->isLive)
+		{
+			bulletContactHandler();
+			bullet->update();
+		}
+		else 
+		{
+			destroyBullet();
+		}
 	}
 }
 
@@ -232,6 +296,10 @@ void Worm::updateCooldowns()
 	{
 		jumpCooldown -= deltaTime;
 	}
+	//if (bulletStepCooldown > 0)
+	//{
+	//	bulletStepCooldown--;
+	//}
 }
 
 void Worm::pickWeapon1() {

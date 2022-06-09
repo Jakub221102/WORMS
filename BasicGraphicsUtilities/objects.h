@@ -11,6 +11,7 @@ protected:
     b2Body* body;
 
     void addFixture(const b2FixtureDef*);
+    ~Model();
 
 public:
     b2Vec2 getPosition() const;
@@ -29,6 +30,8 @@ public:
     void setRotationSpeed(float);
     void putVelocity(const b2Vec2);
     void addVelocity(const b2Vec2);
+    void putVeloX(float x);
+    void putVeloY(float y);
     void putForceToCenter(const b2Vec2);
     void putForceToPoint(const b2Vec2, const b2Vec2);
     void putImpulseToCenter(const b2Vec2);

@@ -70,6 +70,11 @@ sf::Vector2f boxToSfml(b2Vec2& vec, float x, float y)
 
 void GR::StaticObject::attachText(GR::Text& tekst) {
 	text = &tekst;
+	if (text) {
+		sf::Vector2f translation = text->getTranslation();
+		sf::Vector2f position = getPosition();
+		text->setPosition(position.x + translation.x, position.y + translation.y);
+	}
 }
 
 sf::Text& GR::StaticObject::getText(){
@@ -81,4 +86,5 @@ std::string GR::StaticObject::getString() const {
 		return text->getString();
 	return "";
 }
+
 
