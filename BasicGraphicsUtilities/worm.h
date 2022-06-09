@@ -30,19 +30,46 @@ enum class WeaponType {
 //bullet is created with starting vel
 class Bullet : public GR::DynamicAnimatedObject
 {
-private:
-
 	friend class Worm;
-	
+
+protected:
+	WeaponType type = WeaponType::basic;
+	const float MaxBasicVel = 100;
+	const float MaxGranadeVel = 40;
+
 	bool isLive;
 	sf::Vector2f velVec;
-	const float MaxBulletVel = 50;
-public:
 
-	void setShotVelocity(sf::Vector2f mouseClickedPos);
-	void update();
-	Bullet(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, sf::Vector2f mousePosition);
-	//~Bullet();
+public:
+	Bullet(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, sf::Vector2f direction);
+	virtual ~Bullet();
+	//virtual WeaponType type();
+	void setShotVelocity(sf::Vector2f direction);
+	virtual void update();
+};
+
+class Baseball : public Bullet
+{
+public:
+	Baseball(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, sf::Vector2f direction);
+	~Baseball();
+	void update() override;
+
+};
+
+
+class Granade : public Bullet
+{
+	std::unique_ptr<Bullet> particles = nullptr;
+	float detonatorCooldown; //set in consturctor
+	//int particlesLifetime; //set in consturctor
+
+public:
+	Granade(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, sf::Vector2f direction);
+	~Granade();
+	//WeaponType type();
+	void update() override;
+	void blow();
 };
 
 class WrongNameException : public std::exception {
@@ -72,6 +99,7 @@ private:
 	int ptrprim;
 	unsigned hp = 100;
 	float jumpCooldown = 0;
+	float weaponCooldown = 0;
 	float dmgCooldown = 0;
 	//int bulletStepCooldown = 3;
 	JumpState jumpReady = JumpState::noneLeft;
