@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "SFML/Graphics.hpp"
-#include "box2d.h"				// usun
+#include "box2d/box2d.h"				// usun
 #include "input_manager.h"
 #include "memory"
 #include "game.h"
