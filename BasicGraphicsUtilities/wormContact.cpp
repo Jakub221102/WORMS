@@ -36,8 +36,8 @@ void Worm::contactHandler()
 			{
 				float massA = bodyA->GetMass();
 				float massB = bodyB->GetMass();
-				std::cout << "MASS A:\t" << massA << std::endl;
-				std::cout << "MASS B:\t" << massB << std::endl;
+				//std::cout << "MASS A:\t" << massA << std::endl;
+				//std::cout << "MASS B:\t" << massB << std::endl;
 				if ((bodyA->IsBullet() || bodyB->IsBullet()) && (massA == 4 || massB == 4)) //wstaw mase pocisku 
 				{
 					TakeDamage(10);

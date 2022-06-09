@@ -1,31 +1,28 @@
 #pragma once
-
+#include "worm.h"
 #include "window.h"
 #include "input_manager.h"
+#include "static_animated_relative_object.h"
 #include "world.h"
 #include <list>
 
-namespace GR {
-	class Game {
-		GR::Window window;
-		GR::World world;
-		EventManager<sf::Keyboard::Key, GR::Game> keyBindings;
-		//std::lis
-		sf::Clock clock;
-		sf::Time elapsed;
-	public:
-		Game();
-		~Game();
-
-		void handleInput();
-		void update(float time);
-		void render();
-
-		sf::Time getElapsed();
-		float getElapsedSeconds();
-		void restartClock();
-
-		GR::Window& getWindow();
-
+class Game {
+public:
+	enum class Stage {
+		BREAK,
+		TURN
 	};
-}
+	GR::RealTimeKeyboardManager<Game, sf::Keyboard::Key> keyBindings = {};
+	const float& deltaTime;
+	float time;
+	int currentWorm;
+	Stage status;
+	//std::lis
+public:
+	void addKeyBinding(sf::Keyboard::Key keyCode, void (Game::* pointer)());
+	void removeKeyBinding(sf::Keyboard::Key keyCode);
+	void listenAndUseAll();
+	void endBreak();
+	Game(const float& deltaTime);
+	Worm::Type update(std::vector<std::unique_ptr<Worm>>& worms, GR::StaticAnimatedRelativeObject& timer, float mousex, float mousey);
+};

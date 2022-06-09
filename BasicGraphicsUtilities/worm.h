@@ -38,14 +38,31 @@ private:
 	sf::Vector2f velVec;
 	const float MaxBulletVel = 50;
 public:
+
 	void setShotVelocity(sf::Vector2f mouseClickedPos);
 	void update();
 	Bullet(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path, sf::Vector2f mousePosition);
 	//~Bullet();
 };
 
+class WrongNameException : public std::exception {
+	std::string message;
+public:
+	WrongNameException(const std::string& message) : message(message) {}
+	const char* what() const noexcept { return message.c_str(); }
+};
 
 class Worm : public GR::DynamicAnimatedObject {
+public:
+	enum class Type {
+		NONE,
+		POLISH,
+		SOVIET,
+		GERMAN,
+		BRITISH,
+		DRAW
+	};
+private:
 	static GR::RealTimeKeyboardManager<Worm, sf::Keyboard::Key> inputManager;
 	static GR::EventManager<Worm, sf::Keyboard::Key> eventManager;
 	static GR::RealTimeMouseManager<Worm, sf::Mouse::Button> mouseManager;
@@ -60,10 +77,10 @@ class Worm : public GR::DynamicAnimatedObject {
 	JumpState jumpReady = JumpState::noneLeft;
 	WeaponType weapon = WeaponType::basic;
 	std::unique_ptr<Bullet> bullet = nullptr;
-
-
+	Type team;
+	bool isActive = false;
+	bool canShoot = true;
 public:
-	
 	Worm(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path);
     // Bindings
 	static void addKeyBinding(sf::Keyboard::Key keyCode, void (Worm::* pointer)(), InputType type);
@@ -94,5 +111,14 @@ public:
 	void bulletContactHandler();
 	void setJumpReady();
 	void setHalfJump();
+	unsigned int getHealthPoints() const;
+	Type getType() const;
+	void inactivate();
+	void activate();
+	bool active() const;
+	bool readyShot() const;
+	void enableShooting();
+	void disableShooting();
+	void setHealthPoints(unsigned int hp);
 	GR::StaticObject& getCurrentWeapon();
 };

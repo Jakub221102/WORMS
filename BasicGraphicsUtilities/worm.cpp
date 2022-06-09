@@ -26,6 +26,13 @@ std::vector<std::pair<float, float>> gren_v{
 	{0.0f, 0.5f * 23.0f}
 };
 
+unsigned int Worm::getHealthPoints() const {
+	return hp;
+}
+
+Worm::Type Worm::getType() const {
+	return team;
+}
 
 Worm::Worm(b2World& world, const float& time, std::vector<std::pair<float, float>> vertices, std::string texture_path)
 	: DynamicAnimatedObject(world, time, vertices, texture_path, true), StaticObject(time, vertices, texture_path), pointer(0) {
@@ -35,6 +42,11 @@ Worm::Worm(b2World& world, const float& time, std::vector<std::pair<float, float
 	equipment.push_back(std::make_unique<GR::StaticObject>(time, base_v, "animacje/baseballeft.png"));
 	equipment.push_back(std::make_unique<GR::StaticObject>(time, gren_v, "animacje/granade.png"));
 	equipment.push_back(std::make_unique<GR::StaticObject>(time, gren_v, "animacje/granade.png"));
+	if (texture_path.find("sov") != std::string::npos) team = Type::SOVIET;
+	else if (texture_path.find("ger") != std::string::npos) team = Type::GERMAN;
+	else if (texture_path.find("pol") != std::string::npos) team = Type::POLISH;
+	else if (texture_path.find("brit") != std::string::npos) team = Type::BRITISH;
+	else throw WrongNameException("Wrong name exception!");
 }
 
 void Worm::setJumpReady()
@@ -49,6 +61,29 @@ void Worm::setHalfJump()
 	jumpCooldown = 0;
 }
 
+void Worm::inactivate() {
+	isActive = false;
+}
+
+void Worm::enableShooting() {
+	canShoot = true;
+}
+
+void Worm::disableShooting() {
+	canShoot = false;
+}
+
+bool Worm::readyShot() const {
+	return canShoot;
+}
+
+void Worm::activate() {
+	isActive = true;
+}
+
+bool Worm::active() const {
+	return isActive;
+}
 
 void Worm::jump() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Space);
@@ -102,8 +137,14 @@ void Worm::move_down() {
 	}
 }
 
+void Worm::setHealthPoints(unsigned int hp) {
+	this->hp = hp;
+}
+
 void Worm::shot()
 {
+	if (!canShoot) return;
+	canShoot = false;
 	std::vector<float> arguments = mouseManager.getArguments(sf::Mouse::Left);
 	const sf::Vector2f& mousePos = { arguments[0], arguments[1] };
 	//std::cout << arguments[0] << ' ' << arguments[1] << std::endl;

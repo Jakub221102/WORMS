@@ -1,11 +1,12 @@
 #pragma once
 #include <iostream>
-#include <array>
 #include <vector>
+
 #include "SFML/Graphics.hpp"
 #include "box2d.h"				// usun
 #include "input_manager.h"
 #include "memory"
+#include "game.h"
 
 #include "cyclic_singly_linked_list.h"
 #include "window.h"
@@ -15,8 +16,14 @@
 #include "static_physical_object.h"
 #include "static_animated_relative_object.h"
 #include "worm.h"
+#include "sound_manager.h"
 
 float deltaTime;
+
+void drawString(GR::StaticObject& attach, GR::Text& text, GR::Window& window) {
+	attach.attachText(text);
+	window.draw(attach);
+}
 
 int main() {
 	GR::Window wormsWindow(deltaTime);
@@ -580,18 +587,7 @@ int main() {
 	//================================================================================================
 
 	icon.attachViewAndZoom(wormsWindow);
-	Worm obj(world, deltaTime, vertices_worm3b, "animacje/sovleftmarch.png");
 	icon.setRelativeVector({ 73.0f, 30.0f });
-	GR::Text teks;
-	teks.setRelativeTranslation(-5.5f, -10.0f);
-	teks.setCharackterSize(8);
-	teks.setColor(255, 0, 0);
-	obj.attachText(teks);
-
-	//test worm object
-
-	obj.addAnimation("march", "animacje/sovleftmarch.png", 4, 3.0f);
-	obj.setCurrentAnimation("march");
 
 	Worm::addKeyBinding(sf::Keyboard::Space, &Worm::jump, InputType::REALTIME);
 	Worm::setKeyArguments(sf::Keyboard::Space, { 0.0f, 25.0f }, InputType::REALTIME); // pass velocity to jump method
@@ -618,11 +614,6 @@ int main() {
 
 
 	//Seting up object animations
-
-	obj.addAnimation("LEFT", "animacje/sovleftmarch.png", 4, 3.0f);
-	obj.addAnimation("RIGHT", "animacje/sovrightmarch.png", 4, 3.0f);
-	obj.addAnimation("JUMP", "animacje/worm_jump_sov.png", 4, 3.0f);
-	obj.setCurrentAnimation("LEFT");
 
 
 	water.addAnimation("WATER", "animacje/woda.png", 4, 2.0f);
@@ -665,7 +656,16 @@ int main() {
 	//sky.translate({ 500.0f, 0.0f });
 	//sky.setPosition({ 0.0f, 0.0f });
 	float global = 0.0f;
+	Game game(deltaTime);
+	game.addKeyBinding(sf::Keyboard::Enter, &Game::endBreak);
+	GR::Text teks;
+	teks.setRelativeTranslation(-80.0f, 10.0f);
+	teks.setCharackterSize(40);
+	teks.setColor(255, 215, 0);
 	//list.addToTail()
+	GR::SoundManager sounds("SoundEffects.txt");
+	sounds.setBackgroundMusic("SoundEffects/FNV.wav");
+	sounds.playBackgroundMusic();
 	while (!wormsWindow.isDone()) {
 		deltaTime = ck.restart().asSeconds();
 		wormsWindow.setBackGroundColor(100, 100, 100);
@@ -674,7 +674,6 @@ int main() {
 
 		//Test worm
 		auto mouse = wormsWindow.getMouseWorldCoords();
-		obj.update(mouse.x, mouse.y);
 		Worm::setKeyArguments(sf::Mouse::Left, { mouse.x, mouse.y }, InputType::EVENTMOUSE);
 		//if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		//{
@@ -683,29 +682,20 @@ int main() {
 
 
 
-		wormsWindow.update();							// 10 is a random value for now
+		wormsWindow.update();							
+		auto winner = game.update(wormqueue, icon1, mouse.x, mouse.y);
+		//std::cout << static_cast<int>(winner) << std::endl;
 		icon.update();		// NEEDS TO BE AFTER wormsWindow.update() !!!!!!!!!!!!!!!
-		icon1.update();
 
-
+		game.update(wormqueue, icon1, mouse.x, mouse.y);
 		//std::cout << wormsWindow.getMouseWorldCoords().x << ' ' << wormsWindow.getMouseWorldCoords().y << std::endl;
 
-
-		wormqueue[0]->updateNoControl();
-		wormqueue[1]->updateNoControl();
 
 
 		wormsWindow.draw(sky);
 		wormsWindow.draw(ground);
+		
 
-		//Worms
-		//wormsWindow.draw(worm1b);
-		wormsWindow.draw(obj);
-
-
-		for (int i = 0; i < wormqueue.size(); i++) {
-			wormqueue[i]->updateNoControl();
-		}
 
 		//wormsWindow.draw(*wormqueue[0]);
 		//wormsWindow.draw(*wormqueue[1]);
@@ -720,6 +710,25 @@ int main() {
 		wormsWindow.draw(icon1);
 		//std::cout << icon.getPosition().x << icon.getPosition().y << std::endl;
 
+		switch (winner)
+		{
+		case Worm::Type::POLISH:
+			teks.setString("HOME ARMY WON");
+			drawString(icon1, teks, wormsWindow);
+			break;
+		case Worm::Type::SOVIET:
+			teks.setString("SOVIET ARMY WON");
+			drawString(icon1, teks, wormsWindow);
+			break;
+		case Worm::Type::GERMAN:
+			teks.setString("WEHRMACHT WON");
+			drawString(icon1, teks, wormsWindow);
+			break;
+		case Worm::Type::BRITISH:
+			teks.setString("BRITISH ARMY WON");
+			drawString(icon1, teks, wormsWindow);
+			break;
+		}
 		wormsWindow.endDraw();
 		world.Step(deltaTime, 6, 2);
 		world.Step(deltaTime, 6, 2);

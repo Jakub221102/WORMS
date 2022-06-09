@@ -17,6 +17,10 @@ void GR::StaticAnimatedObject::addAnimation(const std::string& key, const std::s
 		animations.insert({ key, animation });
 }
 
+void GR::StaticAnimatedObject::zeroAnimation() {
+	animation->zeroAnimationTime();
+}
+
 void GR::StaticAnimatedObject::setCurrentAnimation(const std::string& key, bool toContinue) {
 	if (!toContinue && animation) animation->zeroAnimationTime();
 	auto found = animations.find(key);
