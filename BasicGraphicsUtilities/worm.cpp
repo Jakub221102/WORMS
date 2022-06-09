@@ -143,69 +143,34 @@ void Worm::setHealthPoints(unsigned int hp) {
 
 void Worm::shot()
 {
+	if (!canShoot) return;
+	canShoot = false;
 	std::vector<float> arguments = mouseManager.getArguments(sf::Mouse::Left);
 	const sf::Vector2f& mousePos = { arguments[0], arguments[1] };
 	//std::cout << arguments[0] << ' ' << arguments[1] << std::endl;
-	if (!bullet && weaponCooldown <= 0) {
-		weaponCooldown = 1;
+	if (!bullet) {
 		sf::Vector2f start = getPosition();
-		sf::Vector2f direction(mousePos.x - start.x, start.y - mousePos.y);	//reversed y for box2d 
-
-		float angle = -atan2(direction.x, -direction.y) + 1.5; //angular offset of our world
-
+		sf::Vector2f direction(mousePos.x - start.x, start.y - mousePos.y );	//reversed y for box2d 
+		
+		float angle = -atan2(direction.x , -direction.y) + 1.5; //angular offset of our world
+		
 		float x_offset = cos(angle) * 15; // 10 is a radius (pistol length)
 		float y_offset = sin(angle) * 20;
 
+	
+		std::cout <<"angle: \t " << angle << std::endl;
 
-		std::cout << "angle: \t " << angle << std::endl;
+
+		std::vector<std::pair<float, float>> vertices{
+		{start.x - 1 + x_offset, start.y + 1 + y_offset},
+		{start.x + 1 + x_offset, start.y + 1 + y_offset},
+		{start.x + 1 + x_offset, start.y - 1 + y_offset},
+		{start.x - 1 + x_offset, start.y - 1 + y_offset}
+		};
+
 		b2World* world = box2dModel->getWorld();
-		if (pointer == 0)
-		{
 
-			std::vector<std::pair<float, float>> vertices{
-			{start.x - 1 + x_offset, start.y + 1 + y_offset},
-			{start.x + 1 + x_offset, start.y + 1 + y_offset},
-			{start.x + 1 + x_offset, start.y - 1 + y_offset},
-			{start.x - 1 + x_offset, start.y - 1 + y_offset}
-			};
-
-
-			bullet = std::make_unique<Bullet>(*world, deltaTime, vertices, "animacje/bulet.png", direction);
-		}
-		else if (pointer == 2)
-		{
-			if (direction.x > 0)
-			{
-				x_offset = 15;
-			}
-			else
-			{
-				x_offset = -15;
-			}
-			std::vector<std::pair<float, float>> vertices{
-			{start.x - 4 + x_offset, start.y + 1 },
-			{start.x + 4 + x_offset, start.y + 1 },
-			{start.x + 4 + x_offset, start.y - 1 },
-			{start.x - 4 + x_offset, start.y - 1 } };
-			bullet = std::make_unique<Baseball>(*world, deltaTime, vertices, "animacje/bulet.png", direction);
-
-		}
-		else if (pointer == 4)
-		{
-			//hexagon a = 4
-			int a = 5;
-			std::vector<std::pair<float, float>> vertices{
-			{start.x - a + x_offset, start.y + y_offset},
-			{start.x - 0.5 * a + x_offset, start.y + a * sqrt(3) / 2 + y_offset},
-			{start.x + 0.5 * a + x_offset, start.y + a * sqrt(3) / 2 + y_offset},
-			{start.x + a + x_offset, start.y + y_offset},
-			{start.x + 0.5 * a + x_offset, start.y - a * sqrt(3) / 2 + y_offset},
-			{start.x - 0.5 * a + x_offset, start.y - a * sqrt(3) / 2 + y_offset},
-			};
-			bullet = std::make_unique<Granade>(*world, deltaTime, vertices, "animacje/granade.png", direction);
-
-		}
-
+		bullet = std::make_unique<Bullet>( *world, deltaTime, vertices, "animacje/bulet.png", direction );
 	}
 }
 
@@ -229,6 +194,7 @@ bool Worm::hasBullet()
 
 void Worm::update(float mouseX, float mouseY) {
 	updateNoControl();
+	updateCooldowns();
 	listenAndUseAll();
 	sf::Vector2f pos = getPosition();
 	sf::Vector2f direction = { mouseX - pos.x, mouseY - pos.y };
@@ -255,7 +221,6 @@ void Worm::update(float mouseX, float mouseY) {
 void Worm::updateNoControl() {
 	static_cast<GR::DynamicAnimatedObject&>(*this).update();
 	text->setString(std::to_string(hp) + '%');
-	updateCooldowns();
 	contactHandler();
 	if (bullet)
 	{
@@ -331,14 +296,10 @@ void Worm::updateCooldowns()
 	{
 		jumpCooldown -= deltaTime;
 	}
-	if (weaponCooldown > 0)
-	{
-		weaponCooldown -= deltaTime;
-	}
-	if (dmgCooldown > 0)
-	{
-		dmgCooldown--;
-	}
+	//if (bulletStepCooldown > 0)
+	//{
+	//	bulletStepCooldown--;
+	//}
 }
 
 void Worm::pickWeapon1() {
