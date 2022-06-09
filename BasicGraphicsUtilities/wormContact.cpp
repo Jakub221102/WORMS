@@ -44,7 +44,7 @@ void Worm::contactHandler()
 					{
 						TakeDamage(10);
 					}
-					else if (massA == 16 || massB == 16)
+					else if (massA == 256 || massB == 256)
 					{
 						TakeDamage(20);
 						if (worldManifold.normal.x > 0)
@@ -54,6 +54,19 @@ void Worm::contactHandler()
 						else
 						{
 							this->putVelocity({ 10, 40 });
+						}
+						dmgCooldown = 4;
+					}
+					else if ((massA < 65 && massA > 64) || (massB < 65 && massB > 64))
+					{
+						TakeDamage(40);
+						if (worldManifold.normal.x > 0)
+						{
+							this->putVelocity({ -40, 50 });
+						}
+						else
+						{
+							this->putVelocity({ 40, 50 });
 						}
 						dmgCooldown = 4;
 					}
