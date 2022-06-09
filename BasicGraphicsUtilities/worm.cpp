@@ -143,6 +143,8 @@ void Worm::setHealthPoints(unsigned int hp) {
 
 void Worm::shot()
 {
+	if (!canShoot) return;
+	canShoot = false;
 	std::vector<float> arguments = mouseManager.getArguments(sf::Mouse::Left);
 	const sf::Vector2f& mousePos = { arguments[0], arguments[1] };
 	//std::cout << arguments[0] << ' ' << arguments[1] << std::endl;
