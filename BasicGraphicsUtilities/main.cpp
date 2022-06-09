@@ -698,12 +698,11 @@ int main() {
 
 
 		//wormsWindow.draw(*wormqueue[0]);
-		//wormsWindow.draw(*wormqueue[1]);
-		wormsWindow.draw(water); //water has to be drawn after the worms
-
 		for (int i = 0; i < wormqueue.size(); i++) {
 			wormsWindow.draw(*wormqueue[i]);
 		}
+		//wormsWindow.draw(*wormqueue[1]);
+		wormsWindow.draw(water); //water has to be drawn after the worms
 		//icon needs to be drawn at very end
 
 		wormsWindow.draw(icon);
