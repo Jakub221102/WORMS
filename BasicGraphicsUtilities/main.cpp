@@ -581,7 +581,7 @@ int main() {
 	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox_brick_wall2, "animacje/wall.png"));
 	//================================================================================================
 	//Creating worms objects Vector
-
+	
 	std::vector<std::unique_ptr<Worm>> wormqueue;
 	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1p, "animacje/polfront.png"));
 	wormqueue.push_back(std::make_unique<Worm>(world, deltaTime, vertices_worm1g, "animacje/tzegerfront.png"));
