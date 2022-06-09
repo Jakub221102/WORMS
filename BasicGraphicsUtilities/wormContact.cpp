@@ -11,7 +11,7 @@ void Worm::contactHandler()
 		b2Body* bodyA = contact->GetFixtureA()->GetBody();
 		b2Body* bodyB = contact->GetFixtureB()->GetBody();
 
-		
+
 		if (contact->IsTouching())
 		{
 			if (worldManifold.normal.y > 0)
@@ -32,15 +32,44 @@ void Worm::contactHandler()
 				}
 			}
 
-			if (bodyA->GetType() == b2_dynamicBody && bodyB->GetType() == b2_dynamicBody)
+			if (bodyA->GetType() == b2_dynamicBody && bodyB->GetType() == b2_dynamicBody && dmgCooldown == 0)
 			{
 				float massA = bodyA->GetMass();
 				float massB = bodyB->GetMass();
 				//std::cout << "MASS A:\t" << massA << std::endl;
 				//std::cout << "MASS B:\t" << massB << std::endl;
-				if ((bodyA->IsBullet() || bodyB->IsBullet()) && (massA == 4 || massB == 4)) //wstaw mase pocisku 
+				if (bodyA->IsBullet() || bodyB->IsBullet())
 				{
-					TakeDamage(10);
+					if (massA == 4 || massB == 4) //wstaw mase pocisku 
+					{
+						TakeDamage(10);
+					}
+					else if (massA == 256 || massB == 256)
+					{
+						TakeDamage(20);
+						if (worldManifold.normal.x > 0)
+						{
+							this->putVelocity({ -10, 40 });
+						}
+						else
+						{
+							this->putVelocity({ 10, 40 });
+						}
+						dmgCooldown = 4;
+					}
+					else if ((massA < 65 && massA > 64) || (massB < 65 && massB > 64))
+					{
+						TakeDamage(40);
+						if (worldManifold.normal.x > 0)
+						{
+							this->putVelocity({ -40, 50 });
+						}
+						else
+						{
+							this->putVelocity({ 40, 50 });
+						}
+						dmgCooldown = 4;
+					}
 				}
 			}
 		}
@@ -59,9 +88,14 @@ void Worm::bulletContactHandler()
 		b2Body* bodyB = contact->GetFixtureB()->GetBody();
 
 		float mass = bodyB->GetMass();
-		std::cout << "MASS BULLET:\t" << mass << std::endl;
+		std::cout << "MASS (BULLET):\t" << mass << std::endl;
 		if (contact->IsTouching())
 		{
+			if (this->bullet->type == WeaponType::granade)
+			{
+				//std::cout << "GRANADE" << mass << std::endl;
+
+			}
 			this->bullet->isLive = false;
 		}
 	}
