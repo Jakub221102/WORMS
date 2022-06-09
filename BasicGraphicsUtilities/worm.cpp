@@ -70,27 +70,26 @@ void Worm::move_right() {
 	//float angle = box2dModel->getAngle();
 	//float relVelX = cos(angle) * velocity.x + sin(angle) * velocity.y;
 
-	if (vel.x < 30)
+	if (vel.x < 30) // 30 -> it can by arguments[0]
 	{
-		if (jumpReady == JumpState::ready && vel.y > 20)
+		if (jumpReady == JumpState::ready && vel.y > 20) // 20 -> it can be arguement [1]
 		{
-			putVelocity({ vel.x, 20 });
+			box2dModel->putVeloY( 20 );
 		}
-		box2dModel->addVelocity({ arguments[0], arguments[1]});
+		box2dModel->putVeloX( 30 );
 	}
 }
 
 void Worm::move_left() {
 	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Left);
 	b2Vec2 vel = box2dModel->getVelocity();
-	if (vel.x > -30)
+	if (vel.x > -30) // -30 -> it can by arguments[0]
 	{
-		float y;
-		if (jumpReady == JumpState::ready && vel.y > 5)
+		if (jumpReady == JumpState::ready && vel.y > 20) // 20 -> it can be arguement [1]
 		{
-			putVelocity({ vel.x, 20 });
+			box2dModel->putVeloY(20);
 		}
-		box2dModel->addVelocity({ arguments[0], arguments[1]});
+		box2dModel->putVeloX(-30);
 	}
 }
 

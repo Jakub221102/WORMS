@@ -104,6 +104,18 @@ void Model::putVelocity(const b2Vec2 vec)
     body->SetLinearVelocity(vec);
 }
 
+void Model::putVeloX(float x)
+{
+    b2Vec2 velo = body->GetLinearVelocity();
+    body->SetLinearVelocity({x, velo.y});
+}
+
+void Model::putVeloY(float y)
+{
+    b2Vec2 velo = body->GetLinearVelocity();
+    body->SetLinearVelocity({ velo.x, y });
+}
+
 void Model::addVelocity(const b2Vec2 vec)
 {
     b2Vec2 velocity = body->GetLinearVelocity();
