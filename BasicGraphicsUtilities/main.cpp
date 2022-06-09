@@ -456,7 +456,40 @@ int main() {
 		{0.0f, 0.35f * 128.0f}
 	};
 
+	std::vector<std::pair<float, float>> vertices_hitbox_brick_wall1{
+	{1670.0f, 919.0f},
+	{1670.0f, 904.0f},
+	{1685.0f, 904.0f},
+	{1685.0f, 919.0f},
+	};
 
+	std::vector<std::pair<float, float>> vertices_hitbox_brick_wall2{
+	{1673.0f, 795.5f},
+	{1673.0f, 780.5f},
+	{1688.0f, 780.5f},
+	{1688.0f, 795.5f},
+	};
+
+	std::vector<std::pair<float, float>> vertices_hitbox_box1{
+	{1445.0f, 718.0f},
+	{1445.0f, 733.0f},
+	{1460.0f, 733.0f},
+	{1460.0f, 718.0f},
+	};
+
+	std::vector<std::pair<float, float>> vertices_hitbox_box2{
+	{1140.0f, 785.0},
+	{1140.0f, 770.0f},
+	{1155.0f, 770.0f},
+	{1155.0f, 785.0f},
+	};
+
+	std::vector<std::pair<float, float>> vertices_hitbox_box3{
+	{1415.0f, 945.0f},
+	{1415.0f, 930.0f},
+	{1430.0f, 930.0f},
+	{1430.0f, 945.0f},
+	};
 
 	//Setings of the world like gravity
 
@@ -476,6 +509,9 @@ int main() {
 	GR::StaticObject sky(deltaTime, vertices_background, "animacje/niebo.png");
 	GR::StaticObject ground(deltaTime, vertices_background, "animacje/ziemia.png");
 	GR::StaticAnimatedObject water(deltaTime, vertices_background, "animacje/woda.png");
+	GR::DynamicObject box1(world, deltaTime, vertices_hitbox_box1, "animacje/skrzynka.png");
+	GR::DynamicObject box2(world, deltaTime, vertices_hitbox_box2, "animacje/skrzynka.png");
+	GR::DynamicObject box3(world, deltaTime, vertices_hitbox_box3, "animacje/skrzynka.png");
 	GR::StaticAnimatedObject bum(deltaTime, vertices_bum, "animacje/explosion.png");
 
 
@@ -539,6 +575,10 @@ int main() {
 	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox35, "animacje/hitbox.png"));
 	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox36, "animacje/hitbox.png"));
 
+	//Walls
+
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox_brick_wall1, "animacje/wall.png"));
+	terainqueue.push_back(std::make_unique<GR::StaticPhysicalObject>(world, deltaTime, vertices_hitbox_brick_wall2, "animacje/wall.png"));
 	//================================================================================================
 	//Creating worms objects Vector
 
@@ -589,8 +629,8 @@ int main() {
 	icon.attachViewAndZoom(wormsWindow);
 	icon.setRelativeVector({ 73.0f, 30.0f });
 
-	Worm::addKeyBinding(sf::Keyboard::Space, &Worm::jump, InputType::REALTIME);
-	Worm::setKeyArguments(sf::Keyboard::Space, { 0.0f, 25.0f }, InputType::REALTIME); // pass velocity to jump method
+	Worm::addKeyBinding(sf::Keyboard::Up, &Worm::jump, InputType::REALTIME);
+	Worm::setKeyArguments(sf::Keyboard::Up, { 0.0f, 25.0f }, InputType::REALTIME); // pass velocity to jump method
 	Worm::addKeyBinding(sf::Keyboard::Right, &Worm::move_right, InputType::REALTIME);
 	Worm::setKeyArguments(sf::Keyboard::Right, { 0.5f, 0.0f }, InputType::REALTIME); // pass velocity to move method
 	Worm::addKeyBinding(sf::Keyboard::Left, &Worm::move_left, InputType::REALTIME);
@@ -680,8 +720,7 @@ int main() {
 		//	obj.shot();
 		//}
 
-
-
+	
 		wormsWindow.update();							
 		auto winner = game.update(wormqueue, icon1, mouse.x, mouse.y);
 		//std::cout << static_cast<int>(winner) << std::endl;
@@ -690,21 +729,25 @@ int main() {
 		game.update(wormqueue, icon1, mouse.x, mouse.y);
 		//std::cout << wormsWindow.getMouseWorldCoords().x << ' ' << wormsWindow.getMouseWorldCoords().y << std::endl;
 
-
+		box1.update();
+		box2.update();
+		box3.update();
 
 		wormsWindow.draw(sky);
 		wormsWindow.draw(ground);
-		
+		wormsWindow.draw(*terainqueue[36]);
+		wormsWindow.draw(*terainqueue[37]);
+		wormsWindow.draw(box1);
+		wormsWindow.draw(box2);
+		wormsWindow.draw(box3);
 
-
-		//wormsWindow.draw(*wormqueue[0]);
 		for (int i = 0; i < wormqueue.size(); i++) {
 			wormsWindow.draw(*wormqueue[i]);
 		}
 		//wormsWindow.draw(*wormqueue[1]);
 		wormsWindow.draw(water); //water has to be drawn after the worms
 		//icon needs to be drawn at very end
-
+		wormsWindow.draw(water); //water has to be drawn after the worms
 		wormsWindow.draw(icon);
 		wormsWindow.draw(icon1);
 		//std::cout << icon.getPosition().x << icon.getPosition().y << std::endl;
