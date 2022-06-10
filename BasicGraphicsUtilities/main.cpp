@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "SFML/Graphics.hpp"
-#include "box2d/box2d.h"				// usun
+#include "box2d.h"				// usun
 #include "input_manager.h"
 #include "memory"
 #include "game.h"
@@ -656,10 +656,10 @@ int main() {
 	//Seting up object animations
 
 
-	water.addAnimation("WATER", "animacje/woda.png", 13, 2.0f);
+	water.addAnimation("WATER", "animacje/OK.png", 2, 2.0f);
 	water.setCurrentAnimation("WATER");
-	bum.addAnimation("BUM", "animacje/explosion.png", 5, 1.0f);
-	bum.setCurrentAnimation("BUM");
+	//bum.addAnimation("BUM", "animacje/explosion.png", 5, 1.0f);
+	//bum.setCurrentAnimation("BUM");
 
 	wormqueue[2]->addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
 	wormqueue[2]->addAnimation("LEFT", "animacje/sovleftmarch.png", 4, 4.0f);
@@ -727,7 +727,7 @@ int main() {
 	teks.setCharackterSize(40);
 	teks.setColor(255, 215, 0);
 	//list.addToTail()
-	GR::SoundManager sounds("SoundEffects.txt");
+	GR::SoundManager sounds("SoundEffects/sounds.txt");
 	sounds.setBackgroundMusic("SoundEffects/FNV.wav");
 	sounds.playBackgroundMusic();
 	while (!wormsWindow.isDone()) {

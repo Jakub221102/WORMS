@@ -6,7 +6,7 @@ GR::RealTimeKeyboardManager<Worm, sf::Keyboard::Key> Worm::inputManager = {};
 GR::EventManager<Worm, sf::Keyboard::Key> Worm::eventManager = {};
 GR::RealTimeMouseManager<Worm, sf::Mouse::Button> Worm::mouseManager = {};
 
-static GR::SoundManager sounds("SoundEffects/sounds.txt");
+//static GR::SoundManager sounds("SoundEffects/sounds.txt");
 
 std::vector<std::pair<float, float>> gun_v{
 	{0.0f, 0.0f},
