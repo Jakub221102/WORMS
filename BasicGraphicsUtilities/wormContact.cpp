@@ -42,7 +42,8 @@ void Worm::contactHandler()
 				{
 					if (massA == 4 || massB == 4) //wstaw mase pocisku 
 					{
-						TakeDamage(10);
+						TakeDamage(25);
+						break;
 					}
 					else if (massA == 16 || massB == 16)
 					{
@@ -55,7 +56,7 @@ void Worm::contactHandler()
 						{
 							this->putVelocity({ 10, 40 });
 						}
-						dmgCooldown = 4;
+						break;
 					}
 					else if ((massA > 64 && massA < 65) || (massB > 64 && massB < 65))
 					{
@@ -68,7 +69,7 @@ void Worm::contactHandler()
 						{
 							this->putVelocity({ 40, 50 });
 						}
-						dmgCooldown = 4;
+						break;
 					}
 				}
 			}
@@ -88,7 +89,7 @@ void Worm::bulletContactHandler()
 		b2Body* bodyB = contact->GetFixtureB()->GetBody();
 
 		float mass = bodyB->GetMass();
-		std::cout << "MASS BULLET:\t" << mass << std::endl;
+		//std::cout << "MASS BULLET:\t" << mass << std::endl;
 		if (contact->IsTouching())
 		{
 			if (this->bullet->type == WeaponType::granade)
