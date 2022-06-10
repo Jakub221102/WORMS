@@ -212,6 +212,7 @@ void Worm::update(float mouseX, float mouseY) {
 	rotation = mouseY > pos.y ? std::acos(dotP) : -std::acos(dotP);
 	if (velocity.x * velocity.x + velocity.y * velocity.y >= JUMPSPEED) {
 		setCurrentAnimation("JUMP", true);
+		rotation = (pos.x < mouseX) ? rotation : rotation + 3.1415f;
 	}
 	else if (mouseX > pos.x) {
 		setCurrentAnimation("RIGHT", true);
@@ -219,7 +220,7 @@ void Worm::update(float mouseX, float mouseY) {
 	else {
 		//rotation = mouseY > pos.y ? std::acos(dotP) : -std::acos(dotP);
 		setCurrentAnimation("LEFT", true);
-		rotation += 3.1415;
+		rotation += 3.1415f;
 	}
 	//std::cout << rotation << std::endl;
 	ptrprim = mouseX > pos.x ? pointer + 1 : pointer;

@@ -27,6 +27,9 @@ void drawString(GR::StaticObject& attach, GR::Text& text, GR::Window& window) {
 
 int main() {
 	GR::Window wormsWindow(deltaTime);
+	wormsWindow.toggleFullScreen();
+	wormsWindow.addKeyBinding(sf::Keyboard::Escape, &GR::Window::close);
+	wormsWindow.setMultisamplingLevel(8);
 	GR::Text tekst("ala ma kota");
 	tekst.setPosition(600.0f, 600.0f);
 	tekst.setRelativeTranslation(-45.0f, -45.0f);
