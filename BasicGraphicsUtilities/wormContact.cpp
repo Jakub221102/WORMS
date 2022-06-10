@@ -68,7 +68,7 @@ void Worm::contactHandler()
 						{
 							this->putVelocity({ 40, 50 });
 						}
-						//dmgCooldown = 4;
+						dmgCooldown = 4;
 					}
 				}
 			}

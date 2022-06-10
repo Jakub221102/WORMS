@@ -242,7 +242,7 @@ void Worm::update(float mouseX, float mouseY) {
 	float dotP = direction.x * 1.0f;
 	//int rotation = mouseY > pos.y ? std::acos(dotP) : -std::acos(dotP);
 	float rotation;
-	// fatalny kawa³ek kodu ale jest 3:33
+	// fatalny kawalek kodu ale jest 3:33
 	auto velocity = box2dModel->getVelocity();
 	rotation = mouseY > pos.y ? std::acos(dotP) : -std::acos(dotP);
 	if (velocity.x * velocity.x + velocity.y * velocity.y >= JUMPSPEED) {
@@ -349,10 +349,14 @@ void Worm::updateCooldowns()
 	{
 		jumpCooldown -= deltaTime;
 	}
-	//if (bulletStepCooldown > 0)
-	//{
-	//	bulletStepCooldown--;
-	//}
+	if (weaponCooldown > 0)
+	{
+		weaponCooldown -= deltaTime;
+	}
+	if (dmgCooldown > 0)
+	{
+		dmgCooldown--;
+	}
 }
 
 void Worm::pickWeapon1() {
@@ -370,7 +374,12 @@ void Worm::pickWeapon3() {
 
 void Worm::TakeDamage(int dmg)
 {
-	if (hp > 0)
+	int i = hp;
+	if (i-dmg <= 0)
+	{
+		hp = 0;
+	}
+	else
 	{
 		hp -= dmg;
 	}
