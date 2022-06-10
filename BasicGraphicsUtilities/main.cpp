@@ -662,31 +662,55 @@ int main() {
 	bum.setCurrentAnimation("BUM");
 
 	wormqueue[2]->addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
+	wormqueue[2]->addAnimation("LEFT", "animacje/sovleftmarch.png", 4, 4.0f);
+	wormqueue[2]->addAnimation("RIGHT", "animacje/sovrightmarch.png", 4, 4.0f);
 	wormqueue[2]->setCurrentAnimation("WORM");
 	wormqueue[5]->addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
+	wormqueue[5]->addAnimation("LEFT", "animacje/sovleftmarch.png", 4, 4.0f);
+	wormqueue[5]->addAnimation("RIGHT", "animacje/sovrightmarch.png", 4, 4.0f);
 	wormqueue[5]->setCurrentAnimation("WORM");
 	wormqueue[10]->addAnimation("WORM", "animacje/sovfront.png", 3, 4.0f);
+	wormqueue[10]->addAnimation("LEFT", "animacje/sovleftmarch.png", 4, 4.0f);
+	wormqueue[10]->addAnimation("RIGHT", "animacje/sovrightmarch.png", 4, 4.0f);
 	wormqueue[10]->setCurrentAnimation("WORM");
 
 	wormqueue[1]->addAnimation("WORM", "animacje/tzegerfront.png", 3, 4.0f);
+	wormqueue[1]->addAnimation("LEFT", "animacje/tzegermanleftmarch.png", 4, 4.0f);
+	wormqueue[1]->addAnimation("RIGHT", "animacje/tzegermanrightmarch.png", 4, 4.0f);
 	wormqueue[1]->setCurrentAnimation("WORM");
 	wormqueue[6]->addAnimation("WORM", "animacje/tzegerfront.png", 3, 4.0f);
+	wormqueue[6]->addAnimation("LEFT", "animacje/tzegermanleftmarch.png", 4, 4.0f);
+	wormqueue[6]->addAnimation("RIGHT", "animacje/tzegermanrightmarch.png", 4, 4.0f);
 	wormqueue[6]->setCurrentAnimation("WORM");
 	wormqueue[9]->addAnimation("WORM", "animacje/tzegerfront.png", 3, 4.0f);
+	wormqueue[9]->addAnimation("LEFT", "animacje/tzegermanleftmarch.png", 4, 4.0f);
+	wormqueue[9]->addAnimation("RIGHT", "animacje/tzegermanrightmarch.png", 4, 4.0f);
 	wormqueue[9]->setCurrentAnimation("WORM");
 
 	wormqueue[3]->addAnimation("WORM", "animacje/britfront.png", 3, 4.0f);
+	wormqueue[3]->addAnimation("LEFT", "animacje/britleftmarch.png", 4, 4.0f);
+	wormqueue[3]->addAnimation("RIGHT", "animacje/britrightmarch.png", 4, 4.0f);
 	wormqueue[3]->setCurrentAnimation("WORM");
 	wormqueue[4]->addAnimation("WORM", "animacje/britfront.png", 3, 4.0f);
+	wormqueue[4]->addAnimation("WORM", "animacje/britleftmarch.png", 4, 4.0f);
+	wormqueue[4]->addAnimation("WORM", "animacje/britrightmarch.png", 4, 4.0f);
 	wormqueue[4]->setCurrentAnimation("WORM");
 	wormqueue[11]->addAnimation("WORM", "animacje/britfront.png", 3, 4.0f);
+	wormqueue[11]->addAnimation("LEFT", "animacje/britleftmarch.png", 4, 4.0f);
+	wormqueue[11]->addAnimation("RIGHT", "animacje/britrightmarch.png", 4, 4.0f);
 	wormqueue[11]->setCurrentAnimation("WORM");
 
 	wormqueue[0]->addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
+	wormqueue[0]->addAnimation("LEFT", "animacje/polleftmarch.png", 4, 4.0f);
+	wormqueue[0]->addAnimation("RIGHT", "animacje/polrightmarch.png", 4, 4.0f);
 	wormqueue[0]->setCurrentAnimation("WORM");
 	wormqueue[7]->addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
+	wormqueue[7]->addAnimation("LEFT", "animacje/polleftmarch.png", 4, 4.0f);
+	wormqueue[7]->addAnimation("RIGHT", "animacje/polrightmarch.png", 4, 4.0f);
 	wormqueue[7]->setCurrentAnimation("WORM");
 	wormqueue[8]->addAnimation("WORM", "animacje/polfront.png", 3, 4.0f);
+	wormqueue[8]->addAnimation("LEFT", "animacje/polleftmarch.png", 4, 4.0f);
+	wormqueue[8]->addAnimation("RIGHT", "animacje/polrightmarch.png", 4, 4.0f);
 	wormqueue[8]->setCurrentAnimation("WORM");
 
 	//actual game loop
