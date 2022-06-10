@@ -639,7 +639,7 @@ int main() {
 	Worm::addKeyBinding(sf::Keyboard::A, &Worm::move_left, InputType::REALTIME);
 	Worm::setKeyArguments(sf::Keyboard::A, { -0.5f, 0.0f }, InputType::REALTIME); // pass velocity to move method
 	Worm::addKeyBinding(sf::Keyboard::S, &Worm::move_down, InputType::REALTIME);
-	Worm::setKeyArguments(sf::Keyboard::S, { 0.0f, -15.0f }, InputType::REALTIME); // pass velocity to move method
+	Worm::setKeyArguments(sf::Keyboard::S, { 0.0f, 0.0f }, InputType::REALTIME); // pass velocity to move method
 	//obj.addKeyBinding(sf::Keyboard::Q, &Worm::shot, InputType::REALTIME);
 	//obj.setKeyArguments(sf::Keyboard::Q, {0 , 0}, InputType::REALTIME);
 	Worm::addKeyBinding(sf::Keyboard::Num1, &Worm::pickWeapon1, InputType::REALTIME);
@@ -660,6 +660,7 @@ int main() {
 
 
 	water.addAnimation("WATER", "animacje/OK.png", 2, 2.0f);
+	water.addAnimation("WATER1", "animacje/woda.png", 13, 2.0f);
 	water.setCurrentAnimation("WATER");
 	//bum.addAnimation("BUM", "animacje/explosion.png", 5, 1.0f);
 	//bum.setCurrentAnimation("BUM");
