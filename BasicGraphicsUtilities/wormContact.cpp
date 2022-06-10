@@ -43,11 +43,13 @@ void Worm::contactHandler()
 					if (massA == 4 || massB == 4) //wstaw mase pocisku 
 					{
 						TakeDamage(25);
+						dmgCooldown = 5;
 						break;
 					}
 					else if (massA == 16 || massB == 16)
 					{
 						TakeDamage(20);
+						dmgCooldown = 5;
 						if (worldManifold.normal.x > 0)
 						{
 							this->putVelocity({ -10, 40 });
@@ -61,6 +63,7 @@ void Worm::contactHandler()
 					else if ((massA > 64 && massA < 65) || (massB > 64 && massB < 65))
 					{
 						TakeDamage(50);
+						dmgCooldown = 5;
 						if (worldManifold.normal.x > 0)
 						{
 							this->putVelocity({ -40, 50 });
