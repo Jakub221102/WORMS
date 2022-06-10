@@ -36,8 +36,8 @@ void Worm::contactHandler()
 			{
 				float massA = bodyA->GetMass();
 				float massB = bodyB->GetMass();
-				std::cout << "MASS A:\t" << massA << std::endl;
-				std::cout << "MASS B:\t" << massB << std::endl;
+				//std::cout << "MASS A:\t" << massA << std::endl;
+				//std::cout << "MASS B:\t" << massB << std::endl;
 				if (bodyA->IsBullet() || bodyB->IsBullet())
 				{
 					if (massA == 4 || massB == 4) //wstaw mase pocisku 
@@ -93,7 +93,7 @@ void Worm::bulletContactHandler()
 		{
 			if (this->bullet->type == WeaponType::granade)
 			{
-				std::cout << "GRANADE" << mass << std::endl;
+				//std::cout << "GRANADE" << mass << std::endl;
 
 			}
 			this->bullet->isLive = false;
