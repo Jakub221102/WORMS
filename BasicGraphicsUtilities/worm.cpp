@@ -2,7 +2,7 @@
 #include <cmath>
 #include "sound_manager.h"
 
-#define JUMPSPEED 1200.0f
+#define JUMPSPEED 1500.0f
 
 GR::RealTimeKeyboardManager<Worm, sf::Keyboard::Key> Worm::inputManager = {};
 GR::EventManager<Worm, sf::Keyboard::Key> Worm::eventManager = {};
