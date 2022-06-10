@@ -235,7 +235,7 @@ void Worm::updateNoControl() {
 		setCurrentAnimation("COFFIN");
 	else if (velocity.x * velocity.x + velocity.y * velocity.y >= JUMPSPEED)
 		setCurrentAnimation("JUMP");
-	else setCurrentAnimation("WORM");
+	else setCurrentAnimation("WORM", true);
 	text->setString(std::to_string(hp) + '%');
 	contactHandler();
 	if (bullet)
