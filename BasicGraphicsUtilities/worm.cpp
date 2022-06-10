@@ -2,6 +2,8 @@
 #include <cmath>
 #include "sound_manager.h"
 
+#define JUMPSPEED 1200.0f
+
 GR::RealTimeKeyboardManager<Worm, sf::Keyboard::Key> Worm::inputManager = {};
 GR::EventManager<Worm, sf::Keyboard::Key> Worm::eventManager = {};
 GR::RealTimeMouseManager<Worm, sf::Mouse::Button> Worm::mouseManager = {};
@@ -89,9 +91,9 @@ bool Worm::active() const {
 }
 
 void Worm::jump() {
-	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Up);
+	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::W);
 	if (jumpCooldown <= 0 && jumpReady < JumpState::noneLeft)
-	{
+	{	
 		b2Vec2 velo = box2dModel->getVelocity();
 		putVelocity({ velo.x, 0 });
 		box2dModel->putImpulseToCenter({ arguments[0], arguments[1] * 400 });
@@ -102,7 +104,7 @@ void Worm::jump() {
 }
 
 void Worm::move_right() {
-	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Right);
+	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::D);
 	b2Vec2 vel = box2dModel->getVelocity();
 
 	//float angle = box2dModel->getAngle();
@@ -119,7 +121,7 @@ void Worm::move_right() {
 }
 
 void Worm::move_left() {
-	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Left);
+	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::A);
 	b2Vec2 vel = box2dModel->getVelocity();
 	if (vel.x > -30) // -30 -> it can by arguments[0]
 	{
@@ -132,7 +134,7 @@ void Worm::move_left() {
 }
 
 void Worm::move_down() {
-	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::Down);
+	std::vector<float> arguments = inputManager.getArguments(sf::Keyboard::S);
 	b2Vec2 velocity = box2dModel->getVelocity();
 	if (velocity.y > -30)
 	{
@@ -205,12 +207,17 @@ void Worm::update(float mouseX, float mouseY) {
 	float dotP = direction.x * 1.0f;
 	//int rotation = mouseY > pos.y ? std::acos(dotP) : -std::acos(dotP);
 	float rotation;
-	if (mouseX > pos.x) {
-		rotation = mouseY > pos.y ? std::acos(dotP) : -std::acos(dotP);
+	// fatalny kawa³ek kodu ale jest 3:33
+	auto velocity = box2dModel->getVelocity();
+	rotation = mouseY > pos.y ? std::acos(dotP) : -std::acos(dotP);
+	if (velocity.x * velocity.x + velocity.y * velocity.y >= JUMPSPEED) {
+		setCurrentAnimation("JUMP", true);
+	}
+	else if (mouseX > pos.x) {
 		setCurrentAnimation("RIGHT", true);
 	}
 	else {
-		rotation = mouseY > pos.y ? std::acos(dotP) : -std::acos(dotP);
+		//rotation = mouseY > pos.y ? std::acos(dotP) : -std::acos(dotP);
 		setCurrentAnimation("LEFT", true);
 		rotation += 3.1415;
 	}
@@ -223,9 +230,12 @@ void Worm::update(float mouseX, float mouseY) {
 
 void Worm::updateNoControl() {
 	static_cast<GR::DynamicAnimatedObject&>(*this).update();
-	if (hp <= 0) {
+	auto velocity = box2dModel->getVelocity();
+	if (hp <= 0)
 		setCurrentAnimation("COFFIN");
-	}
+	else if (velocity.x * velocity.x + velocity.y * velocity.y >= JUMPSPEED)
+		setCurrentAnimation("JUMP");
+	else setCurrentAnimation("WORM");
 	text->setString(std::to_string(hp) + '%');
 	contactHandler();
 	if (bullet)
