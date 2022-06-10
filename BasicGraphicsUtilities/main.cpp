@@ -656,7 +656,7 @@ int main() {
 	//Seting up object animations
 
 
-	water.addAnimation("WATER", "animacje/woda.png", 4, 2.0f);
+	water.addAnimation("WATER", "animacje/woda.png", 13, 2.0f);
 	water.setCurrentAnimation("WATER");
 	bum.addAnimation("BUM", "animacje/explosion.png", 5, 1.0f);
 	bum.setCurrentAnimation("BUM");
