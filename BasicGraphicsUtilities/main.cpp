@@ -635,11 +635,11 @@ int main() {
 	Worm::addKeyBinding(sf::Keyboard::W, &Worm::jump, InputType::REALTIME);
 	Worm::setKeyArguments(sf::Keyboard::W, { 0.0f, 38.0f }, InputType::REALTIME); // pass velocity to jump method
 	Worm::addKeyBinding(sf::Keyboard::D, &Worm::move_right, InputType::REALTIME);
-	Worm::setKeyArguments(sf::Keyboard::D, { 0.5f, 0.0f }, InputType::REALTIME); // pass velocity to move method
+	Worm::setKeyArguments(sf::Keyboard::D, { 0.000005f, 0.0f }, InputType::REALTIME); // pass velocity to move method
 	Worm::addKeyBinding(sf::Keyboard::A, &Worm::move_left, InputType::REALTIME);
-	Worm::setKeyArguments(sf::Keyboard::A, { -0.5f, 0.0f }, InputType::REALTIME); // pass velocity to move method
+	Worm::setKeyArguments(sf::Keyboard::A, { -0.000005f, 0.0f }, InputType::REALTIME); // pass velocity to move method
 	Worm::addKeyBinding(sf::Keyboard::S, &Worm::move_down, InputType::REALTIME);
-	Worm::setKeyArguments(sf::Keyboard::S, { 0.0f, 0.0f }, InputType::REALTIME); // pass velocity to move method
+	Worm::setKeyArguments(sf::Keyboard::S, { 0.0f, -5.0f }, InputType::REALTIME); // pass velocity to move method
 	//obj.addKeyBinding(sf::Keyboard::Q, &Worm::shot, InputType::REALTIME);
 	//obj.setKeyArguments(sf::Keyboard::Q, {0 , 0}, InputType::REALTIME);
 	Worm::addKeyBinding(sf::Keyboard::Num1, &Worm::pickWeapon1, InputType::REALTIME);
