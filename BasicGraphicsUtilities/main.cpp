@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "SFML/Graphics.hpp"
-#include "box2d.h"				// usun
+#include "box2d/box2d.h"				// usun
 #include "input_manager.h"
 #include "memory"
 #include "game.h"
@@ -730,6 +730,9 @@ int main() {
 	GR::SoundManager sounds("SoundEffects/sounds.txt");
 	sounds.setBackgroundMusic("SoundEffects/FNV.wav");
 	sounds.playBackgroundMusic();
+	for (auto& el : wormqueue) {
+		el->addAnimation("COFFIN", "animacje/trumna.png", 1, 2.0f);
+	}
 	while (!wormsWindow.isDone()) {
 		deltaTime = ck.restart().asSeconds();
 		wormsWindow.setBackGroundColor(100, 100, 100);
@@ -766,6 +769,8 @@ int main() {
 		wormsWindow.draw(box3);
 
 		for (int i = 0; i < wormqueue.size(); i++) {
+			if (wormqueue[i]->getHealthPoints() <= 0)
+				textqueue[i]->setString("");
 			wormsWindow.draw(*wormqueue[i]);
 		}
 		//wormsWindow.draw(*wormqueue[1]);

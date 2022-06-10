@@ -44,10 +44,10 @@ Worm::Type Game::update(std::vector<std::unique_ptr<Worm>>& worms, GR::StaticAni
 	time += deltaTime;
 	unsigned char mask = {};
 	for (int i = 0; i < worms.size(); i++) {
-		if (worms[i]->getPosition().y > 2000.0f)
+		if (worms[i]->getPosition().y > 1500.0f)
 			worms[i]->setHealthPoints(0);
-		if(worms[i]->getHealthPoints() > 0)
-			switch(worms[i]->getType())
+		if (worms[i]->getHealthPoints() > 0) {
+			switch (worms[i]->getType())
 			{
 			case Worm::Type::BRITISH:
 				mask |= 1;
@@ -62,6 +62,7 @@ Worm::Type Game::update(std::vector<std::unique_ptr<Worm>>& worms, GR::StaticAni
 				mask |= 8;
 				break;
 			}
+		}
 	}
 	//std::cout << static_cast<int>(mask) << std::endl;
 	Worm::Type winner = decodeWinner(mask);

@@ -223,6 +223,9 @@ void Worm::update(float mouseX, float mouseY) {
 
 void Worm::updateNoControl() {
 	static_cast<GR::DynamicAnimatedObject&>(*this).update();
+	if (hp <= 0) {
+		setCurrentAnimation("COFFIN");
+	}
 	text->setString(std::to_string(hp) + '%');
 	contactHandler();
 	if (bullet)
